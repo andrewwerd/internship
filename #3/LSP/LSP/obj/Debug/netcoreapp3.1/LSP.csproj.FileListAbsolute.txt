@@ -1,0 +1,11 @@
+C:\Users\andrei.tirsina\Documents\Lessons\#3\LSP\LSP\bin\Debug\netcoreapp3.1\LSP.exe
+C:\Users\andrei.tirsina\Documents\Lessons\#3\LSP\LSP\bin\Debug\netcoreapp3.1\LSP.deps.json
+C:\Users\andrei.tirsina\Documents\Lessons\#3\LSP\LSP\bin\Debug\netcoreapp3.1\LSP.runtimeconfig.json
+C:\Users\andrei.tirsina\Documents\Lessons\#3\LSP\LSP\bin\Debug\netcoreapp3.1\LSP.runtimeconfig.dev.json
+C:\Users\andrei.tirsina\Documents\Lessons\#3\LSP\LSP\bin\Debug\netcoreapp3.1\LSP.dll
+C:\Users\andrei.tirsina\Documents\Lessons\#3\LSP\LSP\bin\Debug\netcoreapp3.1\LSP.pdb
+C:\Users\andrei.tirsina\Documents\Lessons\#3\LSP\LSP\obj\Debug\netcoreapp3.1\LSP.csprojAssemblyReference.cache
+C:\Users\andrei.tirsina\Documents\Lessons\#3\LSP\LSP\obj\Debug\netcoreapp3.1\LSP.AssemblyInfoInputs.cache
+C:\Users\andrei.tirsina\Documents\Lessons\#3\LSP\LSP\obj\Debug\netcoreapp3.1\LSP.AssemblyInfo.cs
+C:\Users\andrei.tirsina\Documents\Lessons\#3\LSP\LSP\obj\Debug\netcoreapp3.1\LSP.dll
+C:\Users\andrei.tirsina\Documents\Lessons\#3\LSP\LSP\obj\Debug\netcoreapp3.1\LSP.pdb

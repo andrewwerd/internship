@@ -1,0 +1,11 @@
+C:\Users\andrei.tirsina\Documents\Lessons\#3\ISP\ISP\bin\Debug\netcoreapp3.1\ISP.exe
+C:\Users\andrei.tirsina\Documents\Lessons\#3\ISP\ISP\bin\Debug\netcoreapp3.1\ISP.deps.json
+C:\Users\andrei.tirsina\Documents\Lessons\#3\ISP\ISP\bin\Debug\netcoreapp3.1\ISP.runtimeconfig.json
+C:\Users\andrei.tirsina\Documents\Lessons\#3\ISP\ISP\bin\Debug\netcoreapp3.1\ISP.runtimeconfig.dev.json
+C:\Users\andrei.tirsina\Documents\Lessons\#3\ISP\ISP\bin\Debug\netcoreapp3.1\ISP.dll
+C:\Users\andrei.tirsina\Documents\Lessons\#3\ISP\ISP\bin\Debug\netcoreapp3.1\ISP.pdb
+C:\Users\andrei.tirsina\Documents\Lessons\#3\ISP\ISP\obj\Debug\netcoreapp3.1\ISP.csprojAssemblyReference.cache
+C:\Users\andrei.tirsina\Documents\Lessons\#3\ISP\ISP\obj\Debug\netcoreapp3.1\ISP.AssemblyInfoInputs.cache
+C:\Users\andrei.tirsina\Documents\Lessons\#3\ISP\ISP\obj\Debug\netcoreapp3.1\ISP.AssemblyInfo.cs
+C:\Users\andrei.tirsina\Documents\Lessons\#3\ISP\ISP\obj\Debug\netcoreapp3.1\ISP.dll
+C:\Users\andrei.tirsina\Documents\Lessons\#3\ISP\ISP\obj\Debug\netcoreapp3.1\ISP.pdb
