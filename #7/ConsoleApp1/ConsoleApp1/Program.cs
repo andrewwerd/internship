@@ -36,22 +36,31 @@ namespace ConsoleApp1
             position = -1;
         }
     }
-    public class Angle : IEnumerable
+    public class Angle : IEnumerable, IComparable
     {
         private int _degrees;
         private int _minutes;
         private int _seconds;
-        
+
         public Angle()
         {
             _degrees = _minutes = _seconds = 0;
         }
-        public Angle (int seconds)
+        public Angle(int seconds)
         {
             toDefault(seconds);
         }
-        public Angle( int degrees, int minutes, int seconds)
+        public Angle(int degrees, int minutes, int seconds)
         {
+            if (minutes > 60)
+            {
+                _degrees = degrees + minutes / 60;
+            }
+            if (seconds > 60)
+            {
+                _minutes = minutes + seconds / 60;
+                _degrees = degrees + minutes / 60;
+            }
             _degrees = degrees;
             _minutes = minutes;
             _seconds = seconds;
@@ -74,7 +83,6 @@ namespace ConsoleApp1
         {
             return _degrees * 3600 + _minutes * 60 + _seconds;
         }
-       
         public static Angle operator +(Angle a1, Angle a2)
         {
             Angle a = new Angle();
@@ -83,13 +91,14 @@ namespace ConsoleApp1
         public static Angle operator -(Angle a1, Angle a2)
         {
             Angle a = new Angle();
-            if (a1.toSeconds() < a2.toSeconds()) {
-                Console.WriteLine("Ошиииииииииииибка!"); 
-                return a1; 
+            if (a1.toSeconds() < a2.toSeconds())
+            {
+                Console.WriteLine("Ошиииииииииииибка!");
+                return a1;
             }
             return a.toDefault(a1.toSeconds() - a2.toSeconds());
         }
-        public static bool operator == (Angle a1, Angle a2)
+        public static bool operator ==(Angle a1, Angle a2)
         {
             if (a1.toSeconds() == a2.toSeconds())
                 return true;
@@ -134,19 +143,22 @@ namespace ConsoleApp1
         {
             return $"{_degrees}°{ _minutes}\'{ _seconds} \"".GetHashCode();
         }
-
-        public int this [ int i]
+        public int this[int i]
         {
-            get {
-                switch (i) {
-                    case 0: return _degrees; 
-                    case 1: return _minutes; 
+            get
+            {
+                switch (i)
+                {
+                    case 0: return _degrees;
+                    case 1: return _minutes;
                     case 2: return _seconds;
                     default: throw new ArgumentException($"Nonexistent index [{i}]");
-                } 
+                }
             }
-            set {
-            switch (i){
+            set
+            {
+                switch (i)
+                {
                     case 0: { _degrees = value; break; }
                     case 1: { _minutes = value; break; }
                     case 2: { _seconds = value; break; }
@@ -154,19 +166,34 @@ namespace ConsoleApp1
                 }
             }
         }
-
+        //public IEnumerator GetEnumerator()
+        //{
+        //    return new AngleEnumerator(this);
+        //    #region magic yield return
+        //    The yield keyword is used to specify the value(or values)
+        //    to be returned to the caller’s foreach construct.
+        //    When the yield return statement is reached, the current location in the container is stored, 
+        //    and execution is restarted from this location the next time the iterator is called.
+        //    yield return this[0];
+        //    yield return this[1];
+        //    yield return this[2];
+        //    #endregion
+        //}
+        public int CompareTo(object obj)
+        {
+            if (obj != null)
+            {
+                Angle a = (Angle)obj;
+                return this.toSeconds().CompareTo(a.toSeconds());
+            }
+            else
+                throw new NotImplementedException();
+        }
         public IEnumerator GetEnumerator()
         {
-            return new AngleEnumerator(this);
-            #region magic yield return
-            //The yield keyword is used to specify the value (or values) 
-            //to be returned to the caller’s foreach construct.
-            //When the yield return statement is reached, the current location in the container is stored, 
-            //and execution is restarted from this location the next time the iterator is called.
-            //yield return this[0];
-            //yield return this[1];
-            //yield return this[2];
-            #endregion
+            int i = 0;
+            for (i = 0; i < 3; i++)
+                yield return this[i];
         }
     }
     class Program
@@ -178,11 +205,12 @@ namespace ConsoleApp1
             Angle c = new Angle();
             Console.WriteLine();
             c = a + b;
-            Console.WriteLine("a = "+a+"\nb = "+b+"\na + b = "+c);
-            foreach( int i in a)
+            Console.WriteLine("a = " + a + "\nb = " + b + "\na + b = " + c);
+            foreach (int i in a)
             {
                 Console.WriteLine(i);
             }
+            Console.WriteLine($"a compare to b{b.CompareTo(a)}");
         }
     }
 }
