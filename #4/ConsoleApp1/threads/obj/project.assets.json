@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\andrei.tirsina\\Documents\\Lessons\\#4\\ConsoleApp1\\threads\\threads.csproj",
+      "projectUniqueName": "C:\\Users\\andrei.tirsina\\Documents\\Internship\\internship\\#4\\ConsoleApp1\\threads\\threads.csproj",
       "projectName": "threads",
-      "projectPath": "C:\\Users\\andrei.tirsina\\Documents\\Lessons\\#4\\ConsoleApp1\\threads\\threads.csproj",
+      "projectPath": "C:\\Users\\andrei.tirsina\\Documents\\Internship\\internship\\#4\\ConsoleApp1\\threads\\threads.csproj",
       "packagesPath": "C:\\Users\\andrei.tirsina\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\andrei.tirsina\\Documents\\Lessons\\#4\\ConsoleApp1\\threads\\obj\\",
+      "outputPath": "C:\\Users\\andrei.tirsina\\Documents\\Internship\\internship\\#4\\ConsoleApp1\\threads\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\andrei.tirsina\\AppData\\Roaming\\NuGet\\NuGet.Config",
