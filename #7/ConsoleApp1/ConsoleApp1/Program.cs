@@ -61,21 +61,21 @@ namespace ConsoleApp1
                 _minutes = minutes + seconds / 60;
                 _degrees = degrees + minutes / 60;
             }
-            _degrees = degrees;
+            _degrees = degrees % 360;
             _minutes = minutes;
             _seconds = seconds;
         }
         private Angle toDefault(int seconds)
         {
-            _degrees = seconds / 3600;
+            _degrees = seconds / 3600 % 360;
             _minutes = seconds / 60 % 60;
             _seconds = seconds % 60;
             return this;
 
         }
-        public string toString()
+        public override string ToString()
         {
-            string s = "";
+            string s = " ";
             s += _degrees.ToString() + "° " + _minutes.ToString() + "\' " + _seconds.ToString() + "\"";
             return s;
         }
@@ -98,6 +98,16 @@ namespace ConsoleApp1
             }
             return a.toDefault(a1.toSeconds() - a2.toSeconds());
         }
+        public static Angle operator *(Angle a1, int i)
+        {
+            Angle a = new Angle();
+            return a.toDefault(a1.toSeconds()*i);
+        }
+        public static Angle operator /(Angle a1, int i)
+        {
+            Angle a = new Angle();
+            return a.toDefault(a1.toSeconds() / i);
+        }
         public static bool operator ==(Angle a1, Angle a2)
         {
             if (a1.toSeconds() == a2.toSeconds())
@@ -112,7 +122,7 @@ namespace ConsoleApp1
         }
         public static string operator +(string text, Angle a)
         {
-            return text + a.toString();
+            return text + a.ToString();
         }
         public static bool operator >(Angle a1, Angle a2)
         {
@@ -169,15 +179,6 @@ namespace ConsoleApp1
         //public IEnumerator GetEnumerator()
         //{
         //    return new AngleEnumerator(this);
-        //    #region magic yield return
-        //    The yield keyword is used to specify the value(or values)
-        //    to be returned to the caller’s foreach construct.
-        //    When the yield return statement is reached, the current location in the container is stored, 
-        //    and execution is restarted from this location the next time the iterator is called.
-        //    yield return this[0];
-        //    yield return this[1];
-        //    yield return this[2];
-        //    #endregion
         //}
         public int CompareTo(object obj)
         {
@@ -191,8 +192,7 @@ namespace ConsoleApp1
         }
         public IEnumerator GetEnumerator()
         {
-            int i = 0;
-            for (i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
                 yield return this[i];
         }
     }
@@ -200,17 +200,18 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Angle a = new Angle(3, 36, 53);
+            Angle a = new Angle(725, 36, 53);
             Angle b = new Angle(4, 27, 45);
             Angle c = new Angle();
-            Console.WriteLine();
             c = a + b;
+            c = a / 2;
+            Console.WriteLine(c.ToString());
             Console.WriteLine("a = " + a + "\nb = " + b + "\na + b = " + c);
             foreach (int i in a)
             {
                 Console.WriteLine(i);
             }
-            Console.WriteLine($"a compare to b{b.CompareTo(a)}");
+            Console.WriteLine($"a compare to b{b.CompareTo(a)}");       
         }
     }
 }

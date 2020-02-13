@@ -261,7 +261,7 @@ namespace ConsoleApp1
                             catch(NotSuchItemException)
                             {
 
-                            }`
+                            }
                             catch (MergeException)
                             {
                                 Console.ForegroundColor = ConsoleColor.Yellow;

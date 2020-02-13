@@ -20,15 +20,11 @@ namespace LSP
     }
     class Program
     {
-        static int someMethod(figure fig)
-        {
-            return fig.area();
-        }
         static void Main(string[] args)
         {
             square square = new square();
             square._side = 5;
-            Console.WriteLine(someMethod(square));
+            Console.WriteLine(square.area());
         }
     }
 }
