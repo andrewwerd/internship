@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-
+using System.Collections.Generic;
 namespace ConsoleApp1
 {
     public class AngleEnumerator : IEnumerator
@@ -41,29 +41,37 @@ namespace ConsoleApp1
         private int _degrees;
         private int _minutes;
         private int _seconds;
-
+        public static List<Angle> Angles;
         public Angle()
         {
             _degrees = _minutes = _seconds = 0;
+            Angles.Add(this);
         }
         public Angle(int seconds)
         {
             toDefault(seconds);
+            Angles.Add(this);
         }
         public Angle(int degrees, int minutes, int seconds)
         {
-            if (minutes > 60)
-            {
-                _degrees = degrees + minutes / 60;
-            }
             if (seconds > 60)
             {
-                _minutes = minutes + seconds / 60;
-                _degrees = degrees + minutes / 60;
+                minutes += seconds / 60;
+                seconds %= 60;
+            }
+            if (minutes > 60)
+            {
+                degrees += minutes / 60;
+                minutes %= 60;
             }
             _degrees = degrees % 360;
             _minutes = minutes;
             _seconds = seconds;
+            Angles.Add(this);
+        }
+        static Angle()
+        {
+            Angles = new List<Angle>();
         }
         private Angle toDefault(int seconds)
         {
@@ -91,12 +99,11 @@ namespace ConsoleApp1
         public static Angle operator -(Angle a1, Angle a2)
         {
             Angle a = new Angle();
-            if (a1.toSeconds() < a2.toSeconds())
-            {
-                Console.WriteLine("Ошиииииииииииибка!");
-                return a1;
-            }
-            return a.toDefault(a1.toSeconds() - a2.toSeconds());
+            int i = a1.toSeconds() - a2.toSeconds();
+            if (i<0)
+                return a.toDefault(360*3600 + i);
+            else
+                return a.toDefault(i);
         }
         public static Angle operator *(Angle a1, int i)
         {
@@ -200,18 +207,32 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Angle a = new Angle(725, 36, 53);
+            Angle a = new Angle(10, 36, 53);
             Angle b = new Angle(4, 27, 45);
-            Angle c = new Angle();
-            c = a + b;
-            c = a / 2;
+            Angle c = new Angle(4555);
+            Angle d = new Angle(850,98,7);
+            Angle e = new Angle(548654);
+            Angle f = new Angle(344, 45 ,56);
+            Angle j = new Angle(123,5354,5665);
+            Angle k = new Angle(45,55,0);
+            Angle l = new Angle(85,90,34);
+            Angle m = new Angle(40555);
+
             Console.WriteLine(c.ToString());
-            Console.WriteLine("a = " + a + "\nb = " + b + "\na + b = " + c);
-            foreach (int i in a)
-            {
-                Console.WriteLine(i);
+            Console.WriteLine("a = " + a + "\nb = " + b + "\nb-a = " + c);
+
+            Angle.Angles.Sort();
+            Console.WriteLine("Unsorted list: ");
+            foreach (Angle i in Angle.Angles)
+            { 
+                Console.WriteLine($"Angle {Angle.Angles.IndexOf(i)+1} = {i}");
             }
-            Console.WriteLine($"a compare to b{b.CompareTo(a)}");       
+            Console.WriteLine("Sorted list: ");
+            Angle.Angles.Sort();
+            foreach (var i in Angle.Angles)
+            {
+                Console.WriteLine($"Angle {Angle.Angles.IndexOf(i) + 1} = {i}");
+            }
         }
     }
 }

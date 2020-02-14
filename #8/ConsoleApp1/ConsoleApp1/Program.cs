@@ -52,6 +52,14 @@ namespace ConsoleApp1
             _changeTime = new DateTime();
             _changeTime = DateTime.Now;
         }
+        public Branch(string name, Branch current)
+        {
+            _name = name;
+            _content = new StringBuilder();
+            _content = current._content;
+            _changeTime = new DateTime();
+            _changeTime = DateTime.Now; 
+        }
         public static int IndexByName(string name, List<Branch> branches)
         {
             for (int i = 0; i < branches.Count; i++)
@@ -76,7 +84,7 @@ namespace ConsoleApp1
             }
             else throw new InitException();
         }
-        static public Branch CreateBranch(string name,ref List<Branch> branches)
+        static public Branch CreateBranch(string name, Branch current, ref List<Branch> branches)
         {
             int i;
             bool flag = true;
@@ -89,7 +97,7 @@ namespace ConsoleApp1
                 }
             }
             if (flag)
-                branches.Add(new Branch(name)); 
+                branches.Add(new Branch(name, current)); 
             else 
                 throw new InitException();
             return branches[i];
