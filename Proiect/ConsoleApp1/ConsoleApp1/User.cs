@@ -2,18 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConsoleApp1
+namespace Proiect
 {
-    public class User
+    public abstract class User
     {
-        private string Name;
+        public string Name;
         public string Email;
-        private string Password;
-        public int ID;
-
-        public bool LoginVerify() {
-            return true;
-        }
-
+        public string Password;
+        public int ID { get; }
     }
 }

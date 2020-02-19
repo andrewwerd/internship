@@ -2,20 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConsoleApp1
+namespace Proiect
 {
     public class Customer : User
     {
-        private int PhoneNumber;
-        private int Balance;
-        public bool Register()
-        {
-            return true;
-        }
-        public bool UpdateProfile()
-        {
-            return true;
-        }
+        public int PhoneNumber;
+        public char Gender;
+        public int Age;
+        public List<Transaction> Transactions;
+        public List<Partner> PreferPartners;
+        public List<CurrentDiscount> Account;
     }
-
 }
