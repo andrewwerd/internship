@@ -12,6 +12,14 @@ namespace Proiect
         protected Dictionary<string, int> AccumulationPercent;
         protected Dictionary<string, int> DiscountPercent;
 
+        public CurrentDiscount CurrentDiscount
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public (int, int) get(int Balance)
         {
             string CurrentLevel;

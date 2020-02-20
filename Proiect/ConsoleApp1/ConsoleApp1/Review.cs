@@ -14,5 +14,13 @@ namespace Proiect
         public int NumbersOfLike;
         public int NumbersOfDislike;
         public DateTime Date;
+
+        public Customer Customer
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

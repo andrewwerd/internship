@@ -34,5 +34,13 @@ namespace Proiect
         public int Id;
         public int CustomerId;
         public int PartnerId;
+
+        public Customer Customer
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

@@ -6,13 +6,11 @@ namespace Proiect
 {
     public class Filial
     {
-        public string Logo;
-        public string Category;
         public int Id;
         public int PartnerId;
-        public string Name;
         public string Address;
         public int PhoneNumber;
+
         public Transaction CreateTransaction(int Amount, int CustomerId)
         {
             Transaction transaction = new Transaction();

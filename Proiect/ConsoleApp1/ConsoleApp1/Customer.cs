@@ -12,5 +12,13 @@ namespace Proiect
         public List<Transaction> Transactions;
         public List<Partner> PreferPartners;
         public List<CurrentDiscount> Account;
+
+        public Transaction Transaction
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

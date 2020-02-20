@@ -11,10 +11,13 @@ namespace Proiect
         public int Balance;
         public int AccumulationPercent;
         public int DiscountPercent;
-        public Discount Discount
+
+        public Customer Customer
         {
-            get;
-            set;
+            get => default;
+            set
+            {
+            }
         }
     }
 }
