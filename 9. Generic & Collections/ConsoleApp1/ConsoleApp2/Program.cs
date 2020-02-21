@@ -20,10 +20,12 @@ namespace ConsoleApp2
         {
             get
             {
+                if (index < 0 || index > Count) throw new IndexOutOfRangeException();
                 return Items[index];
             }
             set
             {
+                if (index < 0 || index > Count) throw new IndexOutOfRangeException();
                 Items[index] = value;
             }
         }
@@ -34,6 +36,7 @@ namespace ConsoleApp2
         }
         public int IndexOf(T item)
         {
+
             for (int i = 0; i < Count; i++)
                 if (Items[i].Equals(item)) return i;
             throw new Exception("Not such item!");
@@ -45,6 +48,7 @@ namespace ConsoleApp2
         }
         public void Remove(int index)
         {
+            if (index < 0 || index > Count) throw new IndexOutOfRangeException();
             for (var i = index; i < Count - 1; i++)
             {
                 Items[i] = Items[i + 1];
