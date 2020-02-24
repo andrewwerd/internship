@@ -13,5 +13,6 @@ namespace Proiect
         public List<Transaction> Transactions;
         public List<Partner> PreferPartners;
         public List<CurrentDiscount> Discounts;
+
     }
 }

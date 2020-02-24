@@ -9,5 +9,11 @@ namespace Proiect
         public Guid PartnerId;
         public string Address;
         public int PhoneNumber;
+        public Filial( Guid partnerId, string address, int phoneNumber)
+        {
+            Address = address;
+            PartnerId = partnerId;
+            PhoneNumber = phoneNumber;
+        }
     }
 }

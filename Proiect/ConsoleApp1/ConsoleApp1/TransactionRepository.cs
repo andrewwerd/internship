@@ -21,5 +21,6 @@ namespace Proiect
             Customers.GetAll().FirstOrDefault(x => x.Id == CustomerId).Transactions.Add(transaction);
             Discount.Balance += Amount * Discount.AccumulationPercent;
         }
+        
     }
 }

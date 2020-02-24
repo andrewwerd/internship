@@ -7,10 +7,7 @@ namespace Proiect
         static void Main(string[] args)
         {
             Repository <Partner> Partners = new Repository<Partner>();
-            for (int i = 0; i < 10; i++) 
-            Partners.Add(new Partner());
-            foreach (var i in Partners.GetAll())
-                Console.WriteLine(i.Id);
+            Partners.Add(new Partner("№1","FoodMarket", "str. Nicolae Testimitanu",60000000));
         }
     }
 }

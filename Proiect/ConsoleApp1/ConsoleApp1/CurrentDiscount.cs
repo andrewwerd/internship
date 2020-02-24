@@ -18,12 +18,9 @@ namespace Proiect
             PartnerId = partnerId;
             AccumulationPercent = DiscountPercent = 0;
         }
-        public Customer Customer
+        private void SetDiscount(Repository<Partner> Partners)
         {
-            get => default;
-            set
-            {
-            }
+            (AccumulationPercent, DiscountPercent) = Partners.GetById(PartnerId).GetDiscount(Balance);
         }
     }
 }
