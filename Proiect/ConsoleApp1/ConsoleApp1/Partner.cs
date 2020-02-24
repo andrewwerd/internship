@@ -8,35 +8,12 @@ namespace Proiect
     {
         public string Logo;
         public string Category;
+        public string Name;
         public decimal Rating;
-        public StringBuilder Description;
-        public Discount Discount;
+        public string Description;
+        public List<Discount> Discounts;
         public List<Filial> Filials;
         public List<News> News;
         public List<Review> Reviews;
-
-        public Filial Filial
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public Review Review
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public News News1
-        {
-            get => default;
-            set
-            {
-            }
-        }
     }
 }

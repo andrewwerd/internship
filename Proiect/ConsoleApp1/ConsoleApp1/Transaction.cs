@@ -4,43 +4,22 @@ using System.Text;
 
 namespace Proiect
 {
-    public class Transaction
+    public class Transaction : Entity
     {
         public string PartnerName;
         public string FilialAddress;
         public string Category;
-        public int AllAmount;
-        public int AccumulationAmount {
-            get {
-                return AccumulationAmount;
+        public decimal AllAmount;
+        public decimal amountForPay;
+        public decimal AmountForPay { set
+            {
+                amountForPay = AllAmount - AccumulationAmount - DiscountAmount;
             } 
-            set 
-            {
-                AccumulationAmount = AllAmount * AccumulationPercent/100;
-            }
         }
-        public int DiscountAmount
-        {
-            get
-            {
-                return DiscountAmount;
-            }
-            set
-            {
-                DiscountAmount = AllAmount * DiscountPercent / 100;
-            }
-        }
+        public decimal AccumulationAmount;
+        public decimal DiscountAmount;
         public DateTime DateTime;
-        public int Id;
-        public int CustomerId;
-        public int PartnerId;
-
-        public Customer Customer
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public Guid CustomerId;
+        public Guid PartnerId;
     }
 }

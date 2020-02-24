@@ -10,7 +10,7 @@ namespace Proiect
         public int PartnerId;
         public string Image;
         public string Title;
-        public StringBuilder Text;
+        public string Text;
         public DateTime Date;
     }
 }

@@ -7,7 +7,7 @@ namespace Proiect
     {
         string Title;
         DateTime DateTime;
-        StringBuilder Text;
+        string Text;
         string Author;
     }
 }

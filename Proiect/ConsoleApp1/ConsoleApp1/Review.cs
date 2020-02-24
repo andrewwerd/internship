@@ -9,18 +9,10 @@ namespace Proiect
         public int Id;
         public int PartnerId;
         public int CustomerId;
-        public StringBuilder Text;
+        public string Text;
         public string Author;
         public int NumbersOfLike;
         public int NumbersOfDislike;
         public DateTime Date;
-
-        public Customer Customer
-        {
-            get => default;
-            set
-            {
-            }
-        }
     }
 }

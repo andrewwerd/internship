@@ -16,11 +16,11 @@ namespace ConsoleApp1
                "Exit");
             Repository<Owner> Owners = new Repository<Owner>();
             Repository<Car> Cars = new Repository<Car>();
-            Owners.Create(new Owner("Artur", 'M', 18));
-            Owners.Create(new Owner("Andrew", 'M', 25));
-            Owners.Create(new Owner("Grace", 'F', 20));
-            Owners.Create(new Owner("Megane", 'F', 35));
-            Owners.Create(new Owner("Forest", 'M', 43));
+            Owners.Add(new Owner("Artur", 'M', 18));
+            Owners.Add(new Owner("Andrew", 'M', 25));
+            Owners.Add(new Owner("Grace", 'F', 20));
+            Owners.Add(new Owner("Megane", 'F', 35));
+            Owners.Add(new Owner("Forest", 'M', 43));
             while (true)
             {
                 string command = Console.ReadLine();
@@ -34,7 +34,7 @@ namespace ConsoleApp1
                             char Gender = Console.ReadLine()[0];
                             Console.Write("Age: ");
                             int Age = int.Parse(Console.ReadLine());
-                            Owners.Create(new Owner(Name, Gender, Age));
+                            Owners.Add(new Owner(Name, Gender, Age));
                             break;
                         }
                     case "read":

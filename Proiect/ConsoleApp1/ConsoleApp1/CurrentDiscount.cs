@@ -4,14 +4,20 @@ using System.Text;
 
 namespace Proiect
 {
-    public class CurrentDiscount
+    public class CurrentDiscount : Entity
     {
-        public int Id;
-        public int CustomerId;
-        public int Balance;
-        public int AccumulationPercent;
-        public int DiscountPercent;
+        public Guid CustomerId;
+        public Guid PartnerId;
+        public decimal Balance;
+        public decimal AccumulationPercent;
+        public decimal DiscountPercent;
 
+        public CurrentDiscount(Guid partnerId)
+        {
+            Balance = 0;
+            PartnerId = partnerId;
+            AccumulationPercent = DiscountPercent = 0;
+        }
         public Customer Customer
         {
             get => default;
