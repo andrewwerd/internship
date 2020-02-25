@@ -182,6 +182,7 @@ namespace ConsoleApp1
                 Console.ResetColor();
                 string[] command = choice.Split(' ');
                 choice = command[0];
+                int i = 0;
                 switch (choice.ToLower())
                 {
                     case "start":
@@ -218,8 +219,9 @@ namespace ConsoleApp1
                         }
                     case "switch":
                         {
-                            try
+                            try 
                             {
+                                
                                 string s = command[1];
                                 current = branches[Branch.IndexByName(s, branches)];
                                 Console.ForegroundColor = ConsoleColor.Red;
@@ -228,9 +230,16 @@ namespace ConsoleApp1
                                 Console.WriteLine(s.PadLeft(40, ' '));
                                 Console.ResetColor();
                             }
-                            catch (NotSuchItemException ex)
+                            catch (NotSuchItemException ex) when (i > 3)
                             {
-                                Console.WriteLine(ex.StackTrace);
+                                Console.WriteLine("You were thrown to the main menu ");
+                            }
+                            catch (NotSuchItemException ex)  
+                            {
+                                i++;
+                                Console.WriteLine("Enter exist name:");
+                                command[1] = Console.ReadLine();
+                                goto case "switch";
                             }
                             catch (IndexOutOfRangeException)
                             {
@@ -243,7 +252,7 @@ namespace ConsoleApp1
                             try
                             {
                                 string s = command[1];
-                                current = Branch.CreateBranch(s, ref branches);
+                                current = Branch.CreateBranch(s,current, ref branches);
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.Write("Current branch is");
                                 Console.ForegroundColor = ConsoleColor.Yellow;
