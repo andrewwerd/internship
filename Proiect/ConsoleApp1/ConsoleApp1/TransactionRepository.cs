@@ -2,25 +2,37 @@
 using System.Linq;
 namespace Proiect
 {
-    public class TransactionRepository<T> : Repository<T> where T : Transaction
+    public class TransactionRepository : Repository<Transaction>
     {
-        public void Add(Filial Filial, int Amount, Guid CustomerId, Repository<Customer> Customers, Repository<Partner> Partners)
+        public void Add(Filial filial, int amount, Guid customerId, Repository<Customer> customers, Repository<Partner> partners)
         {
             Transaction transaction = new Transaction();
-            Partner Partner = Partners.GetById(Filial.PartnerId);
-            CurrentDiscount Discount = Customers.GetById(CustomerId).Discounts.FirstOrDefault(y => y.PartnerId == Partner.Id);
-            if (Discount == null) Customers.GetById(CustomerId).Discounts.Add(new CurrentDiscount(Partner.Id));
+            Partner Partner = partners.GetById(filial.PartnerId);
+            CurrentDiscount Discount = customers.GetById(customerId).Discounts.FirstOrDefault(y => y.PartnerId == Partner.Id);
+
+            if (Discount == null)
+            {
+                customers.GetById(customerId).Discounts.Add(new CurrentDiscount(Partner.Id));
+            }
+
             transaction.PartnerName = Partner.Name;
-            transaction.PartnerId = Filial.PartnerId;
+            transaction.PartnerId = filial.PartnerId;
             transaction.Category = Partner.Category;
-            transaction.FilialAddress = Filial.Address;
-            transaction.AllAmount = Amount;
-            transaction.AccumulationAmount = Amount * Discount.AccumulationPercent;
-            transaction.DiscountAmount = Amount * Discount.DiscountPercent;
+            transaction.FilialAddress = filial.Address;
+            transaction.AllAmount = amount;
+            transaction.AccumulationAmount = amount * Discount.AccumulationPercent;
+            transaction.DiscountAmount = amount * Discount.DiscountPercent;
             transaction.DateTime = DateTime.Now;
-            Customers.GetAll().FirstOrDefault(x => x.Id == CustomerId).Transactions.Add(transaction);
-            Discount.Balance += Amount * Discount.AccumulationPercent;
+            Discount.Balance += amount * Discount.AccumulationPercent;
+
+            customers.GetById(customerId).TransactionsHistory.Add(transaction);
+
+            string NotificationBody = $"You made a purchase for the amount{amount.ToString("C")}\n\tThe discount amount was{transaction.DiscountAmount.ToString("C")}\n\t{transaction.AccumulationAmount.ToString("C")}was returned to your accoun.";
+            var notificationManager = new NotificationManager();
+            notificationManager.CreateMessage(Partner.Name, "New transaction", "Transaction", NotificationBody);
+            notificationManager.NewNotification += new SMS().OnNewNotification;
+            notificationManager.NewNotification += new Email().OnNewNotification;
+            notificationManager.NewNotification += new Push().OnNewNotification;
         }
-        
     }
 }

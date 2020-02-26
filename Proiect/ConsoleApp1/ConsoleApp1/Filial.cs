@@ -7,6 +7,7 @@ namespace Proiect
     public class Filial
     {
         public Guid PartnerId;
+        public Guid Id;
         public string Address;
         public int PhoneNumber;
         public Filial( Guid partnerId, string address, int phoneNumber)
@@ -14,6 +15,7 @@ namespace Proiect
             Address = address;
             PartnerId = partnerId;
             PhoneNumber = phoneNumber;
+            Id = Guid.NewGuid();
         }
     }
 }

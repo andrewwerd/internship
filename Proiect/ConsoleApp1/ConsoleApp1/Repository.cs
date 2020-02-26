@@ -39,6 +39,10 @@ namespace Proiect
         {
             return _context;
         }
+        public List<T> ToList()
+        {
+            return _context;
+        }
         public void Update(T item)
         {
             var current = _context.FirstOrDefault(x => x.Id == item.Id);

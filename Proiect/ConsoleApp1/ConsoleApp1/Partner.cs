@@ -24,10 +24,6 @@ namespace Proiect
             Filials = new List<Filial>();
             Filials.Add(new Filial(Id, address, phoneNumber));
         }
-        public void SetLevels()
-        {
-
-        }
         public (decimal,decimal) GetDiscount(decimal Balance)
         {
             int index = Levels.FindIndex(x => x < Balance);
