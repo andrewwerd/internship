@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 namespace ConsoleApp1
 {
@@ -118,12 +119,41 @@ namespace ConsoleApp1
                             Console.WriteLine("Show cars and owners");
                             var joinList = from owner in Owners._context
                                            join car in Cars._context on owner.ID equals car.OwnerId
-                                           select new { Name = owner.Name, CarInfo = car.ToString()};
+                                           select new { Name = owner.Name, CarInfo = car.ToString() };
                             foreach (var i in joinList)
                             {
                                 Console.WriteLine($"{i.Name} - {i.CarInfo}");
                             }
-                            break;
+                            
+                            //Use delegate to manipulate collection
+
+                            var filteredOwners = Filter(Owners, fieldGender, filterByGender);
+                            foreach (var i in filteredList)
+                                Console.WriteLine(i.ToString());
+
+                            //Use anonumous functions
+
+                            filteredOwners = Filter(Owners, delegate ()
+                            {
+                                Console.WriteLine("Enter gender :");
+                                var condition = Console.ReadLine()[0];
+                                return condition;
+                            },
+                            delegate (Owner owner1, dynamic condition) { return owner1.Gender == condition; }
+                            );
+
+                            //Use lamda expression
+
+                            filteredOwners = Filter(Owners, () => 
+                            {
+                                Console.WriteLine("Enter gender :");
+                                var condition = Console.ReadLine()[0];
+                                return condition;
+                            },
+                            (owner,condition)=>owner.Gender == condition);
+                                break;
+                            
+                            
                         }
                     case "exit":
                         {
@@ -134,6 +164,72 @@ namespace ConsoleApp1
                         }
                 }
             }
+        }
+        //Use delegate to manipulate collection
+        #region Delegate
+        public delegate bool FilterByFieldDelegate(Owner owner, dynamic condition);
+        public delegate dynamic SelectFieldDelegate();
+        public static List<Owner> Filter(Repository<Owner> owners,SelectFieldDelegate field, FilterByFieldDelegate filterByField)
+        {
+            var filteredList = new List<Owner>();
+            var getField = field();
+            foreach (var i in owners.GetAll())
+                if (filterByField(i, getField)) filteredList.Add(i);
+            if (filteredList.Count == 0)
+                return null;
+            else
+                return filteredList;
+        }
+        public static dynamic fieldGender()
+        {
+            Console.WriteLine("Enter gender :");
+            char gender = Console.ReadLine()[0];
+            return gender;
+        } 
+
+        public static dynamic fieldAge()
+        {
+            Console.WriteLine("Enter base age :");
+            int.TryParse(Console.ReadLine(), out int age);
+            return age;
+        }
+        
+
+
+        public static bool filterByGender(Owner owner, dynamic gender)
+        {
+            if (owner.Gender == gender)
+                return true;
+            else
+                return false;
+        }
+        public static bool filterByAgeIncrease(Owner owner, dynamic age)
+        {
+            if (owner.Gender > age)
+                return true;
+            else
+                return false;
+        }
+        public static bool filterByAgeDecrease(Owner owner, dynamic age)
+        {
+            if (owner.Gender < age)
+                return true;
+            else
+                return false;
+        }
+        #endregion
+        //Use expresion methods
+ 
+    }
+    public static class Average
+    {
+        public static decimal AverageAge(this Repository<Owner> owners)
+        {
+            int sum = 0;
+            int count = owners.GetAll().Count();
+            foreach (var i in owners.GetAll())
+                sum += i.Age;
+            return sum / count;
         }
     }
 }
