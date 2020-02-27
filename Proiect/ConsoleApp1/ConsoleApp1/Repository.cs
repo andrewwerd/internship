@@ -16,7 +16,6 @@ namespace Proiect
     public class Repository<T> : IRepository<T> where T : Entity
     {
         private List<T> _context;
-        private static Repository<T> repository;
         private static readonly Lazy<Repository<T>> lazy = new Lazy<Repository<T>>(() => new Repository<T>(), true);
 
         public static Repository<T> Instance => lazy.Value;
