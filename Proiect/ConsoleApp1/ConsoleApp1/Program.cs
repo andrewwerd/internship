@@ -6,13 +6,13 @@ namespace Proiect
     {
         static void Main(string[] args)
         {
-            Repository <Partner> Partners = new Repository<Partner>();
+            Repository<Partner> Partners = Repository<Partner>.Instance;
             Partners.Add(new Partner("№1","FoodMarket", "str. Nicolae Testimitanu",60000000));
-            TransactionRepository Transactions = new TransactionRepository();
-            Repository<Customer> Customers = new Repository<Customer>();
+            TransactionService Transactions = new TransactionService();
+            Repository<Customer> Customers = Repository<Customer>.Instance;
             Customers.Add(new Customer(firstName : "Andrei", lastName: "Tirsina", phoneNumber: 67729269, gender:'M', yearOfBirth: 1999));
             Console.WriteLine(Partners.ToList()[0].Id);
-            Transactions.Add(Partners.ToList()[0].Filials.First(),1000, Customers.ToList()[0].Id, Customers, Partners);
+            Transactions.Add(Partners.ToList().First().Filials.First(),1000, Customers.ToList()[0].Id, Customers, Partners);
         }
     }
 }

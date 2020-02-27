@@ -6,8 +6,18 @@ namespace Proiect
 {
     public abstract class User : Entity
     {
-        public string UserName;
-        public string Email;
-        public string Password;
+        protected string UserName;
+        protected string Email;
+        protected string Password;
+
+        public User () { }
+        public User (string userName, string password, string email)
+        {
+            UserName = userName;
+            Password = password;
+            Email = email;
+        }
+
+
     }
 }

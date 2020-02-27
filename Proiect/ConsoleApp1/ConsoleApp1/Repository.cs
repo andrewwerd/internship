@@ -15,16 +15,21 @@ namespace Proiect
 
     public class Repository<T> : IRepository<T> where T : Entity
     {
-        public List<T> _context;
-        public Repository()
+        private List<T> _context;
+        private static Repository<T> repository;
+        private static readonly Lazy<Repository<T>> lazy = new Lazy<Repository<T>>(() => new Repository<T>(), true);
+
+        public static Repository<T> Instance => lazy.Value;
+
+        private Repository()
         {
             _context = new List<T>();
         }
-        public virtual void Add(T item)
+
+        public void Add(T item)
         {
             item.Id = Guid.NewGuid();
             _context.Add(item);
-
         }
         public void Delete(T item)
         {

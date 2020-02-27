@@ -6,10 +6,10 @@ namespace Proiect
 {
     public class Filial
     {
-        public Guid PartnerId;
-        public Guid Id;
-        public string Address;
-        public int PhoneNumber;
+       public Guid PartnerId { get; set; }
+        public Guid Id { get; set; }
+        public string Address { get; set; }
+        public int PhoneNumber { get; set; }
         public Filial( Guid partnerId, string address, int phoneNumber)
         {
             Address = address;

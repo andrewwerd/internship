@@ -43,27 +43,6 @@ namespace ConsoleApp1
             FileWatcher.EnableRaisingEvents = true;
 
         }
-        private static void SyncRealTimeDirectories(string path)
-        {
-            FileSystemWatcher FileWatcher = new FileSystemWatcher();
-            FileSystemWatcher DirectoryWatcher = new FileSystemWatcher();
-            FileWatcher.Path = DirectoryWatcher.Path = path;
-            FileWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                            | NotifyFilters.FileName;
-            DirectoryWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                            | NotifyFilters.DirectoryName;
-            FileWatcher.EnableRaisingEvents = true;
-            DirectoryWatcher.EnableRaisingEvents = true;
-            FileWatcher.Filter = "*.*";
-            FileWatcher.Created += new FileSystemEventHandler(OnCreated);
-            FileWatcher.Changed += new FileSystemEventHandler(OnChanged);
-            FileWatcher.Deleted += new FileSystemEventHandler(OnDelted);
-            FileWatcher.Renamed += new RenamedEventHandler(OnRenamed);
-            DirectoryWatcher.Created += new FileSystemEventHandler(OnCreatedDirectory);
-            DirectoryWatcher.Deleted += new FileSystemEventHandler(OnDeltedDirectory);
-            DirectoryWatcher.Renamed += new RenamedEventHandler(OnRenamedDirectory);
-
-        }
         #region FilesVents
         private static void OnChanged(object source, FileSystemEventArgs e)
         {

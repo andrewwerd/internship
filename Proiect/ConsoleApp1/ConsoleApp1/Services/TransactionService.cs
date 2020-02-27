@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 namespace Proiect
 {
-    public class TransactionRepository : Repository<Transaction>
+    public class TransactionService
     {
         public void Add(Filial filial, int amount, Guid customerId, Repository<Customer> customers, Repository<Partner> partners)
         {
@@ -26,13 +27,6 @@ namespace Proiect
             Discount.Balance += amount * Discount.AccumulationPercent;
 
             customers.GetById(customerId).TransactionsHistory.Add(transaction);
-
-            string NotificationBody = $"You made a purchase for the amount{amount.ToString("C")}\n\tThe discount amount was{transaction.DiscountAmount.ToString("C")}\n\t{transaction.AccumulationAmount.ToString("C")}was returned to your accoun.";
-            var notificationManager = new NotificationManager();
-            notificationManager.CreateMessage(Partner.Name, "New transaction", "Transaction", NotificationBody);
-            notificationManager.NewNotification += new SMS().OnNewNotification;
-            notificationManager.NewNotification += new Email().OnNewNotification;
-            notificationManager.NewNotification += new Push().OnNewNotification;
         }
     }
 }

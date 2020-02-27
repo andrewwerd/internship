@@ -22,6 +22,9 @@ namespace Proiect
         public List<Transaction> TransactionsHistory;
         public List<Partner> PreferPartners;
         public List<CurrentDiscount> Discounts;
+
+        public Customer() { }
+        public Customer(string userName, string password, string email):base(userName, password, email){ }
         public Customer(string firstName, string lastName, int phoneNumber, char gender, int yearOfBirth)
         {
             FirstName = firstName;
