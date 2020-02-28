@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Proiect
+namespace Proiect.Models
 {
     public class Review
     {

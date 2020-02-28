@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Proiect.Services
 {
-    class Class1
+    interface IPartnerService
     {
+        public void Get
     }
 }

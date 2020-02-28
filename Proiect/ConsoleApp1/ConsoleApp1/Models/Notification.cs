@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Proiect
+namespace Proiect.Models
 {
     public class Notification
     {

@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Proiect.Models;
 
-namespace Proiect
+namespace Proiect.Repository
 {
-    public interface IRepository<T> where T : Entity
-    {
-        void Add(T item);
-        T GetById(Guid Id);
-        IEnumerable<T> GetAll();
-        void Delete(T item);
-        void Update(T item);
-    }
-
     public class Repository<T> : IRepository<T> where T : Entity
     {
         private List<T> _context;
@@ -27,7 +19,6 @@ namespace Proiect
 
         public void Add(T item)
         {
-            item.Id = Guid.NewGuid();
             _context.Add(item);
         }
         public void Delete(T item)
@@ -43,6 +34,12 @@ namespace Proiect
         {
             return _context;
         }
+
+        internal object First(Guid partnerId)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<T> ToList()
         {
             return _context;

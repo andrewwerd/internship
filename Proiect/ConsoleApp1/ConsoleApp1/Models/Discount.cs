@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Proiect
+namespace Proiect.Models
 {
-    public class Discount
+    public class Discount: Entity
     {
+        public Guid PartnerId;
         public decimal AccumulationPercent;
         public decimal DiscountPercent;
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Proiect
+namespace Proiect.Models
 {
     public abstract class User : Entity
     {
@@ -17,7 +17,5 @@ namespace Proiect
             Password = password;
             Email = email;
         }
-
-
     }
 }
