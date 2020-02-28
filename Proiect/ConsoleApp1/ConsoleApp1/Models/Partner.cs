@@ -13,16 +13,10 @@ namespace Proiect.Models
         public decimal Rating { get; set; }
         public string Description { get; set; }
         public DateTime DateOfRegistration { get; set; }
-        public List<decimal> Levels;
-        public List<Discount> Discounts;
-        public List<Filial> Filials;
-        public List<News> News;
-        public List<Review> Reviews;
-
-        public (decimal,decimal) GetDiscount(decimal Balance)
-        {
-            int index = Levels.FindIndex(x => x < Balance);
-            return (Discounts[index].AccumulationPercent,Discounts[index].DiscountPercent);
-        }
+        public List<decimal> Levels { get; set; }
+        public List<Discount> Discounts { get; set; }
+        public List<Filial> Filials { get; set; }
+        public List<News> News { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 }

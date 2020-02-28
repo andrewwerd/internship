@@ -3,9 +3,9 @@ using Proiect.Models;
 
 namespace Proiect.Services
 {
-    class DiscountService
+    class DiscountFactory
     {
-        public static void Create(Partner partner,decimal accumulationPercent, decimal discountPercent)
+        public static void Create(Partner partner, decimal accumulationPercent, decimal discountPercent)
         {
             var discount = new Discount();
 

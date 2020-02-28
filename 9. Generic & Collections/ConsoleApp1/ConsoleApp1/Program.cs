@@ -169,12 +169,14 @@ namespace ConsoleApp1
         #region Delegate
         public delegate bool FilterByFieldDelegate(Owner owner, dynamic condition);
         public delegate dynamic SelectFieldDelegate();
-        public static List<Owner> Filter(Repository<Owner> owners,SelectFieldDelegate field, FilterByFieldDelegate filterByField)
+        public static List<Owner> Filter(Repository<Owner> owners,SelectFieldDelegate field, Func<Owner,dynamic,bool> filterByField)
         {
+            FilterByFieldDelegate del = filterByGender;
             var filteredList = new List<Owner>();
             var getField = field();
             foreach (var i in owners.GetAll())
-                if (filterByField(i, getField)) filteredList.Add(i);
+                if (filterByField(i, getField)) 
+                    filteredList.Add(i);
             if (filteredList.Count == 0)
                 return null;
             else
@@ -223,13 +225,20 @@ namespace ConsoleApp1
     }
     public static class Average
     {
-        public static decimal AverageAge(this Repository<Owner> owners)
+        public static double AverageAge(this Repository<Owner> owners, string gender)
         {
-            int sum = 0;
-            int count = owners.GetAll().Count();
-            foreach (var i in owners.GetAll())
-                sum += i.Age;
-            return sum / count;
+            var ownersQuery = owners.GetAll();
+
+            if (gender == "")
+            {
+                ownersQuery = ownersQuery.Where(x => x.Gender == ' ');
+            }
+
+            return ownersQuery.Select(x => x.Age).FirstOrDefault();
+
+
+
+            return 0;//    .Average();
         }
     }
 }

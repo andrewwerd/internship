@@ -10,12 +10,14 @@ namespace Proiect
     {
         static void Main(string[] args)
         {
-            var CustomerService = new CustomerService();
+            ServiceLocator.Register<CurrentDiscountService>();
+            ServiceLocator.Register<PartnerService, IPartnerService>();
+
             var Partners = Repository<Partner>.Instance;
            // Partners.Add(new Partner("№1", "FoodMarket", "str. Nicolae Testimitanu", 60000000));
             //TransactionService Transactions = new TransactionService();
             var Customers = Repository<Customer>.Instance;
-            CustomerService.Create(firstName: "Andrei", lastName: "Tirsina", phoneNumber: "067729269", gender: 'M', dateOfBirth: DateTime.Parse("03.09.1999", CultureInfo.CurrentCulture));
+            CustomerFactory.Create(firstName: "Andrei", lastName: "Tirsina", phoneNumber: "067729269", gender: 'M', dateOfBirth: DateTime.Parse("03.09.1999", CultureInfo.CurrentCulture));
             foreach(var i in Customers.ToList())
             Console.WriteLine(i.FirstName);
             //Console.WriteLine(Partners.ToList()[0].Id);

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Proiect.Models;
+using System;
 
 namespace Proiect.Services
 {
-    interface IPartnerService
-    {
-        public void Get
-    }
 }

@@ -7,31 +7,16 @@ namespace Proiect.Services
 {
     class CurrentDiscountService
     {
-        private Repository<CurrentDiscount> _repository;
-        private IServiceLocator serviceLocator;
+        private readonly IPartnerService service;
+
         public CurrentDiscountService()
         {
-            _repository = Repository<CurrentDiscount>.Instance;
-            serviceLocator = 
+            this.service = ServiceLocator.GetService<IPartnerService>();
         }
 
-        public void Create(Customer customer, Partner partner, decimal balance)
+        public void Update(CurrentDiscount discount)
         {
-            var discount = new CurrentDiscount();
-
-            discount.Id = Guid.NewGuid();
-            discount.CustomerId = customer.Id;
-            discount.Discount = partner.Discounts.First();
-            discount.Balance = balance;
-
-            customer.Discounts.Add(discount);
-
-            _repository.Add(discount);
-        }
-        public static void Update(CurrentDiscount discount)
-        {
-            var partner = Repository<Partner>.Instance.First(discount.Discount.PartnerId);
-            
+            service.GetDiscount(discount);
         }
     }
 }
