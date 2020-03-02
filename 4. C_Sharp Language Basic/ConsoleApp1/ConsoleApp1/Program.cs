@@ -14,7 +14,7 @@ namespace ConsoleApp1
         {
             a *= 1000;
         }
-        public static int multiply_by_val(int a)
+        int multiply_by_val(int a)
         {
             return a *= 1000;
         }
