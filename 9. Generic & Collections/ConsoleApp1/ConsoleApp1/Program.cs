@@ -114,6 +114,12 @@ namespace ConsoleApp1
                                                where t.Gender == 'M'
                                                orderby (t.Age)
                                                select t;
+
+                            foreach (var item in filteredList)
+                            {
+                                if(item is Entity a)
+                                    Console.WriteLine(a.ID);
+                            }
                             foreach (var i in filteredList)
                                 Console.WriteLine(i);
                             Console.WriteLine("Show cars and owners");
@@ -171,16 +177,20 @@ namespace ConsoleApp1
         public delegate dynamic SelectFieldDelegate();
         public static List<Owner> Filter(Repository<Owner> owners,SelectFieldDelegate field, Func<Owner,dynamic,bool> filterByField)
         {
-            FilterByFieldDelegate del = filterByGender;
             var filteredList = new List<Owner>();
             var getField = field();
             foreach (var i in owners.GetAll())
-                if (filterByField(i, getField)) 
+                if (filterByField?.Invoke(i, getField)) 
                     filteredList.Add(i);
             if (filteredList.Count == 0)
                 return null;
             else
+            {
+                Console.WriteLine($"{nameof(filterByField)} succeseful");
                 return filteredList;
+            }
+
+               
         }
         public static dynamic fieldGender()
         {

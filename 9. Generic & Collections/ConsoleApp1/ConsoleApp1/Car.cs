@@ -41,6 +41,10 @@ namespace ConsoleApp1
         public int MaxSpeed{ get;set;}
         public int Power { get; set; }
         public int Age;
+        public string ToString
+        {
+            get=
+        }
         public Car() { }
         public Car(string name, string category, int age, int ownerId)
         {
@@ -55,9 +59,7 @@ namespace ConsoleApp1
             Age = age;
             Category = category;
         }
-        public override string ToString()
-        {
-            return $"Car ID:{ID}\n\tName: {Name}, Category: {Category}, Age: {Age} years, Max Speed: {MaxSpeed}, Power: {Power}";
-        }
+        public override string ToString() => $"Car ID:{ID}\n\tName: {Name}, Category: {Category}, Age: {Age} years, Max Speed: {MaxSpeed}, Power: {Power}";
+       
     }
 }
