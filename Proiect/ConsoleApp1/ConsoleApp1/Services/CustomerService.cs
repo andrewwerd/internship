@@ -7,12 +7,10 @@ namespace Proiect.Services
 {
     class CustomerService
     {
-        private Repository<Customer> _customerRepository;
-
-        public CustomerService()
+       public static void AddPreferPartner(Customer customer, Partner partner)
         {
-            _customerRepository = Repository<Customer>.Instance;
+            customer.PreferPartners.Add(partner);
+
         }
-       
     }
 }

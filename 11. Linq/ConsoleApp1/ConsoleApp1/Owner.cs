@@ -9,7 +9,7 @@ namespace ConsoleApp1
         public string Name { get; set; }
         public string Gender { get; set; }
         public int Age { get; set; }
-        public List<Car> Cars;
+        public List<Car> Cars { get; set; }
         public Owner() { }
         public Owner(string name, string gender, int age)
         {

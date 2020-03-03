@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace ConsoleApp1
 {
@@ -33,87 +34,26 @@ namespace ConsoleApp1
             Cars.Add(new Car("Ford", "SUV", 5, 8650, Owners.GetById(0)));
 
 
+            var result =
+                Owners.GetAll()
+                .SelectMany(owner => owner.Cars, (owner, car) => new { Owner = owner, Car = car.Name })
+                .Where(ownerWithCar => ownerWithCar.Car == "Nissan")
+                .Select(z => z.Owner);
 
-
-
-            var result = Owners.GetAll().SelectMany(x => x.Cars, (x, car) =>);
-            var result = Owners.GetAll().Where(x => (x.Cars.Where(y => y.Name == "Volvo").Count() > 0));
-           
-
-
-
-            var item1 = Owners.GetAll().Where(x => x.Cars.Any(y => y.Name == "Volvo"));
-            foreach (var item in item1)
+            foreach (var item in result)
             {
                 Console.WriteLine(item.ToString());
             }
 
+            Console.WriteLine();
+            Console.WriteLine();
 
+            var result1 = Cars.GetAll().Where(x => x.Name == "Nissan").Select(x => x.Owner).Distinct();
 
-
-
-
-
-
-
-
-
-
-
-
-            //Console.WriteLine("Filter by gender, and sorted by age\n Enter gender: ");
-            //string gender = Console.ReadLine();
-            //var filteredList = from t in Owners.GetAll()
-            //                   where t.Gender.ToUpper() == gender.ToUpper()
-            //                   orderby (t.Age)
-            //                   select t;
-
-            //var andrewsCars = Cars.GetAll()
-            //    .Where(x => x.Owner.Name.Contains("Andrew"))
-            //    .Where(x => x.Name.Contains("Nissan"))
-            //    .OrderByDescending(x => x.Price);
-
-
-            //var sdas = Owners.GetAll()
-            //    .SelectMany(x => x.Cars, (x, car) => new { Name = x.Name, Car = car });
-            //foreach (var item in andrewsCars)
-            //{
-            //    Console.WriteLine($"{item.ToString()}");
-            //}
-            //foreach (var i in filteredList)
-            //    Console.WriteLine(i);
-            //Console.WriteLine("Show cars and owners");
-            //var AutoparcInfo = Owners.GetAll()
-            //    .Select(x =>
-            //    new
-            //    {
-            //        Name = x.Name,
-            //        AutoparcPrice = Cars.GetAll().Where(y => y.Owner == x).Select(y => y.Price).Aggregate((sum, price) => sum + price),
-            //        Cars = Cars.GetAll().Where(y => y.Owner == x).ToList()
-            //    })
-            //    .ToList()
-            //    .OrderBy(x => x.Name);
-
-            //var AutoParcInfo2 = Owners.GetAll()
-            //    .GroupBy(
-            //    x => x.Name,
-            //    x => x.Cars,
-            //    (OwnerName, cars) =>
-            //    new
-            //    {
-            //        Name = OwnerName,
-            //        Count = cars.Count()
-            //    });
-            //foreach (var item in AutoParcInfo2)
-            //{
-            //    Console.WriteLine($"{item.Name} - {item.Count} ");
-            //}
-            //foreach (var item in AutoparcInfo)
-            //{
-            //    Console.WriteLine($"{item.Name} - Price of autoparc = {item.AutoparcPrice.ToString("C",CultureInfo.InvariantCulture)}\n");
-            //    foreach (var i in item.Cars)
-            //    {
-            //        Console.WriteLine($"{i.ToString()}");
+            foreach (var item in result1)
+            {
+                Console.WriteLine(item.ToString());
+            }
         }
     }
-    }
+}
