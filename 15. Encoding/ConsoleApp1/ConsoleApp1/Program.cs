@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Globalization;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
 
 namespace ConsoleApp1
 {
@@ -50,199 +52,117 @@ namespace ConsoleApp1
             Console.WriteLine("â".Equals("a", StringComparison.Ordinal));
             #endregion
 
+            #region WorkWithDateCulture
+            WorkWithDateCulture();
+            #endregion
 
-                Console.WriteLine("1 - Strings and Encoding");
-                Console.WriteLine("2 - DateTime and Zones");
-                Console.WriteLine("3 - Finalizers and Disposable");
-                Console.WriteLine("4 - Last Task");
-                int.TryParse(Console.ReadLine(), out int i);
-
-                switch (i)
-                {
-                    case 1: StringsWork(); break;
-                    case 2: DateTimeAndZones(); break;
-                    case 3: FinalizersAndDisposables(); break;
-                    case 4: LastPoint(); break;
-                }
-            }
-
-
-            public static void StringsWork()
+            #region Dispose&Finalazer
+            using (var owner = new PetOwner())
             {
-                // Using of encodings 
-                Console.Write("Write string with non-Ascii characters: ");
-                // π ρ θ î ¶ ¤ ®
-                string str = Console.ReadLine();
-                byte[] offset = Encoding.Unicode.GetBytes(str);
-                offset = Encoding.Convert(Encoding.Unicode, Encoding.ASCII, offset);
-                string AsciiStr = Encoding.ASCII.GetString(offset);
-                using (StreamWriter sw = new StreamWriter("test.notype"))
-                {
-                    sw.WriteLine(AsciiStr);
-                }
-
-                // String Searching
-                if (str.Contains('π'))
-                    Console.WriteLine($"string has π with code {(int)'π'}");
-
-                if (str.Contains('ρ'))
-                    Console.WriteLine($"string has ρ with code {(int)'ρ'}");
-
-                if (str.Contains('î'))
-                    Console.WriteLine("string has {0} with code {1}", 'î', (int)'î');
-
-                var cultureInfos = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
-                var cultureList = new List<CultureInfo>(cultureInfos);
-
-                // Culture info 
-                Console.WriteLine("Choose Culture (two letters)");
-                string code = Console.ReadLine().ToUpper();
-
-                CultureInfo.CurrentCulture = cultureList.FirstOrDefault(culture => culture.CompareInfo.Name.Contains(code));
-                if (CultureInfo.CurrentCulture is null)
-                {
-                    Console.WriteLine("No matching culture found");
-                    return;
-                }
-                Console.WriteLine(CultureInfo.CurrentCulture.TextInfo);
-
-                // String comparing
-                Console.WriteLine($"î and i are {("î".Equals("i", StringComparison.CurrentCulture) ? "same" : "different")} in CurrentCulture");
-
-                Console.WriteLine($"î and i are {("î".Equals("i", StringComparison.InvariantCulture) ? "same" : "different")} in InvariantCulture");
+                owner.Name = "John";
+                owner.AddPet(new Pet("Lola", "Dog"));
+                owner.AddPet(new Pet("Murka", "Cat"));
             }
+            #endregion
+            #region WorkWithDateTime
+            WorkWithDateTime();
+            #endregion
 
-            public static void LastPoint()
-            {
-
-                FileInfo file = new FileInfo("date.txt");
-                if (!file.Exists)
-                {
-                    using (StreamWriter Writer = new StreamWriter("date.txt"))
-                    {
-                        Writer.WriteLine(DateTime.Now.ToString(), CultureInfo.CurrentCulture);
-                    }
-                }
-
-
-                string dateStr;
-                using (StreamReader Reader = new StreamReader("date.txt"))
-                {
-                    dateStr = Reader.ReadLine();
-                }
-
-                DateTime date = DateTime.Parse(dateStr, CultureInfo.InvariantCulture);
-                Console.WriteLine($"Current culture: {date.ToString(CultureInfo.CurrentCulture)}");
-                Console.WriteLine($"France culture: {date.ToString(CultureInfo.GetCultureInfo(12))}");
-                Console.WriteLine($"Japan culture: {date.ToString(CultureInfo.GetCultureInfo(17))}");
-            }
-
-            public static void FinalizersAndDisposables()
-            {
-                using (var ints = new FixedDataHolder<int>(12))
-                {
-                    Random random = new Random();
-                    for (int i = 0; i < 12; i++)
-                    {
-                        ints[i] = random.Next(1, 500);
-                    }
-
-                    var Holder = new OneValueHolder<FixedDataHolder<int>>(ints);
-
-                    ints.PrintIf(n => n > 250);
-                }
-
-
-            }
-
-            public static void DateTimeAndZones()
-            {
-                Console.Write("Give a number: ");
-                int days = int.Parse(Console.ReadLine());
-
-                var span = new TimeSpan(days, 0, 0, 0);
-                Console.WriteLine($"There will be {DateTime.Now.Add(span).DayOfWeek} after {days} days");
-
-
-                DateTime nowOffset = new DateTime(DateTime.Now.Ticks, DateTimeKind.Unspecified);
-                DateTimeOffset nowInVladivostoc = new DateTimeOffset(nowOffset, TimeSpan.FromHours(8));
-
-                Console.WriteLine(nowOffset);
-                Console.WriteLine(nowInVladivostoc);
-
-                TimeZoneInfo infoLocal = TimeZoneInfo.Local;
-
-                Console.WriteLine((infoLocal.SupportsDaylightSavingTime ? "Ooh, dude" : ";D"));
-            }
         }
 
-        class FixedDataHolder<T> : IDisposable
+        public static void WorkWithDateCulture()
         {
-            T[] _data;
 
-            public FixedDataHolder(int size)
+            FileInfo file = new FileInfo("SavingDate.txt");
+            if (!file.Exists)
             {
-                _data = new T[size];
+                file.Create();
             }
 
-            public FixedDataHolder()
+            using (var fileWriter = new StreamWriter("SavingDate.txt"))
             {
-                _data = new T[12];
+                fileWriter.WriteLine(DateTime.Now.ToString(), CultureInfo.CurrentCulture);
+            }
+            string SavingDate;
+            using (var fileReader = new StreamReader("SavingDate.txt"))
+            {
+                SavingDate = fileReader.ReadLine();
             }
 
-            public T this[int index]
-            {
-                get
-                {
-                    if (index < _data.Length && index >= 0)
-                        return _data[index];
-                    else
-                        return default;
-                }
-
-                set
-                {
-                    if (index < _data.Length && index >= 0)
-                        _data[index] = value;
-                }
-            }
-
-            public void PrintIf(Func<T, bool> predicate)
-            {
-                foreach (var val in _data)
-                {
-                    if (predicate(val)) Console.WriteLine(val);
-                }
-            }
-
-            public void Dispose()
-            {
-                for (int i = 0; i < _data.Length; i++)
-                    _data[i] = default;
-
-                _data = null;
-                Console.WriteLine("Data Holder Disposed");
-            }
+            DateTime newDate = DateTime.Parse(SavingDate, CultureInfo.InvariantCulture);
+            Console.WriteLine($"Current culture: {newDate.ToString(CultureInfo.CurrentCulture)}");
+            Console.WriteLine($"Usa culture: {newDate.ToString(CultureInfo.GetCultureInfo("en-us"))}");
+            Console.WriteLine($"Chinese culture: {newDate.ToString(CultureInfo.GetCultureInfo("cn-CN"))}");
         }
 
-        class OneValueHolder<T> where T : new()
+        public static void WorkWithDateTime()
         {
-            public T Value;
+            var timeSpan = new TimeSpan(365, 0, 0, 0);
+            Console.WriteLine($"There will be {DateTime.Now.Add(timeSpan).DayOfYear} day of year after {timeSpan.Days} days");
 
-            public OneValueHolder(T v)
-            {
-                Value = v;
-            }
+            DateTime Offset = new DateTime(DateTime.Now.Ticks, DateTimeKind.Unspecified);
 
-            public OneValueHolder() : this(new T()) { }
+            DateTimeOffset nowOffset = new DateTimeOffset(Offset, TimeSpan.FromHours(3));
 
-            ~OneValueHolder()
-            {
-                Console.WriteLine($"Finalizer called for {Value} value");
-                Value = default;
-            }
+            Console.WriteLine(Offset);
+            Console.WriteLine(nowOffset);
+
+            TimeZoneInfo timeZone = TimeZoneInfo.Local;
+
+            Console.WriteLine(timeZone.IsDaylightSavingTime(DateTime.Now) ?
+                         timeZone.DaylightName : timeZone.StandardName);
         }
     }
-}
+
+    class PetOwner : IDisposable
+    {
+        public string Name { get; set; }
+        List<Pet> Pets { get; set; }
+
+        public PetOwner()
+        {
+            Pets = new List<Pet>();
+        }
+
+        public PetOwner(string name, Pet pet)
+        {
+            Name = name;
+            Pets = new List<Pet>();
+            Pets.Add(pet);
+        }
+        public void AddPet(Pet pet)
+        {
+            Pets.Add(pet);
+        }
+
+        public void Dispose()
+        {
+            for (int i = 0; i < Pets.Count; i++)
+                Pets[i] = default;
+            Pets = null;
+            Name = default;
+            Console.WriteLine("PetOwner is disposed!");
+        }
+    }
+
+    public class Pet
+    {
+        public string Name { get; set; }
+        public string Category { get; set; }
+
+        public Pet()
+        {
+
+        }
+        public Pet(string name, string category)
+        {
+            Name = name;
+            Category = category;
+        }
+        ~Pet()
+        {
+            Name = default;
+            Category = default;
+        }
     }
 }
