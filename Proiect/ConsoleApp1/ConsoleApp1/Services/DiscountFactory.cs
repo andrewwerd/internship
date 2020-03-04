@@ -5,7 +5,7 @@ namespace Proiect.Services
 {
     class DiscountFactory
     {
-        public static void Create(Partner partner, decimal accumulationPercent, decimal discountPercent)
+        public void Create(Partner partner, double accumulationPercent, double discountPercent)
         {
             var discount = new Discount();
 

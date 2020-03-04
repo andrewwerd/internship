@@ -23,8 +23,9 @@ namespace Proiect.Services
             customer.PreferPartners = new List<Partner>();
 
             customer.Discounts = new List<CurrentDiscount>();
+            customer.Notifications = new List<Notification>();
 
-           Repository<Customer>.Instance.Add(customer);
+            Repository<Customer>.Instance.Add(customer);
         }
     }
 }

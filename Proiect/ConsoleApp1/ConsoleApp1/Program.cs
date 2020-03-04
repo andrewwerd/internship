@@ -10,7 +10,7 @@ namespace Proiect
     {
         static void Main(string[] args)
         {
-            ServiceLocator.Register<CurrentDiscountService>();
+           // ServiceLocator.Register<CurrentDiscountService>();
             ServiceLocator.Register<PartnerService, IPartnerService>();
 
             var Partners = Repository<Partner>.Instance;

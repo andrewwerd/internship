@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Proiect.Services;
+using System;
 using System.Collections.Generic;
 
 namespace Proiect.Models
 {
-    public class Customer : User
+    public class Customer : User, IObserver
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -28,5 +29,11 @@ namespace Proiect.Models
         public List<Transaction> TransactionsHistory;
         public List<Partner> PreferPartners;
         public List<CurrentDiscount> Discounts;
+        public List<Notification> Notifications;
+
+        public void Update(ISubject subject)
+        {
+            Notifications.Add(PartnerService.FreshNews(subject as Partner));
+        }
     }
 }

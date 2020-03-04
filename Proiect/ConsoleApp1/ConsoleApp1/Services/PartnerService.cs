@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Linq;
 using Proiect.Models;
 using Proiect.Repository;
 
 namespace Proiect.Services
 {
-    internal class PartnerService : IPartnerService: ISubject
+    class PartnerService : IPartnerService
     {
         public void GetDiscount(CurrentDiscount discount)
         {
@@ -12,22 +13,15 @@ namespace Proiect.Services
             var level = partner.Levels.FindLastIndex(x => x < discount.Balance);
             discount.Discount = partner.Discounts[level];
         }
-
-        public void Attach(IObserver observer)
+        public static Notification FreshNews(Partner partner)
         {
-            this._observers.Add(observer);
-        }
-        public void Detach(IObserver observer)
-        {
-            this._observers.Remove(observer);        
-        }
-        public void Notify()
-        {
-            foreach (var observer in _observers)
-            {
-                observer.Update(this);
-            }
+            var notification = new Notification();
+            var news = partner.News.Last();
+            notification.Author = partner.Name;
+            notification.DateTime = news.Date;
+            notification.Text = news.ShortDescription;
+            notification.Title = news.Title;
+            return notification;
         }
     }
-
 }

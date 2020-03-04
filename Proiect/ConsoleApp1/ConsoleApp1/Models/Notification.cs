@@ -4,9 +4,9 @@ namespace Proiect.Models
 {
     public class Notification
     {
-        string Title;
-        DateTime DateTime;
-        string Text;
-        string Author;
+        public string Title;
+        public DateTime DateTime;
+        public string Text;
+        public string Author;
     }
 }

@@ -195,7 +195,7 @@ namespace ConsoleApp1
                             catch (InitException ex)
                             {
                                 Console.WriteLine(ex.StackTrace);
-                                throw;
+                                throw new Exception("some message", ex);
                             }
                             break;
                         }

@@ -38,7 +38,8 @@ namespace ConsoleApp1
                 Owners.GetAll()
                 .SelectMany(owner => owner.Cars, (owner, car) => new { Owner = owner, Car = car.Name })
                 .Where(ownerWithCar => ownerWithCar.Car == "Nissan")
-                .Select(z => z.Owner);
+                .Select(z => z.Owner)
+                .Distinct();
 
             foreach (var item in result)
             {

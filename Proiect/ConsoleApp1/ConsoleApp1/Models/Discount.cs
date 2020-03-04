@@ -7,7 +7,7 @@ namespace Proiect.Models
     public class Discount: Entity
     {
         public Guid PartnerId;
-        public decimal AccumulationPercent;
-        public decimal DiscountPercent;
+        public double AccumulationPercent;
+        public double DiscountPercent;
     }
 }
