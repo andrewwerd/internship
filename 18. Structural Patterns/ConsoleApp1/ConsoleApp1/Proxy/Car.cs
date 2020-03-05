@@ -62,3 +62,4 @@ namespace ConsoleApp1.Proxy
             return $"Car ID:{ID}\n\tName: {Name}, Category: {Category}, Age: {Age} years, Max Speed: {MaxSpeed}, Power: {Power}";
         }
     }
+}

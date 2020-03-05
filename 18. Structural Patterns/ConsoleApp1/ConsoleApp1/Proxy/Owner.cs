@@ -4,11 +4,16 @@ using System.Text;
 
 namespace ConsoleApp1.Proxy
 {
-    public class Owner : Entity
+    public class Owner : Entity, IAccess
     {
         public string Name { get; set; }
         public string Gender { get; set; }
         public int Age { get; set; }
+        public string Access
+        {
+            get => "Owner";
+        }
+
         public List<Car> Cars { get; set; }
         public Owner() { }
         public Owner(string name, string gender, int age)
