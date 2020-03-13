@@ -6,8 +6,9 @@ namespace ConsoleApp1
 {
     public class Car : Entity
     {
-        public Owner Owner { get; set; }
+        public Owner Owner { get; set; } 
         public string Name { get; set; }
+
         private string _category;
         public string Category
         {

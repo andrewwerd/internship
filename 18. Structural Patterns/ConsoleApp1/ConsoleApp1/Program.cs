@@ -23,10 +23,6 @@ namespace ConsoleApp1
             #endregion
         }
 
-
-
-
-
         static void InitialzeRepository(out Repository<Owner> Owners, out Repository<Car> Cars)
         {
             Owners = new Repository<Owner>();

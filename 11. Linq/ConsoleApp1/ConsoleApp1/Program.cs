@@ -33,7 +33,12 @@ namespace ConsoleApp1
             Cars.Add(new Car("Volvo", "SimpleCar", 5, 5200, Owners.GetById(4)));
             Cars.Add(new Car("Ford", "SUV", 5, 8650, Owners.GetById(0)));
 
-
+            foreach (var item in Cars.GetAll())
+            {
+                var current = Owners.GetById(item.Owner.ID);
+                current.Cars.Add(item);
+            }
+             
             var result =
                 Owners.GetAll()
                 .SelectMany(owner => owner.Cars, (owner, car) => new { Owner = owner, Car = car.Name })
@@ -41,9 +46,20 @@ namespace ConsoleApp1
                 .Select(z => z.Owner)
                 .Distinct();
 
-            foreach (var item in result)
+            var r1 = Owners.GetAll()
+                .GroupJoin(Cars._context,
+                owner => owner,
+                car => car.Owner,
+                (owner, car) =>
+                new { Owner = owner, Car = car });
+
+            foreach (var item in r1)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine(item.Owner);
+                foreach (var i1 in item.Car)
+                {
+                    Console.WriteLine(i1);
+                }
             }
 
             Console.WriteLine();
@@ -55,6 +71,7 @@ namespace ConsoleApp1
             {
                 Console.WriteLine(item.ToString());
             }
+            
         }
     }
 }
