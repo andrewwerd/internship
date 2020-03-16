@@ -36,6 +36,25 @@ WHERE OrderId = [Order].Id;
 
 go
 
+with test_uu(Country,InCountry,OutCountry) as
+(
+select t1.Country, Sum(InCountry) as InCountry, sum(OutCountry) as OutCountry
+from
+(
+	select 
+		Country, 
+		(select Count(OriginCountry) from OrderInfo where OriginCountry = Customer.Country and CustomerId = Customer.Id)as InCountry, 
+		(select Count(OriginCountry) from OrderInfo where OriginCountry != Customer.Country and CustomerId = Customer.Id) as OutCountry 
+	from Customer
+) t1 
+group by Country
+)
+
+
+
+select Country, InCountry, OutCountry from test_uu
+where OutCountry > ( select Avg(OutCountry) from test_uu)
+
 select Country, Sum(InCountry) as InCountry, sum(OutCountry) as OutCountry
 from
 (

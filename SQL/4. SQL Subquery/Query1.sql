@@ -76,3 +76,9 @@ go
 select First_Name, monthly_discount, pack_id from customers
 where monthly_discount < (select avg(monthly_discount) from customers) 
 and pack_id = (select pack_id from customers where First_Name = 'Kevin')
+
+
+go
+
+select First_Name from customers
+where pack_id in ((select pack_id from packages where year(strt_date) between 2008 and 2010))
