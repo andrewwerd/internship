@@ -19,9 +19,9 @@ create table Customers(
 	Age int null,
 	DateOfBirth date not null,
 	Gender nvarchar(10) not null,
-	Foto varbinary(max) null,
+	FotoId uniqueidentifier,
 	DateOfRegistration date default getdate() not null,
-	IsPremium int default 0 check (IsPremium = 0 or IsPremium = 1),
+	IsPremium bit default 0,
 	UserId int unique not null
 	foreign key (UserId) references Users(Id) on delete cascade
 )
