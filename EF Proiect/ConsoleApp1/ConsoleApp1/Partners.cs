@@ -7,33 +7,32 @@ namespace ConsoleApp1
     {
         public Partners()
         {
-            BirthdayDiscount = new HashSet<BirthdayDiscount>();
+            CustomersBalance = new HashSet<CustomersBalance>();
             FavoritePartners = new HashSet<FavoritePartners>();
             Filials = new HashSet<Filials>();
             News = new HashSet<News>();
-            PremiumCustomers = new HashSet<PremiumCustomers>();
             PremiumDiscount = new HashSet<PremiumDiscount>();
-            Rewiews = new HashSet<Rewiews>();
+            Reviews = new HashSet<Reviews>();
             StandartDiscount = new HashSet<StandartDiscount>();
         }
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Category { get; set; }
         public decimal Rating { get; set; }
         public string Description { get; set; }
         public byte[] Logo { get; set; }
         public DateTime DateOfRegistration { get; set; }
-        public int UserId { get; set; }
+        public decimal? BirthdayDiscount { get; set; }
+        public long UserId { get; set; }
 
         public virtual Users User { get; set; }
-        public virtual ICollection<BirthdayDiscount> BirthdayDiscount { get; set; }
+        public virtual ICollection<CustomersBalance> CustomersBalance { get; set; }
         public virtual ICollection<FavoritePartners> FavoritePartners { get; set; }
         public virtual ICollection<Filials> Filials { get; set; }
         public virtual ICollection<News> News { get; set; }
-        public virtual ICollection<PremiumCustomers> PremiumCustomers { get; set; }
         public virtual ICollection<PremiumDiscount> PremiumDiscount { get; set; }
-        public virtual ICollection<Rewiews> Rewiews { get; set; }
+        public virtual ICollection<Reviews> Reviews { get; set; }
         public virtual ICollection<StandartDiscount> StandartDiscount { get; set; }
     }
 }

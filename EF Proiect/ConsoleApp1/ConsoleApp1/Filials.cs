@@ -10,8 +10,8 @@ namespace ConsoleApp1
             TransactionHistory = new HashSet<TransactionHistory>();
         }
 
-        public int Id { get; set; }
-        public int PartnerId { get; set; }
+        public long Id { get; set; }
+        public long PartnerId { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
 

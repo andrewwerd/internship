@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace ConsoleApp1
+namespace dbCard.Domain
 {
-    public partial class StandartDiscount
+    public class StandartDiscount:Entity<long>
     {
-        public long Id { get; set; }
         public decimal AmountOfDiscount { get; set; }
         public decimal DiscountPercent { get; set; }
         public long PartnerId { get; set; }
-
-        public virtual Partners Partner { get; set; }
+        public virtual Partner Partner { get; set; }
     }
 }

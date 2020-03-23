@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace ConsoleApp1
+namespace dbCard.Domain
 {
-    public partial class News
+    public class News : Entity<long>
     {
-        public long Id { get; set; }
-        public long PartnerId { get; set; }
-        public byte[] Foto { get; set; }
+        public string Image { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
         public string ShortBody { get; set; }
         public DateTime DateOfCreation { get; set; }
-
-        public virtual Partners Partner { get; set; }
+        public long PartnerId { get; set; }
+        public virtual Partner Partner { get; set; }
     }
 }

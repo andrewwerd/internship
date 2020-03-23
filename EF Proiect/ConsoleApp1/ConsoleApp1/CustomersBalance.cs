@@ -5,12 +5,15 @@ namespace ConsoleApp1
 {
     public partial class CustomersBalance
     {
-        public int Id { get; set; }
-        public int CustomerId { get; set; }
-        public int DiscountId { get; set; }
-        public decimal Amount { get; set; }
+        public long Id { get; set; }
+        public long CustomerId { get; set; }
+        public long PartnerId { get; set; }
+        public decimal? PaidAmount { get; set; }
+        public decimal? AccumulatedAmount { get; set; }
+        public bool IsPremium { get; set; }
+        public DateTime? ResetDate { get; set; }
 
         public virtual Customers Customer { get; set; }
-        public virtual PremiumDiscount Discount { get; set; }
+        public virtual Partners Partner { get; set; }
     }
 }

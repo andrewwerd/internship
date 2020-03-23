@@ -5,7 +5,7 @@ namespace ConsoleApp1
 {
     public partial class TransactionHistory
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string PartnerName { get; set; }
         public string FilialAddress { get; set; }
         public string Category { get; set; }
@@ -13,8 +13,8 @@ namespace ConsoleApp1
         public decimal AmountForPay { get; set; }
         public decimal DiscountAmount { get; set; }
         public decimal? AccumulationAmount { get; set; }
-        public int CustomerId { get; set; }
-        public int FilialId { get; set; }
+        public long CustomerId { get; set; }
+        public long FilialId { get; set; }
 
         public virtual Customers Customer { get; set; }
         public virtual Filials Filial { get; set; }
