@@ -1,9 +1,6 @@
 ﻿using dbCard.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace dbCard.Domain.EFConfiguration
 {
@@ -14,7 +11,6 @@ namespace dbCard.Domain.EFConfiguration
             builder.ToTable("Customers");
 
             builder.HasIndex(e => e.UserId)
-                 .HasName("UQ__Customer__1788CC4D4F091CB7")
                  .IsUnique();
 
             builder.Property(e => e.DateOfBirth).HasColumnType("date");
@@ -37,8 +33,7 @@ namespace dbCard.Domain.EFConfiguration
 
             builder.HasOne(d => d.User)
                 .WithOne(p => p.Customer)
-                .HasForeignKey<Customer>(d => d.UserId)
-                .HasConstraintName("FK__Customers__UserI__45F365D3");
+                .HasForeignKey<Customer>(d => d.UserId);
         }
     }
 }

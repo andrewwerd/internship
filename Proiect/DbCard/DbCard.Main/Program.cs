@@ -9,6 +9,8 @@ namespace dbCard.Main
     {
         static void Main(string[] args)
         {
+            dbCardContextSettings.Create();
+
             using (var db = new dbCardContext())
             {
                 var users = db.Users.ToList();

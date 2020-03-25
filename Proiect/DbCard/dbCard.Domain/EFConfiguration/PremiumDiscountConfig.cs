@@ -1,7 +1,6 @@
 ﻿using dbCard.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace dbCard.Domain.EFConfiguration
 {
@@ -17,8 +16,7 @@ namespace dbCard.Domain.EFConfiguration
 
             builder.HasOne(d => d.Partner)
                 .WithMany(p => p.PremiumDiscount)
-                .HasForeignKey(d => d.PartnerId)
-                .HasConstraintName("FK__PremiumDi__Partn__75A278F5");
+                .HasForeignKey(d => d.PartnerId);
         }
     }
 }

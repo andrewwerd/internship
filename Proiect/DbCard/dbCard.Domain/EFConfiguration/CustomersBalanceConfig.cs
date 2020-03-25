@@ -1,9 +1,6 @@
 ﻿using dbCard.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace dbCard.Domain.EFConfiguration
 {
@@ -19,14 +16,12 @@ namespace dbCard.Domain.EFConfiguration
 
             builder.HasOne(d => d.Customer)
                 .WithMany(p => p.CustomersBalances)
-                .HasForeignKey(d => d.CustomerId)
-                .HasConstraintName("FK__Customers__Custo__46E78A0C");
+                .HasForeignKey(d => d.CustomerId);
 
             builder.HasOne(d => d.Partner)
                 .WithMany(p => p.CustomersBalances)
                 .HasForeignKey(d => d.PartnerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Customers__Partn__2EDAF651");
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }

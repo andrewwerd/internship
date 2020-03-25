@@ -1,7 +1,6 @@
 ﻿using dbCard.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace dbCard.Domain.EFConfiguration
 {
@@ -16,8 +15,7 @@ namespace dbCard.Domain.EFConfiguration
             builder.HasOne(d => d.Partner)
                 .WithMany(p => p.StandartDiscounts)
                 .HasForeignKey(d => d.PartnerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__StandartD__Partn__797309D9");
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }

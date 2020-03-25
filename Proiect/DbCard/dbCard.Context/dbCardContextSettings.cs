@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace dbCard.Context
 {
@@ -9,7 +10,7 @@ namespace dbCard.Context
         public static void Create()
         {
             var configBuilder = new ConfigurationBuilder()
-              .AddJsonFile("appsettings.json", true);
+                .AddJsonFile("appsettings.json", true);
             ConfigurationRoot = configBuilder.Build();
         }
     }
