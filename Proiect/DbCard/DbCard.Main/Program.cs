@@ -12,9 +12,10 @@ namespace dbCard.Main
             using (var db = new dbCardContext())
             {
                 var users = db.Users.ToList();
-                foreach (var u in users)
+                var customers = db.Customers.ToList();
+                foreach (var u in customers)
                 {
-                    Console.WriteLine($"{u.Id}.{u.UserName} - {u.Password} - {u.Email}");
+                    Console.WriteLine($"{u.Id}-{u.User.UserName}");
                 }
             }
             Console.Read();

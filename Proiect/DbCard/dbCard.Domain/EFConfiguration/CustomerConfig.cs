@@ -35,10 +35,10 @@ namespace dbCard.Domain.EFConfiguration
                 .IsRequired()
                 .HasMaxLength(40);
 
-            //builder.HasOne(d => d.User)
-            //    .WithOne(p => p.Customer)
-            //    .HasForeignKey<Customer>(d => d.UserId)
-            //    .HasConstraintName("FK__Customers__UserI__45F365D3");
+            builder.HasOne(d => d.User)
+                .WithOne(p => p.Customer)
+                .HasForeignKey<Customer>(d => d.UserId)
+                .HasConstraintName("FK__Customers__UserI__45F365D3");
         }
     }
 }

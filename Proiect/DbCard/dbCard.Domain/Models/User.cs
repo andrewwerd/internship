@@ -5,16 +5,15 @@ using System.Text;
 
 namespace dbCard.Domain.Models
 {
-    public abstract class User //: Entity<long>
-    {
-        public long Id { get; set; }
+    public class User : Entity<long>
+    { 
         [Required]
         public string UserName { get;set; }
         [Required]
         public string Email { get;set; }
         [Required]
         public string Password { get;set; }
-        public virtual Customer Customers { get; set; }
-        public virtual Partner Partners { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Partner Partner { get; set; }
     }
 }

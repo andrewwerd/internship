@@ -9,7 +9,7 @@ namespace ConsoleApp1
         {
             using(var db = new dbCardContext())
             {
-                var users = db.Users.ToList();
+                var users = db.Customers.ToList();
 
                 foreach(var i in users)
                     Console.WriteLine($"{i.Id}");

@@ -2,7 +2,7 @@
 
 namespace dbCard.Context
 {
-    public class dbCardSettings
+    public class dbCardContextSettings
     {
         public static IConfigurationRoot ConfigurationRoot { get; set; }
 

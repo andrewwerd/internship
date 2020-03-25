@@ -7,7 +7,6 @@ namespace dbCard.Domain.Models
 {
     public class Customer : Entity<long>
     {
-        [ForeignKey(nameof(User))]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
@@ -19,7 +18,7 @@ namespace dbCard.Domain.Models
         public DateTime DateOfBirth { get; set; }
         public DateTime DateOfRegistration { get; set; }
         public long UserId { get; set; }
-//        public virtual User User { get; set; }
+        public virtual User User { get; set; }
         public virtual List<Transaction> Transactions { get; set; }
 
         public virtual List<Partner> PreferPartners { get; set; }
