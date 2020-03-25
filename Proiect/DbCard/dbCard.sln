@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dbCard.Domain", "dbCard.Dom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dbCard.Context", "dbCard.Context\dbCard.Context.csproj", "{0F60C381-A4A9-4951-9586-4595045B8F24}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dbCard.Domain.EFConfiguration", "dbCard.Domain.EFConfiguration\dbCard.Domain.EFConfiguration.csproj", "{DF394E0B-F927-441B-8723-1415BE67B9D6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbCard.Main", "DbCard.Main\DbCard.Main.csproj", "{13535722-A25C-4851-B4B5-EC544AECE47E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dbCard.Main", "DbCard.Main\dbCard.Main.csproj", "{13535722-A25C-4851-B4B5-EC544AECE47E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{0F60C381-A4A9-4951-9586-4595045B8F24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F60C381-A4A9-4951-9586-4595045B8F24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F60C381-A4A9-4951-9586-4595045B8F24}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF394E0B-F927-441B-8723-1415BE67B9D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF394E0B-F927-441B-8723-1415BE67B9D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF394E0B-F927-441B-8723-1415BE67B9D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF394E0B-F927-441B-8723-1415BE67B9D6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{13535722-A25C-4851-B4B5-EC544AECE47E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13535722-A25C-4851-B4B5-EC544AECE47E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13535722-A25C-4851-B4B5-EC544AECE47E}.Release|Any CPU.ActiveCfg = Release|Any CPU

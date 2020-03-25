@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace dbCard.Domain
+namespace dbCard.Domain.Models
 {
     public class Filial : Entity<long>
     {

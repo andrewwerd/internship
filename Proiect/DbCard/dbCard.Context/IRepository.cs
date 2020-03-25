@@ -1,4 +1,4 @@
-﻿using dbCard.Domain;
+﻿using dbCard.Domain.Models;
 using System;
 using System.Collections.Generic;
 

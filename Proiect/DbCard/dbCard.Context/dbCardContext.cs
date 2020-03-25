@@ -1,6 +1,6 @@
 ﻿using System;
 using dbCard.Domain.EFConfiguration;
-using dbCard.Domain;
+using dbCard.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -18,17 +18,11 @@ namespace dbCard.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
-        public dbCardContext()
-        {
-        }
-        public dbCardContext(DbContextOptions<dbCardContext> options) : base(options)
-        {
-        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString =  dbCardSettings.ConfigurationRoot.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseSqlServer(connectionString);
+            //var connectionString = dbCardSettings.ConfigurationRoot.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseSqlServer(@"Server = (localdb)\MSSQLLocalDB;Database = dbCard;Trusted_Connection=True;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,7 +35,29 @@ namespace dbCard.Context
             modelBuilder.ApplyConfiguration(new ReviewConfig());
             modelBuilder.ApplyConfiguration(new StandartDiscountConfig());
             modelBuilder.ApplyConfiguration(new TransactionConfig());
-            modelBuilder.ApplyConfiguration(new UserConfig());
+            //modelBuilder.ApplyConfiguration(new UserConfig());
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasIndex(e => e.Email)
+                    .HasName("UQ__Users__A9D10534FDB9EF62")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.UserName)
+                    .HasName("UQ__Users__C9F2845668362305")
+                    .IsUnique();
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(40);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(20);
+            });
 
         }
     }

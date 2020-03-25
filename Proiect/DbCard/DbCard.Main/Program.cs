@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
-using dbCard.Domain;
 using dbCard.Context;
 
 
-namespace Proiect
+namespace dbCard.Main
 {
     class Program
     {
@@ -15,7 +14,7 @@ namespace Proiect
                 var users = db.Users.ToList();
                 foreach (var u in users)
                 {
-                    Console.WriteLine($"{u.Id}.{u.UserName} - {u.Password}-{u.Email}");
+                    Console.WriteLine($"{u.Id}.{u.UserName} - {u.Password} - {u.Email}");
                 }
             }
             Console.Read();

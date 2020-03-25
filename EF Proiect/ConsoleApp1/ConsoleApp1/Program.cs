@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ConsoleApp1
 {
@@ -6,7 +7,13 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            using(var db = new dbCardContext())
+            {
+                var users = db.Users.ToList();
+
+                foreach(var i in users)
+                    Console.WriteLine($"{i.Id}");
+            }
         }
     }
 }

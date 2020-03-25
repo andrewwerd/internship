@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace dbCard.Domain
+namespace dbCard.Domain.Models
 {
-    public class Partner : User
+    public class Partner : Entity<long>
     {
+        [ForeignKey(nameof(User))]
         public string Name { get; set; }
         public string Logo { get; set; }
         public string Category { get; set; }
@@ -12,8 +15,8 @@ namespace dbCard.Domain
         public string Description { get; set; }
         public decimal BirthdayDiscount { get; set; }
         public DateTime DateOfRegistration { get; set; }
-        public long UserId { get; set; }
-        public virtual User User { get; set; }
+        //public long UserId { get; set; }
+        //public virtual User User { get; set; }
         public virtual List<StandartDiscount> StandartDiscounts { get; set; }
         public virtual List<CustomersBalance> CustomersBalances { get; set; }
         public virtual List<PremiumDiscount> PremiumDiscount { get; set; }

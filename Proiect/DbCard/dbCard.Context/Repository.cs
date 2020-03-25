@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using dbCard.Domain;
+using dbCard.Domain.Models;
 
 namespace dbCard.Context
 {

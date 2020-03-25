@@ -1,4 +1,4 @@
-﻿namespace dbCard.Domain
+﻿namespace dbCard.Domain.Models
 {
     public class PremiumDiscount : Entity<long>
     {

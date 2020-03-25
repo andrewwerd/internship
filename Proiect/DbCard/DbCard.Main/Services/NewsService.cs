@@ -1,9 +1,9 @@
-﻿using System;
-using Proiect.Models;
+﻿//using System;
+//using Proiect.Models;
 
-namespace Proiect.Services
-{
-    class NewsService
-    {
-    }
-}
+//namespace Proiect.Services
+//{
+//    class NewsService
+//    {
+//    }
+//}
