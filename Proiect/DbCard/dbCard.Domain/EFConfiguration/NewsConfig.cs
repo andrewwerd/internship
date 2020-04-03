@@ -8,6 +8,8 @@ namespace dbCard.Domain.EFConfiguration
     {
         public void Configure(EntityTypeBuilder<News> builder)
         {
+            builder.Property(b => b.RowVersion)
+                .IsRowVersion();
             builder.Property(e => e.Body)
                     .IsRequired()
                     .HasMaxLength(4000);
@@ -25,7 +27,7 @@ namespace dbCard.Domain.EFConfiguration
             builder.HasOne(d => d.Partner)
                 .WithMany(p => p.News)
                 .HasForeignKey(d => d.PartnerId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

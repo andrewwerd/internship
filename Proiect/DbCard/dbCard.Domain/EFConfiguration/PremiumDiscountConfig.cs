@@ -8,6 +8,8 @@ namespace dbCard.Domain.EFConfiguration
     {
         public void Configure(EntityTypeBuilder<PremiumDiscount> builder)
         {
+            builder.Property(b => b.RowVersion)
+                .IsRowVersion();
             builder.Property(e => e.AccumulationPercent).HasColumnType("decimal(2, 2)");
 
             builder.Property(e => e.DiscountPercent).HasColumnType("decimal(2, 2)");
@@ -16,7 +18,8 @@ namespace dbCard.Domain.EFConfiguration
 
             builder.HasOne(d => d.Partner)
                 .WithMany(p => p.PremiumDiscount)
-                .HasForeignKey(d => d.PartnerId);
+                .HasForeignKey(d => d.PartnerId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

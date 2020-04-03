@@ -8,12 +8,10 @@ namespace dbCard.Domain.EFConfiguration
     {
         public void Configure(EntityTypeBuilder<Filial> builder)
         {
+            builder.Property(b => b.RowVersion)
+                .IsRowVersion();
             builder.HasIndex(e => e.PhoneNumber)
                      .IsUnique();
-
-            builder.Property(e => e.Address)
-                .IsRequired()
-                .HasMaxLength(40);
 
             builder.Property(e => e.PhoneNumber)
                 .IsRequired()
@@ -22,7 +20,7 @@ namespace dbCard.Domain.EFConfiguration
             builder.HasOne(d => d.Partner)
                 .WithMany(p => p.Filials)
                 .HasForeignKey(d => d.PartnerId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

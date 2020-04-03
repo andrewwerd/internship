@@ -20,5 +20,6 @@ namespace dbCard.Domain.Models
         public virtual List<Filial> Filials { get; set; }
         public virtual List<News> News { get; set; }
         public virtual List<Review> Reviews { get; set; }
+        public virtual List<FavoritePartners> MyCustomers { get; set; }
     }
 }

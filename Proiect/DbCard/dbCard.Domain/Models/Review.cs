@@ -12,11 +12,11 @@ namespace dbCard.Domain.Models
         public int NumbersOfDislike { get; set; }
         public DateTime Date { get; set; }
         public long? AnswerReview { get; set; }
-        public long PartnerId { get; set; }
+        public long? PartnerId { get; set; }
         public long CustomerId{ get; set; }
         public virtual List<Review> InverseAnswerReviewNavigation { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Partner Partner { get; set; }
-        public Review AnswerReviewNavigation { get; set; }
+        public virtual Review AnswerReviewNavigation { get; set; }
     }
 }

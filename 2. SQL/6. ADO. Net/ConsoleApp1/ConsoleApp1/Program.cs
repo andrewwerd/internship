@@ -38,31 +38,31 @@ namespace ConsoleApp1
                 DataTable customersTable = dataSet.Tables["Customers"];
                 DataTable ordersTable = dataSet.Tables["Orders"];
 
-                //customersTable.AddNewCustomer("John", "Doe");
-                //customersTable.AddNewCustomer("Joshua", "Brooks");
-                //customersTable.AddNewCustomer("Jane", "Arnold");
-                //customersTable.AddNewCustomer("Patricia", "Burns");
-                //customersTable.AddNewCustomer("Sabrina", "McBride");
-                //customersTable.AddNewCustomer("Gordon", "Moody");
-                //customersTable.AddNewCustomer("Tyrone", "Moody");
+                customersTable.AddNewCustomer("John", "Doe");
+                customersTable.AddNewCustomer("Joshua", "Brooks");
+                customersTable.AddNewCustomer("Jane", "Arnold");
+                customersTable.AddNewCustomer("Patricia", "Burns");
+                customersTable.AddNewCustomer("Sabrina", "McBride");
+                customersTable.AddNewCustomer("Gordon", "Moody");
+                customersTable.AddNewCustomer("Tyrone", "Moody");
 
-                //ordersTable.AddNewOrder("Apples", 25, 2, 1);
-                //ordersTable.AddNewOrder("Smartphone", 2000, 1, 1);
-                //ordersTable.AddNewOrder("Marshmallows", 30, 10, 1);
-                //ordersTable.AddNewOrder("Cake", 100, 6, 3);
-                //ordersTable.AddNewOrder("Pie", 25, 2, 7);
-                //ordersTable.AddNewOrder("Apples", 25, 13, 5);
-                //ordersTable.AddNewOrder("Smartphone", 3000, 2, 4);
-                //ordersTable.AddNewOrder("Cheese", 34, 8, 3);
-                //ordersTable.AddNewOrder("Cola", 20, 5, 2);
-                //ordersTable.AddNewOrder("Dress", 300, 1, 3);
+                ordersTable.AddNewOrder("Apples", 25, 2, 1);
+                ordersTable.AddNewOrder("Smartphone", 2000, 1, 1);
+                ordersTable.AddNewOrder("Marshmallows", 30, 10, 1);
+                ordersTable.AddNewOrder("Cake", 100, 6, 3);
+                ordersTable.AddNewOrder("Pie", 25, 2, 7);
+                ordersTable.AddNewOrder("Apples", 25, 13, 5);
+                ordersTable.AddNewOrder("Smartphone", 3000, 2, 4);
+                ordersTable.AddNewOrder("Cheese", 34, 8, 3);
+                ordersTable.AddNewOrder("Cola", 20, 5, 2);
+                ordersTable.AddNewOrder("Dress", 300, 1, 3);
 
                 //var deleteOrders = ordersTable.AsEnumerable().Where(x => x.Field<int>("CustomerId") == 1);
                 //foreach (var i in deleteOrders) i.Delete();
 
-                var updatingCustomer = customersTable.AsEnumerable().Where(x => x.Field<int>("CustomerId") == 1).FirstOrDefault();
-                updatingCustomer.SetField("First_Name", "Andrew");
-                updatingCustomer.SetField("Last_Name", "Johnson");
+                //var updatingCustomer = customersTable.AsEnumerable().Where(x => x.Field<int>("CustomerId") == 1).FirstOrDefault();
+                //updatingCustomer.SetField("First_Name", "Andrew");
+                //updatingCustomer.SetField("Last_Name", "Johnson");
 
                 customersDataAdapter.Update(customersTable);
                 ordersDataAdapter.Update(ordersTable);

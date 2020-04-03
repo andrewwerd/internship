@@ -1,5 +1,4 @@
-﻿using System;
-using dbCard.Domain.EFConfiguration;
+﻿using dbCard.Domain.EFConfiguration;
 using dbCard.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,14 +17,24 @@ namespace dbCard.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<FavoritePartners> FavoritePartners { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
+        public dbCardContext()
+        {
+        }
+        public dbCardContext(DbContextOptions options) : base(options)
+        {
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = dbCardContextSettings.ConfigurationRoot.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder
+                .UseSqlServer( dbCardContextSettings.ConfigurationRoot.GetConnectionString("DefaultConnection"))
+                .UseLazyLoadingProxies();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new AddressConfig());
             modelBuilder.ApplyConfiguration(new CustomerConfig());
             modelBuilder.ApplyConfiguration(new CustomersBalanceConfig());
             modelBuilder.ApplyConfiguration(new FilialConfig());
@@ -36,6 +45,7 @@ namespace dbCard.Context
             modelBuilder.ApplyConfiguration(new StandartDiscountConfig());
             modelBuilder.ApplyConfiguration(new TransactionConfig());
             modelBuilder.ApplyConfiguration(new UserConfig());
+            modelBuilder.ApplyConfiguration(new FavoritePartnersConfig());
         }
     }
 }

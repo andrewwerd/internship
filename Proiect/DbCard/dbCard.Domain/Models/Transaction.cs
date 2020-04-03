@@ -22,6 +22,6 @@ namespace dbCard.Domain.Models
         public virtual Customer Customer { get; set; }
         public virtual Filial Filial { get; set; }
         public long CustomerId { get; set; }
-        public long FilialId { get; set; }
+        public long? FilialId { get; set; }
     }
 }

@@ -8,6 +8,8 @@ namespace dbCard.Domain.EFConfiguration
     {
         public void Configure(EntityTypeBuilder<Transaction> builder)
         {
+            builder.Property(b => b.RowVersion)
+                .IsRowVersion();
             builder.ToTable("TransactionHistory");
             builder.Property(e => e.AccumulationAmount).HasColumnType("decimal(10, 2)");
 
@@ -32,7 +34,7 @@ namespace dbCard.Domain.EFConfiguration
             builder.HasOne(d => d.Customer)
                 .WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.CustomerId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(d => d.Filial)
                 .WithMany(p => p.Transactions)

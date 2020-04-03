@@ -8,6 +8,8 @@ namespace dbCard.Domain.EFConfiguration
     {
         public void Configure(EntityTypeBuilder<CustomersBalance> builder)
         {
+            builder.Property(b => b.RowVersion)
+                .IsRowVersion();
             builder.Property(e => e.AccumulatedAmount).HasColumnType("decimal(10, 2)");
 
             builder.Property(e => e.PaidAmount).HasColumnType("decimal(10, 2)");
@@ -16,7 +18,8 @@ namespace dbCard.Domain.EFConfiguration
 
             builder.HasOne(d => d.Customer)
                 .WithMany(p => p.CustomersBalances)
-                .HasForeignKey(d => d.CustomerId);
+                .HasForeignKey(d => d.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(d => d.Partner)
                 .WithMany(p => p.CustomersBalances)

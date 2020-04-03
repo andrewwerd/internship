@@ -8,6 +8,8 @@ namespace dbCard.Domain.EFConfiguration
     {
         public void Configure(EntityTypeBuilder<Partner> builder)
         {
+            builder.Property(b => b.RowVersion)
+                .IsRowVersion();
             builder.ToTable("Partners");
 
             builder.HasIndex(e => e.UserId)
@@ -36,7 +38,8 @@ namespace dbCard.Domain.EFConfiguration
 
             builder.HasOne(d => d.User)
                 .WithOne(p => p.Partner)
-                .HasForeignKey<Partner>(d => d.UserId);
+                .HasForeignKey<Partner>(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

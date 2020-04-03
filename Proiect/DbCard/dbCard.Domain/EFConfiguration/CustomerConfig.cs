@@ -1,6 +1,7 @@
 ﻿using dbCard.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace dbCard.Domain.EFConfiguration
 {
@@ -31,9 +32,15 @@ namespace dbCard.Domain.EFConfiguration
                 .IsRequired()
                 .HasMaxLength(40);
 
+            builder.Property(b => b.RowVersion)
+                .IsRowVersion();
+
+            builder.Property(b => b.RowVersion)
+                   .IsRowVersion();
             builder.HasOne(d => d.User)
                 .WithOne(p => p.Customer)
-                .HasForeignKey<Customer>(d => d.UserId);
+                .HasForeignKey<Customer>(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

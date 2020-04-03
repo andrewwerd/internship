@@ -8,6 +8,8 @@ namespace dbCard.Domain.EFConfiguration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.Property(b => b.RowVersion)
+                .IsRowVersion();
             builder.ToTable("Users");
 
             builder.HasIndex(e => e.Email)
