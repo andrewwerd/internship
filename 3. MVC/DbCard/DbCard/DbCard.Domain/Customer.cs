@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace dbCard.Domain.Models
+namespace DbCard.Domain
 {
     public class Customer : Entity<long>
     {

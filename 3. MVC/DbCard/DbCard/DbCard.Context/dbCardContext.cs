@@ -1,11 +1,11 @@
-﻿using dbCard.Domain.EFConfiguration;
-using dbCard.Domain.Models;
+﻿using DbCard.Domain;
+using DbCard.Domain.EFConfiguration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace dbCard.Context
+namespace DbCard.Context
 {
-    public class dbCardContext : DbContext
+    public class DbCardContext : DbContext
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomersBalance> CustomersBalances { get; set; }
@@ -20,18 +20,16 @@ namespace dbCard.Context
         public DbSet<FavoritePartners> FavoritePartners { get; set; }
         public DbSet<Address> Addresses { get; set; }
 
-        public dbCardContext()
+        public DbCardContext()
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
         }
-        public dbCardContext(DbContextOptions options) : base(options)
+        public DbCardContext(DbContextOptions options) : base(options)
         {
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseSqlServer( dbCardContextSettings.ConfigurationRoot.GetConnectionString("DefaultConnection"))
+                .UseSqlServer( DbCardContextSettings.ConfigurationRoot.GetConnectionString("DefaultConnection"))
                 .UseLazyLoadingProxies();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

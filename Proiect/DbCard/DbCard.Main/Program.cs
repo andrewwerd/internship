@@ -14,7 +14,14 @@ namespace dbCard.Main
             dbCardContextSettings.Create();
             using (var db = new dbCardContext())
             {
-                var query = db.Customers.Select(x => new { Customer = x, Amount = x.Transactions.Where(y=>y.AllAmount == x.Transactions.Max(z => z.AllAmount))}).ToList();
+                db.UserInitialization();
+                db.SaveChanges();
+                db.CustomerInitialization();
+                db.SaveChanges();
+                db.PartnerInitialization();
+                db.SaveChanges();
+                db.FilialInitialization();
+                db.SaveChanges();
             }
 
             //    dbCardContextSettings.Create();

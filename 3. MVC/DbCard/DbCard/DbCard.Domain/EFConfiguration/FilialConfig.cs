@@ -1,8 +1,7 @@
-﻿using dbCard.Domain.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace dbCard.Domain.EFConfiguration
+namespace DbCard.Domain.EFConfiguration
 {
     public class FilialConfig : IEntityTypeConfiguration<Filial>
     {
@@ -12,13 +11,13 @@ namespace dbCard.Domain.EFConfiguration
                 .IsRowVersion();
             builder.HasIndex(e => e.PhoneNumber)
                      .IsUnique();
-            builder.Property(x => x.IsMainOffice)
-                .IsRequired()
-                .HasDefaultValue(false);
+
             builder.Property(e => e.PhoneNumber)
                 .IsRequired()
                 .HasMaxLength(15);
-
+            builder.Property(b => b.IsMainOffice)
+                .IsRequired()
+                .HasDefaultValue(false);
             builder.HasOne(d => d.Partner)
                 .WithMany(p => p.Filials)
                 .HasForeignKey(d => d.PartnerId)

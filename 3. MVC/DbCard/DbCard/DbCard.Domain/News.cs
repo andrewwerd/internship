@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace dbCard.Domain.Models
+namespace DbCard.Domain
 {
     public class News : Entity<long>
     {
