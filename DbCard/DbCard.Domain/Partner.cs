@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace dbCard.Domain.Models
+namespace DbCard.Domain
 {
     public class Partner : Entity<long>
     {
