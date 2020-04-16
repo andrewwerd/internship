@@ -12,15 +12,15 @@ namespace DbCard.Infrastructure.Profiles.Partners
     {
         public PartnerProfile()
         {
-            CreateMap<Partner, PartnerDTO>()
+            CreateMap<Partner, PartnerDto>()
                 .ForMember(x => x.Logo, y => y.MapFrom(z => z.Logo));
-            CreateMap<Partner, PartnerForGridDTO>()
+            CreateMap<Partner, PartnerForGrid>()
                 .ForMember(x => x.Logo, e => e.MapFrom(z => z.Logo));
-            CreateMap<Partner, PartnerForRegistrationDTO>()
-                .ForMember(x => x.Logo, e => e.MapFrom(z => z.Logo))
-                .ForMember(x=>x.Filials, e=>e.MapFrom(z=>z.Filials));
+            CreateMap<Partner, PartnerForRegistration>()
+                .ForMember(x => x.Logo, e => e.MapFrom(z => z.Logo));
+                //.ForMember(x=>x.Filials, e=>e.MapFrom(z=>z.Filials));
 
-            CreateMap<Partner, PartnerForUpdateDTO>();
+            CreateMap<Partner, PartnerForUpdate>();
         }
     }
 }

@@ -29,7 +29,7 @@ namespace DbCard.Repository
             return item;
         }
 
-        public async Task<TEntity> DeleteById(long id)
+        public async Task<TEntity> Delete(long id)
         {
             var entity = await _context.Set<TEntity>().FindAsync(id);
             if(entity == null)

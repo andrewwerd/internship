@@ -36,10 +36,10 @@ namespace DbCard.Controllers
             {
                 return NotFound();
             }
-            var partnersDTO = new List<PartnerDTO>();
+            var partnersDTO = new List<PartnerDto>();
             foreach(var i in partners)
             {
-                partnersDTO.Add(_mapper.Map<PartnerDTO>(i));
+                partnersDTO.Add(_mapper.Map<PartnerDto>(i));
             }
             return Ok(partnersDTO);
         }
@@ -53,12 +53,12 @@ namespace DbCard.Controllers
             {
                 return NotFound();
             }
-            var partnerDto = _mapper.Map<PartnerDTO>(partner);
+            var partnerDto = _mapper.Map<PartnerDto>(partner);
             return Ok(partnerDto);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPartner(long id, PartnerForUpdateDTO partnerDto)
+        public async Task<IActionResult> PutPartner(long id, PartnerForUpdate partnerDto)
         {
             var partner = await _repository.GetById(id);
             if(partner == null)
@@ -73,17 +73,17 @@ namespace DbCard.Controllers
         [HttpPost("PaginatedSearch")]
         public async Task<IActionResult> GetPagedPartners([FromBody]PagedRequest pagedRequest)
         {
-            var pagedBooksDto = await _repository.GetPagedData<PartnerDTO>(pagedRequest);
+            var pagedBooksDto = await _repository.GetPagedData<PartnerDto>(pagedRequest);
             return Ok(pagedBooksDto);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePartner(PartnerForRegistrationDTO partnerForUpdateDto)
+        public async Task<IActionResult> CreatePartner(PartnerForRegistration partnerForUpdateDto)
         {
             var partner = _mapper.Map<Partner>(partnerForUpdateDto);
             await _repository.Add(partner);
 
-            var partnerDto = _mapper.Map<PartnerDTO>(partner);
+            var partnerDto = _mapper.Map<PartnerDto>(partner);
 
             return CreatedAtAction(nameof(GetPartner), new { id = partnerDto.Id }, partnerDto);
         }

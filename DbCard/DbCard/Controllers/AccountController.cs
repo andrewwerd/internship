@@ -35,7 +35,7 @@ namespace DbCard.Controllers
         // POST: api/Account
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserForLoginDTO userForLoginDto)
+        public async Task<IActionResult> Login(UserForLogin userForLoginDto)
         {
             var checkingPasswordResult = await _signInManager.PasswordSignInAsync(userForLoginDto.Username, userForLoginDto.Password, false, false);
 

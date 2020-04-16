@@ -27,7 +27,7 @@ namespace DbCard.Services
             var favoritePartner = _favoriteRepo.GetByPredicate(x => x.CustomerId == customerId && x.PartnerId == partnerId);
             await _favoriteRepo.Delete(favoritePartner);
         }
-        public 
+        //public 
 
     }
 }

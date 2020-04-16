@@ -13,7 +13,7 @@ namespace DbCard.Repository
         Task<TEntity> GetById(long id);
         Task<TEntity> GetByIdWithInclude(int id, params Expression<Func<TEntity, object>>[] includeProperties);
         Task<IEnumerable<TEntity>> GetAll();
-        Task<TEntity> DeleteById(long id); 
+        Task<TEntity> Delete(long id); 
         Task<TEntity> Delete(TEntity entity);
         Task<TEntity> Update(TEntity item);
         Task<bool> SaveAll();
