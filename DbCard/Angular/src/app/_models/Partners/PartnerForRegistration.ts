@@ -1,4 +1,4 @@
-import { FilialForAdd } from 'src/app/_models/Filial/FilialForAdd';
+import { FilialForAdd } from '../Filial/FilialForAdd';
 
 export interface PartnerForRegistration{
     Id: number;
