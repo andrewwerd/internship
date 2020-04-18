@@ -13,6 +13,7 @@ import { LoginComponent } from './Login/login.component';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { MatRippleModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -22,14 +23,13 @@ import { MatRippleModule } from '@angular/material/core';
     NotFoundPageComponent
   ],
   imports: [
+    MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
     MatRippleModule,
-    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
