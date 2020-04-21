@@ -1,7 +1,12 @@
 <div id="container" class="container">
+  <div class="Logo">
+    <a href="localhost:4200/about">
+      <img src="/src/assets/img/app_logo.png" alt="Logo">
+    </a>
+  </div>
   <div class="grandParentContaniner">
     <div class="parentContainer">
-      <form class="loginForm" [formGroup]="userLoginForm" (ngSubmit)="login()" >
+      <form novalidate class="loginForm" [formGroup]="userLoginForm" (ngSubmit)="login()" >
         <div>
           <h2>Login to Online Book Shop app</h2>
 

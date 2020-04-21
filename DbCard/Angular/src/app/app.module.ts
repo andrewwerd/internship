@@ -8,8 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 // import { JwtModule } from '@auth0/angular-jwt';
 
-import { NotFoundPageComponent } from './shared/NotFoundPage/NotFoundPage.component';
-import { LoginComponent } from './Login/login.component';
+import { NotFoundPageComponent } from './shared/NotFoundPage/notFoundPage.component';
+import { LoginComponent } from './Login/Login.component';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { MatRippleModule } from '@angular/material/core';
@@ -35,5 +35,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   ],
   providers: [],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }

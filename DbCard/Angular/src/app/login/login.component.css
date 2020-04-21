@@ -1,15 +1,27 @@
 Html, body{
   height:100%;
-    margin:0px;
-    padding:0px;
+  margin:0px;
+  padding:0px;
 }
 
 .container {
   height:100%;
-    margin: 0 auto;
-    padding:0px;
-    position: relative;
-    top: 200px;
+  width: 100%;
+  margin: 0 auto;
+  padding:0px;
+  position: relative;
+  background: url("src/assets/img/login-form-background.png");
+  background-size: 100% 100%;
+  overflow: hidden;
+}
+.Logo{
+  position: absolute;
+  left: 15%;
+}
+.Logo img{
+  height: 65.5px;
+  width: 292.5px;
+border: 0;
 }
 .grandParentContaniner{
         display:table;
