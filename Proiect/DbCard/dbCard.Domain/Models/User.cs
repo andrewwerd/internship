@@ -12,5 +12,6 @@ namespace dbCard.Domain.Models
         public string Password { get;set; }
         public virtual Customer Customer { get; set; }
         public virtual Partner Partner { get; set; }
+        public URole Level { get; set; }
     }
 }

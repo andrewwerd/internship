@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DbCard.Domain;
-using DbCard.Infrastructure.DTO.PartnerDTO;
+using DbCard.Infrastructure.DTO.Partner;
 using System;
 using System.Collections.Generic;
 using System.Linq;

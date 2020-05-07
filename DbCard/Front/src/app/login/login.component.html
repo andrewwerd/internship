@@ -1,0 +1,22 @@
+<div id="container" class="container">
+  <div class="Logo">
+    <a href="localhost:4200/about">
+      <img style="height: 65.5px" src='../../assets/img/app_logo.png' alt="Logo">
+    </a>
+  </div>
+    <div class="loginForm">
+      <form novalidate class="loginForm" [formGroup]="userLoginForm" (ngSubmit)="login()" >
+        <div>
+          <h2>Вход</h2>
+          <mat-form-field style="display: block">
+            <input matInput type="text" placeholder="Логин" formControlName="userName" />
+          </mat-form-field>
+          <mat-form-field style="display: block">
+            <input matInput type="password" placeholder="Пароль" formControlName="password" />
+          </mat-form-field>
+          <button mat-raised-button class="submitBtn" style="color: rgb(83,114,164);">Войти</button>
+          <button mat-basic-button class="registerBtn"><span style="color: rgb(83, 114, 164);font-size: 30px;font-family: Myriad Pro;">Регис</span><span style="">трация</span></button>
+        </div>
+      </form>
+  </div>
+</div>

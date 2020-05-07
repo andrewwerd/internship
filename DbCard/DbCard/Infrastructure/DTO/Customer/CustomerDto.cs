@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DbCard.Infrastructure.DTO.Customer
 {
-    public class CustomerDTO
+    public class CustomerDto
     {
         public IFormFile Avatar { get; set; }
         public long Id { get; set; }

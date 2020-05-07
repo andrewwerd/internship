@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using DbCard.Domain.Auth;
-using DbCard.Infrastructure.DTO.UserDTO;
 using DbCard.Infrastructure.Configuration;
+using DbCard.Infrastructure.DTO.User;
 
 namespace DbCard.Controllers
 {

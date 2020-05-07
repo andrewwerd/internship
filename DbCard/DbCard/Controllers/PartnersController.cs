@@ -9,7 +9,7 @@ using DbCard.Repository;
 using DbCard.Domain;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
-using DbCard.Infrastructure.DTO.PartnerDTO;
+using DbCard.Infrastructure.DTO.Partner;
 using DbCard.Models;
 
 namespace DbCard.Controllers
@@ -58,9 +58,9 @@ namespace DbCard.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPartner(long id, PartnerForUpdate partnerDto)
+        public async Task<IActionResult> PutPartner(PartnerForUpdate partnerDto)
         {
-            var partner = await _repository.GetById(id);
+            var partner = await _repository.GetById(partnerDto.id);
             if(partner == null)
             {
                 return NotFound();

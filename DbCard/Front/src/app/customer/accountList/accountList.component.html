@@ -1,0 +1,21 @@
+<div class="container">
+  <button mat-raised-button class="premiumBtn">Премиум</button>
+  <button mat-raised-button class="standartBtn">Стандарт</button>
+</div>
+<div class="balance-table" infiniteScroll (scrolled)="OnScroll()">
+    <mat-grid-list cols="2" rowHeight="300px">
+        <mat-grid-tile
+            *ngFor="let balance of myDiscounts">
+            <a routerLink="partner/{{discount.PartnerId}}" matTooltip="{{discount.PartnerName}}" style="text-decoration: none;">
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title >
+                      <img [src]="balance.PartnerLogo" style="border-radius: 50%;">
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                </mat-expansion-panel>
+            </a>
+        </mat-grid-tile>
+      </mat-grid-list>
+</div>
+</div>

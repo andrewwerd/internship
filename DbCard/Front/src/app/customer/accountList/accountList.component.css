@@ -1,0 +1,17 @@
+.container{
+  top: 5%;
+  left: 5%;
+  position: absolute;
+}
+.premiumBtn{
+  background-color:  rgb(41, 85, 155);
+  color: white;
+  font-size: x-large;
+  margin: 10px;
+}
+.standartBtn{
+ margin: 10px;
+ font-size: x-large;
+ background-color: #cccc;
+ color: white;
+}

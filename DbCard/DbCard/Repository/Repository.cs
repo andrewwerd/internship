@@ -47,7 +47,7 @@ namespace DbCard.Repository
             return entity;
         }
 
-        public TEntity GetByPredicate(Func<TEntity, bool>p)
+        public TEntity GetByPredicate(Func <TEntity, bool> p)
         {
             return  _context.Set<TEntity>().FirstOrDefault(p);
         }
@@ -62,7 +62,7 @@ namespace DbCard.Repository
             return await _context.Set<TEntity>().FindAsync(id);
         }
 
-        public async Task<TEntity> GetByIdWithInclude(int id, params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<TEntity> GetByIdWithInclude(long id, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var query = IncludeProperties(includeProperties);
             return await query.FirstOrDefaultAsync(entity => entity.Id == id);

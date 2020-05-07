@@ -1,0 +1,79 @@
+<div class="container">
+    <mat-toolbar class="toolbar">
+        <div class="rectangle">
+        <button class ="menu-button" mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        </div>
+        <a routerLink="home" class="logo" >
+            <img src="../../../assets/img/app_logo.png" alt="Logo" style="border: 0px;">
+        </a>
+        <mat-menu #appMenu="matMenu">
+            <button mat-menu-item>Редактировать страницу</button>
+            <button mat-menu-item>Настройки</button>
+            <button mat-menu-item (click)="logout()">Выйти</button>
+          </mat-menu>
+
+          <button  mat-stroked-button class= "app-menu" #matMenuButton [matMenuTriggerFor]="appMenu" style="border: 0px; left: 70%">
+            <ng-container *ngIf="hasAvatar(); else elseTemplate">
+              <img class="avatar" [src]="customer.Avatar">
+            </ng-container>
+            <ng-template #elseTemplate>
+              <i class="material-icons">perm_identity</i>
+            </ng-template>
+            <span style="font-size:18px;  text-align: center;" mat-line>{{customer.FirstName}} {{customer.LastName}}</span>
+                <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+    </mat-toolbar>
+    <mat-sidenav-container class = "app-snav-container" hasBackdrop = false autosize fullscreen>
+        <mat-sidenav class = "mat-snav" #sidenav mode="push"  [opened]= "true">
+            <mat-nav-list class = "mat-list-base">
+                <a  routerLink="home" aria-label="Главная" class="mat-list-item" >
+                        <div mat-ripple>
+                            <div class="mat-list-item-content">
+                                <mat-icon >home</mat-icon>
+                                <span mat-line class="nav-item-text">Главная</span>
+                            </div>
+                    </div>
+                </a>
+                <a  routerLink="accounts" aria-label="Счета" class="mat-list-item">
+                        <div mat-ripple>
+                            <div class="mat-list-item-content">
+                                <i class="material-icons">monetization_on</i>
+                                <span  mat-line class="nav-item-text">Счета</span>
+                            </div>
+                        </div>
+                </a>
+                <a routerLink="partners" aria-label="Партнёры" class="mat-list-item">
+                        <div mat-ripple>
+                            <div  class="mat-list-item-content">
+                                <i class="material-icons">store</i>
+                                <span mat-line="" class="mat-line nav-item-text partners">Партнёры</span>
+                            </div>
+                        </div>
+                </a>
+                <a routerLink="news" class="mat-list-item">
+                        <div mat-ripple>
+                            <div  class="mat-list-item-content">
+                                <i class="material-icons">library_books</i>
+                                <span mat-line class="nav-item-text">Новости</span>
+                            </div>
+                        </div>
+                </a>
+                <a routerLink="statistic"  class="mat-list-item">
+                        <div mat-ripple>
+                            <div  class="mat-list-item-content">
+                                <i class="material-icons">donut_large</i>
+                                <span class = "nav-item-text" mat-line>Статистика</span>
+                        </div>
+                    </div>
+                </a>
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content class="mat-snav-content">
+            <div class="main" [hidden]="false">
+                <router-outlet></router-outlet>
+              </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

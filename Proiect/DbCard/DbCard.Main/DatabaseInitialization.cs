@@ -12,27 +12,27 @@ namespace dbCard.Main
     {
         public static void UserInitialization(this dbCardContext context)
         {
-            context.Set<User>().Add(new User() { UserName = "Bandirdin", Password = "*******", Email = "bandirdi@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Tygratius", Password = "*******", Email = "tygratius@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Keghma", Password = "*******", Email = "keghma@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Gavizar", Password = "*******", Email = "gavizar@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Adoghma", Password = "*******", Email = "rinar@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Grinara", Password = "*******", Email = "Grinara@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Sabandis", Password = "*******", Email = "sabandis@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Graninaya", Password = "*******", Email = "graninaya@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Saithiginn", Password = "*******", Email = "saithiginn@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Oghmath", Password = "*******", Email = "oghmath@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Nargas", Password = "*******", Email = "nargas@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Buzarim", Password = "*******", Email = "buzarim@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Kulahelm", Password = "*******", Email = "kulahelm@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Morasida", Password = "*******", Email = "morasida@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Felhagamand", Password = "*******", Email = "felhagamand@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Moath", Password = "*******", Email = "moath@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Adrierim", Password = "*******", Email = "adrierim@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Kiririm", Password = "*******", Email = "kiririm@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Anayazar", Password = "*******", Email = "anayazar@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Gavinratus", Password = "*******", Email = "gavinratus@gmail.com" });
-            context.Set<User>().Add(new User() { UserName = "Androrad", Password = "*******", Email = "androrad@gmail.com" });
+            context.Set<User>().Add(new User() { UserName = "Bandirdin", Password = "*******", Email = "bandirdi@gmail.com" , Level = 0});
+            context.Set<User>().Add(new User() { UserName = "Tygratius", Password = "*******", Email = "tygratius@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Keghma", Password = "*******", Email = "keghma@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Gavizar", Password = "*******", Email = "gavizar@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Adoghma", Password = "*******", Email = "rinar@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Grinara", Password = "*******", Email = "Grinara@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Sabandis", Password = "*******", Email = "sabandis@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Graninaya", Password = "*******", Email = "graninaya@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Saithiginn", Password = "*******", Email = "saithiginn@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Oghmath", Password = "*******", Email = "oghmath@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Nargas", Password = "*******", Email = "nargas@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Buzarim", Password = "*******", Email = "buzarim@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Kulahelm", Password = "*******", Email = "kulahelm@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Morasida", Password = "*******", Email = "morasida@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Felhagamand", Password = "*******", Email = "felhagamand@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Moath", Password = "*******", Email = "moath@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Adrierim", Password = "*******", Email = "adrierim@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Kiririm", Password = "*******", Email = "kiririm@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Anayazar", Password = "*******", Email = "anayazar@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Gavinratus", Password = "*******", Email = "gavinratus@gmail.com", Level = 0 });
+            context.Set<User>().Add(new User() { UserName = "Androrad", Password = "*******", Email = "androrad@gmail.com", Level = 0 });
         }
         public static void CustomerInitialization(this dbCardContext context)
         {

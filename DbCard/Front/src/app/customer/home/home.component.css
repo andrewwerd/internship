@@ -1,0 +1,65 @@
+.title {
+    font-size: 48px;
+    font-family: "roboto";
+    color: rgb(255, 255, 255);
+    position: relative;
+    left: 140px;
+    top: 50px;
+    width: 274px;
+}
+.barcode {
+    border-width: 5px;
+    border-color: rgb(99, 100, 103);
+    border-style: solid;
+    background-color: rgb(255, 255, 255);
+    opacity: 0.702;
+    position: absolute;
+    left: 75%;
+    top: 50px;
+}
+.barcode img{
+ height: 75px;
+ vertical-align: middle;
+}
+.mat-card{
+  padding: 0px;
+}
+.discountTable{
+  position: absolute;
+  width: 100%;
+  top: 20%;
+  margin-right: 100px;
+}
+.discount-card{
+  width: 215px;
+  height: 160px;
+}
+.discount-card .logo{
+background-color: white;
+width: 215px;
+height: 90px;
+text-align: -webkit-center;
+}
+.discount-card .logo img{
+ max-height: 90px;
+ width: auto;
+ margin: 0px 0px 0px 0px;
+}
+.mat-card-image{
+  margin: 0px 0px 0px 0px;
+}
+.discount-card .mat-card-content{
+  height: 70px;
+  width: 215px;
+  background-color: rgb(170, 198, 243);
+  text-align: center;
+ }
+ .discountPercent {
+  font-size: 24px;
+  font-family: "Myriad Pro";
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  line-height: 1.2;
+  text-align: center;
+}
+

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DbCard.Infrastructure.DTO.Balance
 {
-    public class StandartBalanceDTO
+    public class StandartBalanceDto
     {
         public long Id { get; set; }
         public IFormFile Logo { get; set; }
@@ -14,6 +14,6 @@ namespace DbCard.Infrastructure.DTO.Balance
         public decimal CurrentAmount { get; set; }
         public decimal PremiumAmount { get; set; }
         public DateTime ResetDate { get; set; }
-        public List<StandartDiscountDTO> Discounts { get; set; }
+        public List<StandartDiscountDto> Discounts { get; set; }
     }
 }

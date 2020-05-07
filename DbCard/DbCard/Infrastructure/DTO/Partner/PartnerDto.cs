@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DbCard.Infrastructure.DTO.PartnerDTO
+namespace DbCard.Infrastructure.DTO.Partner
 {
-    public class PartnerDTO
+    public class PartnerDto
     {
         public long Id { get; set; }
         public long UserId { get; set; }
