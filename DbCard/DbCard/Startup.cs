@@ -1,20 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using AutoMapper;
 using DbCard.Context;
+using DbCard.Domain.Auth;
 using DbCard.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace DbCard
 {
@@ -34,9 +29,13 @@ namespace DbCard
             services.AddDbContext<DbCardContext>();
             services.AddScoped<DbContext, DbCardContext>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
+            services.AddIdentity<User, Role>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 8;
+            })
+            .AddEntityFrameworkStores<DbCardContext>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {

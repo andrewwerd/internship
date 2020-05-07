@@ -9,9 +9,7 @@ namespace DbCard.Domain.EFConfiguration
         {
             builder.Property(b => b.RowVersion)
                 .IsRowVersion();
-            builder.Property(e => e.AccumulatedAmount).HasColumnType("decimal(10, 2)");
-
-            builder.Property(e => e.PaidAmount).HasColumnType("decimal(10, 2)");
+            builder.Property(e => e.Amount).HasColumnType("decimal(10, 2)");
 
             builder.Property(e => e.ResetDate).HasColumnType("datetime");
 

@@ -1,18 +1,13 @@
-﻿using DbCard.Infrastructure.ValidationAttributes;
+﻿using DbCard.Infrastructure.DTO.User;
+using DbCard.Infrastructure.ValidationAttributes;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DbCard.Infrastructure.DTO.Customer
 {
-    public class CustomerForRegistration
+    public class CustomerForRegistration: UserForRegistration
     {
-        public long Id { get; set; }
-        public long UserId { get; set; }
-        [Display(Name ="Имя :")]
         public string FirstName { get; set; }
 
         [Display(Name = "Фамилия :")]
@@ -27,7 +22,6 @@ namespace DbCard.Infrastructure.DTO.Customer
 
         [Display(Name = "Номер телефона :")]
         public string PhoneNumber { get; set; }
-
         [Display(Name = "Фото :")]
         public IFormFile[] Avatar { get; set; }
     }

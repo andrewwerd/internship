@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DbCard.Infrastructure.DTO.User;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace DbCard.Infrastructure.DTO.Partner
 {
-    public class PartnerForRegistration
+    public class PartnerForRegistration: UserForRegistration
     {
-        public long Id { get; set; }
-        public long UserId { get; set; }
         [Required(ErrorMessage = "Это поле обязательно для ввода!")]
         [StringLength(40, MinimumLength = 1)]
         public string Name { get; set; }

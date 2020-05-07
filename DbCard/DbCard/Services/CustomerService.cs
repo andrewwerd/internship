@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DbCard.Domain;
@@ -8,22 +7,24 @@ using DbCard.Infrastructure.DTO.Balance;
 using DbCard.Infrastructure.DTO.Customer;
 using DbCard.Infrastructure.DTO.Partner;
 using DbCard.Repository;
+using DbCard.Services.Interfaces;
 
 namespace DbCard.Services
 {
-    public class CustomerService
+    public class CustomerService : ICustomerService
     {
         readonly IRepository<Customer> _repository;
         readonly IRepository<FavoritePartners> _favoriteRepo;
         readonly IRepository<CustomersBalance> _balanceRepo;
         readonly IMapper _mapper;
-        public CustomerService(IMapper mapper, IRepository<Customer> repository, IRepository<FavoritePartners> favoriteRepo)
+        public CustomerService(IMapper mapper, IRepository<Customer> repository, IRepository<FavoritePartners> favoriteRepo, IRepository<CustomersBalance> balanceRepo)
         {
+            _balanceRepo = balanceRepo;
             _repository = repository;
             _mapper = mapper;
             _favoriteRepo = favoriteRepo;
         }
-        public async Task<bool> CreateCustomer(CustomerDto customerDto)
+        public async Task<bool> CreateAsync(CustomerForRegistration customerDto)
         {
             var customer = _mapper.Map<Customer>(customerDto);
             try
@@ -36,7 +37,7 @@ namespace DbCard.Services
             }
             return true;
         }
-        public async Task<bool> UpdateCustomer(long id, CustomerDto customerDto)
+        public async Task<bool> UpdateAsync(long id, CustomerForRegistration customerDto)
         {
             var customer = await _repository.GetById(id);
             _mapper.Map(customer, customerDto);
@@ -76,8 +77,6 @@ namespace DbCard.Services
         }
         public async void DeleteFavoritePartner(long customerId, long partnerId)
         {
-            var favoritePartner = await _favoriteRepo.GetByPredicate(x => x.CustomerId == customerId && x.PartnerId == partnerId);
-            await _favoriteRepo.Delete(favoritePartner);
         }
     }
 }

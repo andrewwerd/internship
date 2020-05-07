@@ -9,10 +9,9 @@ namespace DbCard.Infrastructure.DTO.User
 {
     public class UserForRegistration
     {
-        public long Id { get; set; }
         [Required(ErrorMessage = "Это поле обязательно для ввода!")]
         [Display(Name = "Логин: ")]
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         [Required(ErrorMessage = "Это поле обязательно для ввода!")]
         [MinLength(8)]
@@ -21,20 +20,8 @@ namespace DbCard.Infrastructure.DTO.User
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Это поле обязательно для ввода!")]
-        [Display(Name = "Повторить пароль: ")]
-        [Compare(nameof(Password))]
-        public string RepeatePassword { get; set; }
-
-        [Required(ErrorMessage = "Это поле обязательно для ввода!")]
         [Display(Name = "Email: ")]
         [EmailAddress(ErrorMessage ="Вы ввели неправильный Email")]
         public string Email { get; set; }
-
-        public UserType UserType { get; set; }
-    }
-    public enum UserType
-    {
-        Customer=0,
-        Partner=1
     }
 }

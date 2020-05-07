@@ -19,7 +19,6 @@ namespace DbCard.Domain
         public DateTime DateOfBirth { get; set; }
         public DateTime DateOfRegistration { get; set; }
         public long UserId { get; set; }
-        public virtual User User { get; set; }
         public virtual List<Transaction> Transactions { get; set; }
         public virtual List<CustomersBalance> CustomersBalances { get; set; }
         public virtual List<Review> Reviews { get; set; }

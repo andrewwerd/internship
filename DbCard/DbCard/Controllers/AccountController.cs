@@ -11,6 +11,9 @@ using Microsoft.IdentityModel.Tokens;
 using DbCard.Domain.Auth;
 using DbCard.Infrastructure.Configuration;
 using DbCard.Infrastructure.DTO.User;
+using DbCard.Infrastructure.DTO.Customer;
+using DbCard.Services;
+using DbCard.Infrastructure.DTO.Partner;
 
 namespace DbCard.Controllers
 {
@@ -18,46 +21,45 @@ namespace DbCard.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly AuthOptions _authenticationOptions;
-        private readonly SignInManager<User> _signInManager;
-        public AccountController(IOptions<AuthOptions> authenticationOptions, SignInManager<User> signInManager)
+        private readonly IAccountService _accountService;
+
+        public AccountController(IAccountService accountService)
         {
-            _authenticationOptions = authenticationOptions.Value;
-            _signInManager = signInManager;
+            _accountService = accountService;
         }
-        // GET: api/Account
-        [HttpGet]
-        public IActionResult Login()
+        // POST: api/Account
+        [AllowAnonymous]
+        [HttpPost("CustomerRegistration")]
+        public async Task<IActionResult> CustomerRegistration(CustomerForRegistration customer)
         {
-            throw new NotImplementedException();
+            var result = await _accountService.CustomerRegistration(customer);
+            if (result)
+                return Ok();
+            else
+                return BadRequest();
+        }
+
+        [AllowAnonymous]
+        [HttpPost("PartnerRegistration")]
+        public async Task<IActionResult> PartnerRegistration(PartnerForRegistration partner)
+        {
+            var result = await _accountService.PartnerRegistration(partner);
+            if (result)
+                return Ok();
+            else
+                return BadRequest();
         }
 
         // POST: api/Account
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserForLogin userForLoginDto)
+        public async Task<IActionResult> Login(UserForLogin userForLogin)
         {
-            var checkingPasswordResult = await _signInManager.PasswordSignInAsync(userForLoginDto.Username, userForLoginDto.Password, false, false);
-
-            if (checkingPasswordResult.Succeeded)
-            {
-                var signinCredentials = new SigningCredentials(_authenticationOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256);
-                var jwtSecurityToken = new JwtSecurityToken(
-                     issuer: _authenticationOptions.Issuer,
-                     audience: _authenticationOptions.Audience,
-                     claims: new List<Claim>(),
-                     expires: DateTime.Now.AddDays(30),
-                     signingCredentials: signinCredentials
-                );
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-
-                var encodedToken = tokenHandler.WriteToken(jwtSecurityToken);
-
-                return Ok(new { AccessToken = encodedToken });
-            }
-
-            return Unauthorized();
+            var result = await _accountService.Login(userForLogin);
+            if (result.Succeeded)
+                return Ok(new { AccessToken = result.EncodedToken });
+            else
+                return Unauthorized();
         }
     }
 }

@@ -46,12 +46,10 @@ namespace DbCard.Repository
             await _context.SaveChangesAsync();
             return entity;
         }
-
-        public TEntity GetByPredicate(Func <TEntity, bool> p)
+        public async Task<IEnumerable<TEntity>> GetByPredicate(Expression<Func<TEntity,bool>> p)
         {
-            return  _context.Set<TEntity>().FirstOrDefault(p);
+            return await _context.Set<TEntity>().Where(p).ToListAsync();
         }
-
         public async Task<IEnumerable<TEntity>> GetAll()
         {
             return await _context.Set<TEntity>().ToListAsync();

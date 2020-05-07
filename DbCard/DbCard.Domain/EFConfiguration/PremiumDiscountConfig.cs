@@ -9,7 +9,7 @@ namespace DbCard.Domain.EFConfiguration
         {
             builder.Property(b => b.RowVersion)
                 .IsRowVersion();
-            builder.Property(e => e.AccumulationPercent).HasColumnType("decimal(2, 2)");
+            builder.Property(e => e.AccumulatingPercent).HasColumnType("decimal(2, 2)");
 
             builder.Property(e => e.DiscountPercent).HasColumnType("decimal(2, 2)");
 

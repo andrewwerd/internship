@@ -60,7 +60,7 @@ namespace DbCard.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPartner(PartnerForUpdate partnerDto)
         {
-            var partner = await _repository.GetById(partnerDto.id);
+            var partner = await _repository.GetById(partnerDto.Id);
             if(partner == null)
             {
                 return NotFound();

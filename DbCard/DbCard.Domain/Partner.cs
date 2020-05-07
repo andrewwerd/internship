@@ -15,7 +15,6 @@ namespace DbCard.Domain
         public string Site { get; set; }
         public DateTime DateOfRegistration { get; set; }
         public long UserId { get; set; }
-        public virtual User User { get; set; }
         public virtual List<StandartDiscount> StandartDiscounts { get; set; }
         public virtual List<CustomersBalance> CustomersBalances { get; set; }
         public virtual List<PremiumDiscount> PremiumDiscount { get; set; }
