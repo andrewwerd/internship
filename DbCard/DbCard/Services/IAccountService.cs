@@ -1,6 +1,7 @@
 ﻿using DbCard.Infrastructure.DTO.Customer;
 using DbCard.Infrastructure.DTO.Partner;
 using DbCard.Infrastructure.DTO.User;
+using DbCard.Services.Implementatios;
 using System.Threading.Tasks;
 
 namespace DbCard.Services

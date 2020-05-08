@@ -35,10 +35,10 @@ namespace DbCard.Domain.EFConfiguration
 
             builder.Property(b => b.RowVersion)
                    .IsRowVersion();
-            builder.HasOne(d => d.User)
-                .WithOne(p => p.Customer)
-                .HasForeignKey<Customer>(d => d.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //builder.HasOne(d => d.User)
+            //    .WithOne(p => p.Customer)
+            //    .HasForeignKey<Customer>(d => d.UserId)
+            //    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

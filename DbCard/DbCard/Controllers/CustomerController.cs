@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Threading.Tasks;
+﻿using DbCard.Domain.Auth;
 using DbCard.Infrastructure.DTO.Balance;
 using DbCard.Services;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DbCard.Controllers
 {
@@ -14,12 +13,18 @@ namespace DbCard.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        readonly private ICustomerService _customerService;
+        private readonly ICustomerService _customerService;
+        private readonly RoleManager<Role> _roleManager;
 
-        public CustomerController(ICustomerService customerService) => _customerService = customerService;
+        public CustomerController(ICustomerService customerService, RoleManager<Role> roleManager)
+        {
+            _customerService = customerService;
+            _roleManager = roleManager;
+        }
 
-        // GET: api/Customer/id/myDiscounts
-        [HttpGet("id/myDiscounts")]
+        // GET: api/Customer/MyDiscounts
+        [Authorize(Roles = "Customer")]
+        [HttpGet("MyDiscounts")]
         public async Task<ActionResult<IEnumerable<PremiumBalanceDto>>> MyDiscounts(long id)
         {
             var myDiscounts = await _customerService.MyDiscounts(id);

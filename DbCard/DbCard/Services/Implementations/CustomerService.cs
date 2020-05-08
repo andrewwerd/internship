@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using DbCard.Domain;
 using DbCard.Infrastructure.DTO.Balance;
 using DbCard.Infrastructure.DTO.Customer;
 using DbCard.Infrastructure.DTO.Partner;
 using DbCard.Repository;
-using DbCard.Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace DbCard.Services
+namespace DbCard.Services.Implementatios
 {
     public class CustomerService : ICustomerService
     {

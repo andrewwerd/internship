@@ -9,11 +9,10 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace DbCard.Services
+namespace DbCard.Services.Implementatios
 {
     public class AccountService : IAccountService
     {
@@ -34,6 +33,7 @@ namespace DbCard.Services
         public async Task<bool> CustomerRegistration(CustomerForRegistration customerDto)
         {
             var user = new User { Email = customerDto.Email, UserName = customerDto.UserName };
+            await _userManager.AddToRoleAsync(user, "Customer");
             var userCreating = await _userManager.CreateAsync(user, customerDto.Password);
             if (userCreating.Succeeded)
             {
@@ -42,10 +42,11 @@ namespace DbCard.Services
             }
             else return userCreating.Succeeded;
         }
-               
+
         public async Task<bool> PartnerRegistration(PartnerForRegistration partnerDto)
         {
             var user = new User { Email = partnerDto.Email, UserName = partnerDto.UserName };
+            await _userManager.AddToRoleAsync(user, "Partner");
             var userCreating = await _userManager.CreateAsync(user, partnerDto.Password);
             if (userCreating.Succeeded)
             {
@@ -73,7 +74,6 @@ namespace DbCard.Services
             }
             else return new LoginResult(false);
         }
-
     }
     public class LoginResult
     {

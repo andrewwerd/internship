@@ -1,12 +1,10 @@
 ﻿using DbCard.Infrastructure.DTO.Balance;
 using DbCard.Infrastructure.DTO.Customer;
 using DbCard.Infrastructure.DTO.Partner;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace DbCard.Services.Interfaces
+namespace DbCard.Services
 {
     public interface ICustomerService
     {

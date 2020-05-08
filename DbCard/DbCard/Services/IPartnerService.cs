@@ -1,7 +1,7 @@
 ﻿using DbCard.Infrastructure.DTO.Partner;
 using System.Threading.Tasks;
 
-namespace DbCard.Services.Interfaces
+namespace DbCard.Services
 {
     public interface IPartnerService
     {

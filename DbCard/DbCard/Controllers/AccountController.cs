@@ -22,10 +22,11 @@ namespace DbCard.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
-
-        public AccountController(IAccountService accountService)
+        private readonly RoleManager<Role> _roleManager;
+        public AccountController(IAccountService accountService, RoleManager<Role> roleManager)
         {
             _accountService = accountService;
+            _roleManager = roleManager;
         }
         // POST: api/Account
         [AllowAnonymous]
