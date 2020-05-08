@@ -36,3 +36,7 @@ Html, body{
   color: rgb(83, 114, 164);
   font-weight: bold;
 }
+.error{
+  color:red;
+  font-size: x-small;;
+}

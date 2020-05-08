@@ -27,11 +27,14 @@ export class LoginComponent implements OnInit {
       userName: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
-
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/admin';
-
+    // this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/admin';
   }
-
+  get userName(){
+    return this.userLoginForm.get('userName');
+  }
+  get password(){
+    return this.userLoginForm.get('password');
+  }
   login() {
     const userLogin: UserForLogin = {
       ...this.userLoginForm.value
@@ -41,7 +44,6 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('accessToken', bearerToken.accessToken);
         this.router.navigate([this.returnUrl]);
       });
-
   }
 
 }
