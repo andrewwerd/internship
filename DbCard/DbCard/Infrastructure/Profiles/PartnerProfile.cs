@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using DbCard.Domain;
-using DbCard.Infrastructure.DTO.Partner;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using DbCard.Infrastructure.Dto.Partner;
 
 namespace DbCard.Infrastructure.Profiles.Partners
 {
@@ -12,15 +8,15 @@ namespace DbCard.Infrastructure.Profiles.Partners
     {
         public PartnerProfile()
         {
-            CreateMap<Partner, PartnerDto>()
+            CreateMap<Domain.Partner, Dto.Partner.Partner>()
                 .ForMember(x => x.Logo, y => y.MapFrom(z => z.Logo));
-            CreateMap<Partner, PartnerForGrid>()
+            CreateMap<Domain.Partner, PartnerForGrid>()
                 .ForMember(x => x.Logo, e => e.MapFrom(z => z.Logo));
-            CreateMap<Partner, PartnerForRegistration>()
+            CreateMap<Domain.Partner, PartnerForRegistration>()
                 .ForMember(x => x.Logo, e => e.MapFrom(z => z.Logo));
-                //.ForMember(x=>x.Filials, e=>e.MapFrom(z=>z.Filials));
+            //.ForMember(x=>x.Filials, e=>e.MapFrom(z=>z.Filials));
 
-            CreateMap<Partner, PartnerForUpdate>();
+            CreateMap<Domain.Partner, PartnerForUpdate>();
         }
     }
 }

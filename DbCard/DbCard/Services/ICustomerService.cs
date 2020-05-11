@@ -1,6 +1,6 @@
-﻿using DbCard.Infrastructure.DTO.Balance;
-using DbCard.Infrastructure.DTO.Customer;
-using DbCard.Infrastructure.DTO.Partner;
+﻿using DbCard.Infrastructure.Dto.Balance;
+using DbCard.Infrastructure.Dto.Customer;
+using DbCard.Infrastructure.Dto.Partner;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,8 +10,8 @@ namespace DbCard.Services
     {
         Task<bool> CreateAsync(CustomerForRegistration customerDto);
         Task<bool> UpdateAsync(long id, CustomerForRegistration customerDto);
-        Task<IEnumerable<PremiumBalanceDto>> MyDiscounts(long id);
-        void AddFavoritePartner(long id, PartnerDto partnerDto);
+        Task<IEnumerable<PremiumBalance>> MyDiscounts(long id);
+        void AddFavoritePartner(long id, Partner partnerDto);
         void DeleteFavoritePartner(long customerId, long partnerId);
     }
 }

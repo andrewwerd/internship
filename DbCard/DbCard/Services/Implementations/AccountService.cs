@@ -1,8 +1,8 @@
 ﻿using DbCard.Domain.Auth;
 using DbCard.Infrastructure.Configuration;
-using DbCard.Infrastructure.DTO.Customer;
-using DbCard.Infrastructure.DTO.Partner;
-using DbCard.Infrastructure.DTO.User;
+using DbCard.Infrastructure.Dto.Customer;
+using DbCard.Infrastructure.Dto.Partner;
+using DbCard.Infrastructure.Dto.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

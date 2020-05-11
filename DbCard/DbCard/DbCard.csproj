@@ -30,9 +30,5 @@
     <ProjectReference Include="..\DbCard.Domain\DbCard.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Infrastructure\Seed\" />
-  </ItemGroup>
-
 
 </Project>

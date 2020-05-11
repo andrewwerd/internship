@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DbCard.Repository;
+using DbCard.Services;
 using DbCard.Domain;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
-using DbCard.Infrastructure.DTO.Partner;
+using DbCard.Infrastructure.Dto.Partner;
 using DbCard.Models;
 
 namespace DbCard.Controllers
@@ -18,9 +18,9 @@ namespace DbCard.Controllers
     [ApiController]
     public class PartnersController : ControllerBase
     {
-        private readonly IRepository<Partner> _repository;
+        private readonly IRepository<Domain.Partner> _repository;
         private readonly IMapper _mapper;
-        public PartnersController(IRepository<Partner> repository, IMapper mapper)
+        public PartnersController(IRepository<Domain.Partner> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -29,31 +29,31 @@ namespace DbCard.Controllers
 
         // GET: api/Partners
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Partner>>> GetPartners()
+        public async Task<ActionResult<IEnumerable<Domain.Partner>>> GetPartners()
         {
             var partners = await _repository.GetAll();
             if (partners == null)
             {
                 return NotFound();
             }
-            var partnersDTO = new List<PartnerDto>();
+            var partnersDto = new List<Infrastructure.Dto.Partner.Partner>();
             foreach(var i in partners)
             {
-                partnersDTO.Add(_mapper.Map<PartnerDto>(i));
+                partnersDto.Add(_mapper.Map<Infrastructure.Dto.Partner.Partner>(i));
             }
-            return Ok(partnersDTO);
+            return Ok(partnersDto);
         }
 
         // GET: api/Partners/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Partner>> GetPartner(long id)
+        public async Task<ActionResult<Domain.Partner>> GetPartner(long id)
         {
             var partner = await _repository.GetById(id);
             if (partner == null)
             {
                 return NotFound();
             }
-            var partnerDto = _mapper.Map<PartnerDto>(partner);
+            var partnerDto = _mapper.Map<Infrastructure.Dto.Partner.Partner>(partner);
             return Ok(partnerDto);
         }
 
@@ -73,23 +73,23 @@ namespace DbCard.Controllers
         [HttpPost("PaginatedSearch")]
         public async Task<IActionResult> GetPagedPartners([FromBody]PagedRequest pagedRequest)
         {
-            var pagedBooksDto = await _repository.GetPagedData<PartnerDto>(pagedRequest);
+            var pagedBooksDto = await _repository.GetPagedData<Infrastructure.Dto.Partner.Partner>(pagedRequest);
             return Ok(pagedBooksDto);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreatePartner(PartnerForRegistration partnerForUpdateDto)
         {
-            var partner = _mapper.Map<Partner>(partnerForUpdateDto);
+            var partner = _mapper.Map<Domain.Partner>(partnerForUpdateDto);
             await _repository.Add(partner);
 
-            var partnerDto = _mapper.Map<PartnerDto>(partner);
+            var partnerDto = _mapper.Map<Infrastructure.Dto.Partner.Partner>(partner);
 
             return CreatedAtAction(nameof(GetPartner), new { id = partnerDto.Id }, partnerDto);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Partner>> DeletePartner(long id)
+        public async Task<ActionResult<Domain.Partner>> DeletePartner(long id)
         {
             await _repository.Delete(id);
             return NoContent();

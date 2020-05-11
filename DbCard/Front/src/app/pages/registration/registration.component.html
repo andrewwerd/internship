@@ -1,0 +1,58 @@
+<div class="container" style="background:rgb(83, 114, 164);">
+  <div class="main_container" style="margin: auto; background: rgba(255,255,255,0.5); width:80%;">
+    <mat-horizontal-stepper>
+      <mat-step [stepControl]="userRegistrationForm">
+        <form [formGroup]="userRegistrationForm" #form1>
+          <ng-template matStepLabel>Регистрация данных пользователя</ng-template>
+          <mat-form-field style="display: block" >
+            <input matInput type="text" placeholder="Логин" formControlName="userName"/>
+          </mat-form-field>
+          <!--<div *ngIf="form1.invalid && (form1.errors.required && form1.touched)"  class="error">
+            Это поле обязательно
+          </div>-->
+          <mat-form-field style="display: block">
+            <input matInput type="password" placeholder="Пароль" formControlName="password" />
+          </mat-form-field>
+         <!-- <div *ngIf="form1.invalid && (form1.errors.required && form1.touched)"  class="error">
+            Это поле обязательно
+          </div>-->
+          <mat-form-field>
+            <mat-radio-button value="Покупатель" formControlName="userType"> Пользователь</mat-radio-button>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Далее</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step stepControl="customerRegistrationForm">
+        <ng-template matStepLabel>Регистрация данных покупателя</ng-template>
+        <form [formGroup]="customerRegistrationForm" #form2>
+          <ng-template matStepLabel>Регистрация данных пользователя</ng-template>
+          <mat-form-field style="display: block" >
+            <input matInput type="text" placeholder="Имя" formControlName="firstName"/>
+          </mat-form-field>
+          <div *ngIf="form1.invalid && (form1.errors.required && form1.touched)"  class="error">
+            Это поле обязательно
+          </div>
+          <mat-form-field style="display: block" >
+            <input matInput type="text" placeholder="Фамилия" formControlName="LastName"/>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput max="maxDate" [matDatepicker]="myDatepicker" formControlName="birthday">
+            <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker></mat-datepicker>
+          </mat-form-field>
+          <div *ngIf="form1.invalid && (form1.errors.required && form1.touched)"  class="error">
+            Это поле обязательно
+          </div>
+          <mat-form-field>
+            <input matInput type="file" placeholder="Фото" formControlName="Avatar"/>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Далее</button>
+          </div>
+        </form>
+    </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+</div>

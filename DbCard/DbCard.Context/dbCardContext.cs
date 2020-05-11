@@ -24,6 +24,8 @@ namespace DbCard.Context
 
         public DbCardContext()
         {
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
         }
         public DbCardContext(DbContextOptions options) : base(options)
         {

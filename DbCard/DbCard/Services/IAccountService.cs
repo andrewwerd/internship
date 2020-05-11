@@ -1,6 +1,6 @@
-﻿using DbCard.Infrastructure.DTO.Customer;
-using DbCard.Infrastructure.DTO.Partner;
-using DbCard.Infrastructure.DTO.User;
+﻿using DbCard.Infrastructure.Dto.Customer;
+using DbCard.Infrastructure.Dto.Partner;
+using DbCard.Infrastructure.Dto.User;
 using DbCard.Services.Implementatios;
 using System.Threading.Tasks;
 

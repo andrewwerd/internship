@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace DbCard.Infrastructure.DTO.User
+namespace DbCard.Infrastructure.Dto.User
 {
     public class UserForLogin
     {
-        public long Id { get; set; }
         [Required(ErrorMessage = "Это поле обязательно для ввода!")]
-        [Display(Name ="Логин")]
+        [Display(Name = "Логин")]
         public string Username { get; set; }
         [Required(ErrorMessage = "Это поле обязательно для ввода!")]
         [Display(Name = "Пароль")]

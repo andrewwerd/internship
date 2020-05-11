@@ -1,4 +1,4 @@
-﻿using DbCard.Infrastructure.DTO.Partner;
+﻿using DbCard.Infrastructure.Dto.Partner;
 using System.Threading.Tasks;
 
 namespace DbCard.Services

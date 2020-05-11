@@ -1,0 +1,9 @@
+Html, body{
+  height:100%;
+  margin:0px;
+  padding:0px;
+}
+.error{
+  color:red;
+  font-size: x-small;;
+}

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using DbCard.Domain;
-using DbCard.Infrastructure.DTO.Balance;
-using DbCard.Infrastructure.DTO.Customer;
-using DbCard.Infrastructure.DTO.Partner;
-using DbCard.Repository;
+using DbCard.Infrastructure.Dto.Balance;
+using DbCard.Infrastructure.Dto.Customer;
+using DbCard.Infrastructure.Dto.Partner;
+using DbCard.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,11 +12,11 @@ namespace DbCard.Services.Implementatios
 {
     public class CustomerService : ICustomerService
     {
-        readonly IRepository<Customer> _repository;
+        readonly IRepository<Domain.Customer> _repository;
         readonly IRepository<FavoritePartners> _favoriteRepo;
         readonly IRepository<CustomersBalance> _balanceRepo;
         readonly IMapper _mapper;
-        public CustomerService(IMapper mapper, IRepository<Customer> repository, IRepository<FavoritePartners> favoriteRepo, IRepository<CustomersBalance> balanceRepo)
+        public CustomerService(IMapper mapper, IRepository<Domain.Customer> repository, IRepository<FavoritePartners> favoriteRepo, IRepository<CustomersBalance> balanceRepo)
         {
             _balanceRepo = balanceRepo;
             _repository = repository;
@@ -25,7 +25,7 @@ namespace DbCard.Services.Implementatios
         }
         public async Task<bool> CreateAsync(CustomerForRegistration customerDto)
         {
-            var customer = _mapper.Map<Customer>(customerDto);
+            var customer = _mapper.Map<Domain.Customer>(customerDto);
             try
             {
                 await _repository.Add(customer);
@@ -50,21 +50,21 @@ namespace DbCard.Services.Implementatios
             }
             return true;
         }
-        public async Task<IEnumerable<PremiumBalanceDto>> MyDiscounts(long id)
+        public async Task<IEnumerable<PremiumBalance>> MyDiscounts(long id)
         {
             var balances = await _balanceRepo.GetByPredicate(x => x.IsPremium && x.CustomerId == id);
-            var balancesDto = new List<PremiumBalanceDto>();
+            var balancesDto = new List<PremiumBalance>();
             foreach (var i in balances)
             {
-                balancesDto.Add(_mapper.Map<PremiumBalanceDto>(i));
+                balancesDto.Add(_mapper.Map<PremiumBalance>(i));
             }
             return balancesDto;
         }
-        public async void AddFavoritePartner(long id, PartnerDto partnerDto)
+        public async void AddFavoritePartner(long id, Infrastructure.Dto.Partner.Partner partnerDto)
         {
             var favoritePartner = new FavoritePartners();
             var customer = await _repository.GetById(id);
-            var partner = _mapper.Map<Partner>(partnerDto);
+            var partner = _mapper.Map<Domain.Partner>(partnerDto);
             favoritePartner.Customer = customer;
             favoritePartner.Partner = partner;
             favoritePartner.CustomerId = customer.Id;

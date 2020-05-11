@@ -1,5 +1,5 @@
 ﻿using DbCard.Domain.Auth;
-using DbCard.Infrastructure.DTO.Balance;
+using DbCard.Infrastructure.Dto.Balance;
 using DbCard.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -25,7 +25,7 @@ namespace DbCard.Controllers
         // GET: api/Customer/MyDiscounts
         [Authorize(Roles = "Customer")]
         [HttpGet("MyDiscounts")]
-        public async Task<ActionResult<IEnumerable<PremiumBalanceDto>>> MyDiscounts(long id)
+        public async Task<ActionResult<IEnumerable<PremiumBalance>>> MyDiscounts(long id)
         {
             var myDiscounts = await _customerService.MyDiscounts(id);
             if (myDiscounts == null) return NoContent();
