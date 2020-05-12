@@ -48,7 +48,6 @@ export class HomeComponent implements AfterViewInit {
     }];
 
     page = 0;
-    @Input()
     customerGuid = 'test12345';
     constructor(
     private discountService: DiscountService,

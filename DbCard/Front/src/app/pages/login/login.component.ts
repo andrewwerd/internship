@@ -23,9 +23,9 @@ export class LoginComponent implements OnInit {
               private route: ActivatedRoute,
               private formBuilder: FormBuilder
     ) {
-      if (this.accountService.currentUserValue){
-        this.router.navigate([`/${this.accountService.currentUserValue.role}`]);
-      }
+      // if (this.accountService.currentUserValue){
+      //   this.router.navigate([`/${this.accountService.currentUserValue.role}`]);
+      // }
      }
 
   ngOnInit() {

@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app.routing';
 // import { JwtModule } from '@auth0/angular-jwt';
 
 import { NotFoundPageComponent } from './pages/NotFoundPage/notFoundPage.component';
-import { LoginComponent } from './pages/login/Login.component';
+import { LoginComponent } from './pages/login/login.component';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { MatRippleModule, MAT_DATE_LOCALE } from '@angular/material/core';

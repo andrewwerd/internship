@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LoginComponent } from './pages/login/Login.component';
+import { LoginComponent } from './pages/login/login.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { NotFoundPageComponent } from './pages/NotFoundPage/notFoundPage.component';
 import { AuthGuard } from './_guards/auth.guard';
@@ -36,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/',
+    redirectTo: '/customer/home',
     pathMatch: 'full',
   },
   {
