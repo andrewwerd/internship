@@ -8,22 +8,16 @@ namespace DbCard.Infrastructure.Dto.Customer
     {
         public long Id { get; set; }
         public long UserId { get; set; }
-        [Required(ErrorMessage = "Это поле обязательно для ввода!")]
-        [Display(Name = "Имя :")]
+        [Required]
         public string FirstName { get; set; }
-        [Required(ErrorMessage = "Это поле обязательно для ввода!")]
-        [Display(Name = "Фамилия :")]
+        [Required]
         public string LastName { get; set; }
-        [Required(ErrorMessage = "Это поле обязательно для ввода!")]
-        [Display(Name = "Дата рождения :")]
+        [Required]
         public DateTime DateOfBirth { get; set; }
-        [Required(ErrorMessage = "Это поле обязательно для ввода!")]
-        [Display(Name = "Пол :")]
+        [Required]
         public string Gender { get; set; }
-        [Required(ErrorMessage = "Это поле обязательно для ввода!")]
-        [Display(Name = "Номер телефона :")]
+        [Required]
         public string PhoneNumber { get; set; }
-        [Display(Name = "Фото :")]
         public IFormFile[] Avatar { get; set; }
     }
 }

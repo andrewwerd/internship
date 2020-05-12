@@ -6,8 +6,9 @@ import { MatInputModule} from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule} from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app.routing';
 // import { JwtModule } from '@auth0/angular-jwt';
 
 import { NotFoundPageComponent } from './pages/NotFoundPage/notFoundPage.component';
@@ -29,6 +30,7 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/ma
     NotFoundPageComponent
   ],
   imports: [
+    MatCardModule,
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,

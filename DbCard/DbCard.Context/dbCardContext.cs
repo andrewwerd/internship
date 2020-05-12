@@ -16,6 +16,9 @@ namespace DbCard.Context
         public DbSet<Partner> Partners { get; set; }
         public DbSet<StandartDiscount> StandartDiscounts { get; set; }
         public DbSet<PremiumDiscount> PremiumDiscounts { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Subcategory> Subcategories { get; set; }
+        public DbSet<PartnerSubcategories> PartnerSubcategories { get; set; }
         public DbSet<Filial> Filials { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
@@ -24,8 +27,6 @@ namespace DbCard.Context
 
         public DbCardContext()
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
         }
         public DbCardContext(DbContextOptions options) : base(options)
         {
@@ -50,6 +51,9 @@ namespace DbCard.Context
             modelBuilder.ApplyConfiguration(new StandartDiscountConfig());
             modelBuilder.ApplyConfiguration(new TransactionConfig());
             modelBuilder.ApplyConfiguration(new FavoritePartnersConfig());
+            modelBuilder.ApplyConfiguration(new CategoryConfig());
+            modelBuilder.ApplyConfiguration(new SubcategoryConfig());
+            modelBuilder.ApplyConfiguration(new PartnerSubcategoriesConfig());
             ApplyIdentityMapConfiguration(modelBuilder);
         }
         private void ApplyIdentityMapConfiguration(ModelBuilder modelBuilder)

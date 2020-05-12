@@ -11,7 +11,7 @@ namespace DbCard.Services
         Task<bool> CreateAsync(CustomerForRegistration customerDto);
         Task<bool> UpdateAsync(long id, CustomerForRegistration customerDto);
         Task<IEnumerable<PremiumBalance>> MyDiscounts(long id);
-        void AddFavoritePartner(long id, Partner partnerDto);
+        void AddFavoritePartner(long id, PartnerGridRow partnerDto);
         void DeleteFavoritePartner(long customerId, long partnerId);
     }
 }

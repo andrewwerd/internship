@@ -16,11 +16,6 @@ namespace DbCard.Domain.EFConfiguration
 
             builder.Property(e => e.BirthdayDiscount).HasColumnType("decimal(3, 2)");
 
-            builder.Property(e => e.Category)
-                .IsRequired()
-                .HasMaxLength(40)
-                .HasDefaultValueSql("('UNIVERSAL')");
-
             builder.Property(e => e.DateOfRegistration)
                 .HasColumnType("date")
                 .HasDefaultValueSql("(getdate())");
@@ -35,10 +30,10 @@ namespace DbCard.Domain.EFConfiguration
 
             builder.Property(e => e.Rating).HasColumnType("decimal(2, 2)");
 
-            //builder.HasOne(d => d.User)
-            //    .WithOne(p => p.Partner)
-            //    .HasForeignKey<Partner>(d => d.UserId)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(d => d.User)
+                .WithOne(p => p.Partner)
+                .HasForeignKey<Partner>(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -25,14 +25,11 @@ namespace DbCard.Infrastructure.Extensions
                     context.Database.Migrate();
 
                     await Seed.SeedRoles(roleManager);
-                    await Seed.SeedCustomers(context);
-                    await Seed.SeedPartners(context);
                     await Seed.SeedUsers(userManager);
                 }
                 catch (Exception ex)
                 {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occured during migration");
+                    throw ex;
                 }
             }
         }

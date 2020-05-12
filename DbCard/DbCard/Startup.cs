@@ -1,18 +1,17 @@
 using AutoMapper;
 using DbCard.Context;
 using DbCard.Domain.Auth;
+using DbCard.Infrastructure.Middlewares;
 using DbCard.Services;
-using DbCard.Services.Implementatios;
+using DbCard.Services.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using DbCard.Infrastructure.Middlewares;
-using System.Reflection;
 using OnlineBookShop.API.Infrastructure.Extensions;
+using System.Reflection;
 
 namespace DbCard
 {
@@ -30,16 +29,6 @@ namespace DbCard
         {
             DbCardContextSettings.Create();
             services.AddDbContext<DbCardContext>();
-            services.AddScoped<DbContext, DbCardContext>();
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddScoped<ICustomerService, CustomerService>();
-            services.AddScoped<IPartnerService, PartnerService>();
-            services.AddScoped<IAccountService, AccountService>();
-
-            var authOptions = services.ConfigureAuthOptions(Configuration);
-            services.AddJwtAuthentication(authOptions);
-
             services.AddIdentity<User, Role>(options =>
             {
                 options.Password.RequireNonAlphanumeric = false;
@@ -47,10 +36,24 @@ namespace DbCard
                 options.User.RequireUniqueEmail = true;
             })
             .AddEntityFrameworkStores<DbCardContext>();
+
+            var authOptions = services.ConfigureAuthOptions(Configuration);
+            services.AddJwtAuthentication(authOptions);
+
+
             services.AddControllers(options =>
             {
                 options.Filters.Add(new AuthorizeFilter());
             });
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddScoped<IPartnerService, PartnerService>();
+            services.AddScoped<IAccountService, AccountService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,11 +69,11 @@ namespace DbCard
             }
 
             app.UseRouting();
-
-    
+            app.UseStaticFiles();
+            app.UseDefaultFiles();
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
             app.UseCors(configurePolicy => configurePolicy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>

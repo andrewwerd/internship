@@ -1,4 +1,4 @@
-import {Schedule} from 'src/app/_models/Filial/Schedule';
+import {Schedule} from 'src/app/_models/filial/schedule';
 
 export interface FilialForAdd
 {

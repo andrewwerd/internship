@@ -9,7 +9,6 @@ import { BalancesListComponent } from './balancesList/balancesList.component';
 import { NewsListComponent } from './newsList/newsList.component';
 import { NewsPageComponent } from './newsPage/newsPage.component';
 import { StatisticComponent } from './statistic/statistic.component';
-import { AuthGuard } from '../../_guards/auth.guard';
 
 
 const customerRoutes: Routes = [

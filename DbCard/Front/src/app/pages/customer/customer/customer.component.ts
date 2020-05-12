@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Customer } from '../../../_models/customer';
 import { CustomerService } from '../../../_services/customer.service';
+import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
     selector: 'app-customer',
@@ -20,21 +21,20 @@ export class CustomerComponent implements OnInit, AfterViewInit{
       Avatar: null
     };
     constructor(private router: Router,
+                private accountService: AccountService,
                 private customerService: CustomerService){}
     ngOnInit(): void {
     }
     logout(): void {
-        localStorage.removeItem('accessToken');
-        this.router.navigate(['login']);
+        this.accountService.logout();
     }
     hasAvatar(): boolean{
       return this.customer.Avatar != null;
     }
-    ngAfterViewInit(){}
-    /* ngAfterViewInit()  {
+     ngAfterViewInit()  {
       this.loadCustomerFromApi();
     }
     loadCustomerFromApi(){
         this.customerService.getCustomer().subscribe((customer: Customer) => {this.customer = customer; });
-    } */
+    }
 }

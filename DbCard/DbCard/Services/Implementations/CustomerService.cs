@@ -3,12 +3,11 @@ using DbCard.Domain;
 using DbCard.Infrastructure.Dto.Balance;
 using DbCard.Infrastructure.Dto.Customer;
 using DbCard.Infrastructure.Dto.Partner;
-using DbCard.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DbCard.Services.Implementatios
+namespace DbCard.Services.Implementations
 {
     public class CustomerService : ICustomerService
     {
@@ -16,7 +15,7 @@ namespace DbCard.Services.Implementatios
         readonly IRepository<FavoritePartners> _favoriteRepo;
         readonly IRepository<CustomersBalance> _balanceRepo;
         readonly IMapper _mapper;
-        public CustomerService(IMapper mapper, IRepository<Domain.Customer> repository, IRepository<FavoritePartners> favoriteRepo, IRepository<CustomersBalance> balanceRepo)
+        public CustomerService(IMapper mapper, IRepository<Customer> repository, IRepository<FavoritePartners> favoriteRepo, IRepository<CustomersBalance> balanceRepo)
         {
             _balanceRepo = balanceRepo;
             _repository = repository;
@@ -25,7 +24,7 @@ namespace DbCard.Services.Implementatios
         }
         public async Task<bool> CreateAsync(CustomerForRegistration customerDto)
         {
-            var customer = _mapper.Map<Domain.Customer>(customerDto);
+            var customer = _mapper.Map<Customer>(customerDto);
             try
             {
                 await _repository.Add(customer);
@@ -60,11 +59,11 @@ namespace DbCard.Services.Implementatios
             }
             return balancesDto;
         }
-        public async void AddFavoritePartner(long id, Infrastructure.Dto.Partner.Partner partnerDto)
+        public async void AddFavoritePartner(long id, PartnerGridRow partnerDto)
         {
             var favoritePartner = new FavoritePartners();
             var customer = await _repository.GetById(id);
-            var partner = _mapper.Map<Domain.Partner>(partnerDto);
+            var partner = _mapper.Map<Partner>(partnerDto);
             favoritePartner.Customer = customer;
             favoritePartner.Partner = partner;
             favoritePartner.CustomerId = customer.Id;

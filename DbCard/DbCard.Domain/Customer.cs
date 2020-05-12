@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DbCard.Domain.Auth;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,7 @@ namespace DbCard.Domain
         }
         public DateTime DateOfBirth { get; set; }
         public DateTime DateOfRegistration { get; set; }
+        public virtual User User { get; set; }
         public long UserId { get; set; }
         public virtual List<Transaction> Transactions { get; set; }
         public virtual List<CustomersBalance> CustomersBalances { get; set; }

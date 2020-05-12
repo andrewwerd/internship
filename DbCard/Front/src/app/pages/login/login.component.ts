@@ -12,22 +12,28 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  private returnUrl: string;
-
-  public userLoginForm: FormGroup;
+  loading = false;
+  submitted = false;
+  returnUrl: string;
+  error = '';
+  userLoginForm: FormGroup;
 
   constructor(private accountService: AccountService,
               private router: Router,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder
-    ) { }
+    ) {
+      if (this.accountService.currentUserValue){
+        this.router.navigate([`/${this.accountService.currentUserValue.role}`]);
+      }
+     }
 
   ngOnInit() {
     this.userLoginForm = this.formBuilder.group({
       userName: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
-    // this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/admin';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || `/${this.accountService.currentUserValue.role}`;
   }
   get userName(){
     return this.userLoginForm.get('userName');
@@ -35,15 +41,25 @@ export class LoginComponent implements OnInit {
   get password(){
     return this.userLoginForm.get('password');
   }
-  login() {
+  onSubmit(){
+    this. submitted = true;
+    if (this.userLoginForm.invalid){
+      return;
+    }
+
+    this.loading = true;
     const userLogin: UserForLogin = {
       ...this.userLoginForm.value
     };
-    this.accountService.login(userLogin)
-      .subscribe((bearerToken: BearerToken) => {
-        localStorage.setItem('accessToken', bearerToken.accessToken);
+    this.accountService.login(userLogin).subscribe
+    (
+      data => {
         this.router.navigate([this.returnUrl]);
-      });
-  }
+      },
+     () => {
+       this.error = 'Логин или пароль неверны';
+       this.loading = false;
+     });
 
+  }
 }

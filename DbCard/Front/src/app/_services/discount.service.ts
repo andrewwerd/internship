@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { MyDiscount } from '../_models/Discounts/MyDiscount';
-import { PremiumBalance } from '../_models/Discounts/PremiumBalance';
-import { StandartBalance } from '../_models/Discounts/StandartBalance';
+import { MyDiscount } from '../_models/discounts/myDiscount';
+import { PremiumBalance } from '../_models/discounts/premiumBalance';
+import { StandartBalance } from '../_models/discounts/standartBalance';
 import { Observable } from 'rxjs';
 
 @Injectable({

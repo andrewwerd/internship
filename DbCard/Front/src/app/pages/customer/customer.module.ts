@@ -42,7 +42,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {ReactiveFormsModule} from '@angular/forms';
-import { CustomerRoutingModule } from './customerRouting.module';
+import { CustomerRoutingModule } from './customer.routing';
 import { CommonModule } from '@angular/common';
 
 import { BarcodeComponent} from '../../components/bar-code/bar-code.component';

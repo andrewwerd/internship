@@ -32,10 +32,10 @@ namespace DbCard.Infrastructure
                 var user = new User()
                 {
                     UserName = "admin",
-                    Email = "admin@onlinebookshop.com",
+                    Email = "admin@dbcard.com",
                 };
+                await userManager.CreateAsync(user, "Qwerty12345");
                 await userManager.AddToRoleAsync(user, "Admin");
-                await userManager.CreateAsync(user, "Qwerty1!");
             }
         }
 

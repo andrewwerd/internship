@@ -1,6 +1,6 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
 
-import { MyDiscount } from '../../../_models/Discounts/MyDiscount';
+import { MyDiscount } from '../../../_models/discounts/myDiscount';
 import { DiscountService } from '../../../_services/discount.service';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';

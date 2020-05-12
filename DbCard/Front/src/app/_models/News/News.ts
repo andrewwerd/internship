@@ -1,7 +1,7 @@
 export interface News{
     Id: number;
     PartnerId: number;
-    Image: File; 
+    Image: File;
     Title: string;
     Body: string;
     Date: Date;

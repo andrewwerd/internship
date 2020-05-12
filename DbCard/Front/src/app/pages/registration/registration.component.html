@@ -7,15 +7,15 @@
           <mat-form-field style="display: block" >
             <input matInput type="text" placeholder="Логин" formControlName="userName"/>
           </mat-form-field>
-          <!--<div *ngIf="form1.invalid && (form1.errors.required && form1.touched)"  class="error">
+          <div *ngIf="form1.invalid && (form1.errors.required && form1.touched)"  class="error">
             Это поле обязательно
-          </div>-->
+          </div>
           <mat-form-field style="display: block">
             <input matInput type="password" placeholder="Пароль" formControlName="password" />
           </mat-form-field>
-         <!-- <div *ngIf="form1.invalid && (form1.errors.required && form1.touched)"  class="error">
+         <div *ngIf="form1.invalid && (form1.errors.required && form1.touched)"  class="error">
             Это поле обязательно
-          </div>-->
+          </div>
           <mat-form-field>
             <mat-radio-button value="Покупатель" formControlName="userType"> Пользователь</mat-radio-button>
           </mat-form-field>

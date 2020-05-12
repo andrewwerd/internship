@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DbCard.Infrastructure.Dto.Partner
 {
-    public class PartnerForGrid
+    public class PartnerGridRow
     {
         public long Id { get; set; }
         public long UserId { get; set; }

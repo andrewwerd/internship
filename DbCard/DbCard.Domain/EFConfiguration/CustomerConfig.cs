@@ -14,6 +14,11 @@ namespace DbCard.Domain.EFConfiguration
 
             builder.Property(e => e.DateOfBirth).HasColumnType("date");
 
+            builder.HasOne(e => e.User)
+                .WithOne(y => y.Customer)
+                .HasForeignKey<Customer>(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.Property(e => e.DateOfRegistration)
                 .HasColumnType("date")
                 .HasDefaultValueSql("(getdate())");
@@ -35,10 +40,6 @@ namespace DbCard.Domain.EFConfiguration
 
             builder.Property(b => b.RowVersion)
                    .IsRowVersion();
-            //builder.HasOne(d => d.User)
-            //    .WithOne(p => p.Customer)
-            //    .HasForeignKey<Customer>(d => d.UserId)
-            //    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

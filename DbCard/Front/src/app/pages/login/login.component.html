@@ -1,33 +1,42 @@
 <div id="container" class="container">
   <div class="Logo">
-    <a href="localhost:4200/about">
+    <a routerLink = "about">
       <img style="height: 65.5px" src='../../assets/img/app_logo.png' alt="Logo">
     </a>
   </div>
     <div class="loginForm">
-      <form novalidate class="loginForm" [formGroup]="userLoginForm" (ngSubmit)="login()" >
-          <h2>Вход</h2>
-          <mat-form-field style="display: block" >
-            <input matInput type="text" placeholder="Логин" formControlName="userName"/>
-          </mat-form-field>
-          <div *ngIf="userLoginForm.invalid && (userName.errors.required && userName.touched)"  class="error">
-            Это поле обязательно
-          </div>
-          <mat-form-field style="display: block">
-            <input matInput type="password" placeholder="Пароль" formControlName="password" />
-          </mat-form-field>
-          <div *ngIf="userLoginForm.invalid && (password.errors.required && password.touched)"  class="error">
-            Это поле обязательно
-          </div>
-          <div class="buttons" style="display: flex; flex-direction: row;">
-            <button mat-raised-button class="submitBtn" style="color: rgb(83,114,164);">Войти</button>
-            <a routerLink="/registration" style="padding-left:10%">
-              <button mat-button class="registerBtn" style="font-size: 16px;font-family: Roboto;">
+        <h2>Вход</h2>
+        <div *ngIf="error" class = "alert alert-danger">{{error}}</div>
+        <br>
+          <form class="loginForm" [formGroup]="userLoginForm" (ngSubmit)="onSubmit()">
+              <mat-form-field style="display: block">
+                <input matInput type="text" placeholder="Логин" formControlName="userName" (click)="submitted=!submitted"/>
+              </mat-form-field>
+              <div *ngIf="submitted"  class="error">
+                <div *ngIf="userName.errors.required && userName.touched">
+                  Это поле обязательно
+                </div>
+              </div>
+              <mat-form-field style="display: block">
+                <input matInput type="password" placeholder="Пароль" formControlName="password" (click)="submitted=!submitted"/>
+              </mat-form-field>
+              <div *ngIf="submitted"  class="error">
+                <div *ngIf="password.errors.required && password.touched">
+                  Это поле обязательно
+                </div>
+              </div>
+            <div class="buttons" style="display: flex; flex-direction: row;">
+              <button mat-raised-button class="submitBtn" style="color: rgb(83,114,164);" [disabled] = "loading">
+                <span *ngIf="loading" class="spinner-border sppiner-border-sm mr-1"></span>
+                Войти
+              </button>
+            </div>
+           </form>
+           <a routerLink="/registration" style="padding-left:10%">
+            <button mat-button class="registerBtn" style="font-size: 16px;font-family: Roboto;">
               <span style="color: rgb(83, 114, 164)">Регис</span>
               <span style="color: white">трация</span>
             </button>
-        </a>
-      </div>
-      </form>
+          </a>
   </div>
 </div>

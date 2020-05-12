@@ -13,8 +13,8 @@ export class CustomerService {
 
   constructor(private http: HttpClient) { }
 
-  getCustomer(id: number): Observable<Customer>{
-    return this.http.get<Customer>(this.baseUrl + 'customers/' + id);
+  getCustomer(): Observable<Customer>{
+    return this.http.get<Customer>(this.baseUrl + 'customer');
   }
   editCustomer(customer: Customer): Observable<Customer>{
     return this.http.put<Customer>(this.baseUrl + 'customers/' + customer.Id, customer);

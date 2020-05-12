@@ -1,4 +1,4 @@
-import { FilialForAdd } from '../Filial/FilialForAdd';
+import { FilialForAdd } from '../filial/filialForAdd';
 
 export interface PartnerForRegistration{
     Id: number;
