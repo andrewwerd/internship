@@ -56,6 +56,7 @@ import { NewsPageComponent } from './newsPage/newsPage.component';
 import { StatisticComponent } from './statistic/statistic.component';
 import { BarcodeDialogComponent } from './home/barcode-dialog';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { MdlCurrencyPipe } from 'src/app/components/pipes/mdl.pipe';
 
 @NgModule({
     imports: [
@@ -118,7 +119,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
         HomeComponent,
         BarcodeComponent,
         BalancesListComponent,
-        BarcodeDialogComponent
+        BarcodeDialogComponent,
+        MdlCurrencyPipe
     ]
 })
 export class CustomerModule {}

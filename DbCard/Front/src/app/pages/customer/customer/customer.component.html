@@ -8,21 +8,21 @@
         <a routerLink="home" class="logo" >
             <img src="../../../assets/img/app_logo.png" alt="Logo" style="border: 0px;">
         </a>
-        <mat-menu #appMenu="matMenu">
+        <mat-menu #appMenu="matMenu" >
             <button mat-menu-item>Редактировать страницу</button>
             <button mat-menu-item>Настройки</button>
             <button mat-menu-item (click)="logout()">Выйти</button>
           </mat-menu>
 
           <button  mat-stroked-button class= "app-menu" #matMenuButton [matMenuTriggerFor]="appMenu" style="border: 0px; left: 70%">
-            <ng-container *ngIf="hasAvatar(); else elseTemplate">
+            <!-- <ng-container *ngIf="hasAvatar(); else elseTemplate">
               <img class="avatar" [src]="customer.Avatar">
             </ng-container>
-            <ng-template #elseTemplate>
+            <ng-template #elseTemplate> -->
               <i class="material-icons">perm_identity</i>
-            </ng-template>
-            <span style="font-size:18px;  text-align: center;" mat-line>{{customer.FirstName}} {{customer.LastName}}</span>
-                <mat-icon>keyboard_arrow_down</mat-icon>
+           <!-- </ng-template> -->
+            <span mat-line>{{customer.firstName}} {{customer.lastName}}</span>
+                <mat-icon class="arrow">keyboard_arrow_down</mat-icon>
           </button>
     </mat-toolbar>
     <mat-sidenav-container class = "app-snav-container" hasBackdrop = false autosize fullscreen>

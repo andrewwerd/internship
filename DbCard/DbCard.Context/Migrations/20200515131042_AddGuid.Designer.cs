@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DbCard.Context.Migrations
 {
     [DbContext(typeof(DbCardContext))]
-    [Migration("20200511175157_init")]
-    partial class init
+    [Migration("20200515131042_AddGuid")]
+    partial class AddGuid
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -261,6 +261,26 @@ namespace DbCard.Context.Migrations
                     b.ToTable("UserRoles","Auth");
                 });
 
+            modelBuilder.Entity("DbCard.Domain.Category", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("DbCard.Domain.Customer", b =>
                 {
                     b.Property<long>("Id")
@@ -270,6 +290,9 @@ namespace DbCard.Context.Migrations
 
                     b.Property<byte[]>("Avatar")
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<Guid>("Barcode")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("date");
@@ -465,13 +488,6 @@ namespace DbCard.Context.Migrations
                     b.Property<decimal>("BirthdayDiscount")
                         .HasColumnType("decimal(3, 2)");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(40)")
-                        .HasDefaultValueSql("('UNIVERSAL')")
-                        .HasMaxLength(40);
-
                     b.Property<DateTime>("DateOfRegistration")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
@@ -501,9 +517,6 @@ namespace DbCard.Context.Migrations
                     b.Property<string>("Site")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Subcategory")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
@@ -513,6 +526,33 @@ namespace DbCard.Context.Migrations
                         .IsUnique();
 
                     b.ToTable("Partners");
+                });
+
+            modelBuilder.Entity("DbCard.Domain.PartnerSubcategories", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("PartnerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<long>("SubcategoryId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PartnerId");
+
+                    b.HasIndex("SubcategoryId");
+
+                    b.ToTable("PartnerSubcategories");
                 });
 
             modelBuilder.Entity("DbCard.Domain.PremiumDiscount", b =>
@@ -662,6 +702,31 @@ namespace DbCard.Context.Migrations
                     b.ToTable("StandartDiscounts");
                 });
 
+            modelBuilder.Entity("DbCard.Domain.Subcategory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("CategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Subcategories");
+                });
+
             modelBuilder.Entity("DbCard.Domain.Transaction", b =>
                 {
                     b.Property<long>("Id")
@@ -779,6 +844,15 @@ namespace DbCard.Context.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DbCard.Domain.Customer", b =>
+                {
+                    b.HasOne("DbCard.Domain.Auth.User", "User")
+                        .WithOne("Customer")
+                        .HasForeignKey("DbCard.Domain.Customer", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DbCard.Domain.CustomersBalance", b =>
                 {
                     b.HasOne("DbCard.Domain.Customer", "Customer")
@@ -824,6 +898,29 @@ namespace DbCard.Context.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DbCard.Domain.Partner", b =>
+                {
+                    b.HasOne("DbCard.Domain.Auth.User", "User")
+                        .WithOne("Partner")
+                        .HasForeignKey("DbCard.Domain.Partner", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DbCard.Domain.PartnerSubcategories", b =>
+                {
+                    b.HasOne("DbCard.Domain.Partner", "Partner")
+                        .WithMany("PartnerSubcategories")
+                        .HasForeignKey("PartnerId")
+                        .IsRequired();
+
+                    b.HasOne("DbCard.Domain.Subcategory", "Subcategory")
+                        .WithMany("Partners")
+                        .HasForeignKey("SubcategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DbCard.Domain.PremiumDiscount", b =>
                 {
                     b.HasOne("DbCard.Domain.Partner", "Partner")
@@ -864,6 +961,15 @@ namespace DbCard.Context.Migrations
                     b.HasOne("DbCard.Domain.Partner", "Partner")
                         .WithMany("StandartDiscounts")
                         .HasForeignKey("PartnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DbCard.Domain.Subcategory", b =>
+                {
+                    b.HasOne("DbCard.Domain.Category", "Category")
+                        .WithMany("Subcategories")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

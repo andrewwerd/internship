@@ -1,10 +1,11 @@
 export class Customer{
-    Avatar: File;
-    Id: number;
-    UserId: number;
-    FirstName: string;
-    LastName: string;
-    Age: number;
-    Gender: string;
-    PhoneNumber: string;
+    avatar: File;
+    id: number;
+    userId: number;
+    firstName: string;
+    lastName: string;
+    age: number;
+    gender: string;
+    phoneNumber: string;
+    barcode: string;
 }

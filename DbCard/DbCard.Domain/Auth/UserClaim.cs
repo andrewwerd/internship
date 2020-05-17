@@ -4,6 +4,6 @@ namespace DbCard.Domain.Auth
 {
     public class UserClaim: IdentityUserClaim<long>
     {
-
+        
     }
 }

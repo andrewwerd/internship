@@ -1,9 +1,46 @@
-Html, body{
-  height:100%;
-  margin:0px;
-  padding:0px;
+Html,
+body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+.container {
+  height: 100vh;
+  background: rgb(83, 114, 164);
+}
+.main_container {
+  margin: auto;
+  background: rgba(255, 255, 255, 0.5);
+  width: 60%;
 }
 .error{
   color:red;
-  font-size: x-small;;
+  font-size: x-small;
+}
+form{
+display: flex;
+flex-direction: column;
+}
+.radioGroup{
+  display: flex;
+  flex-direction: column;
+}
+.category{
+  display: flex;
+  flex-direction: row;
+}
+.category #subcategory{
+  margin-left: 5px;
+}
+.submitContainer{
+  display: flex;
+  flex-direction: row;
+}
+.mat-horizontal-content-container {
+  text-align: center;
+  overflow: hidden;
+  padding: 0;
+}
+.avatar{
+  text-align: end;
 }

@@ -1,5 +1,6 @@
 ﻿using DbCard.Context;
 using DbCard.Domain.Auth;
+using DbCard.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,10 +23,11 @@ namespace DbCard.Infrastructure.Extensions
                     var context = services.GetRequiredService<DbCardContext>();
                     var userManager = services.GetRequiredService<UserManager<User>>();
                     var roleManager = services.GetRequiredService<RoleManager<Role>>();
+                    var customerService = services.GetRequiredService<ICustomerService>();
                     context.Database.Migrate();
 
                     await Seed.SeedRoles(roleManager);
-                    await Seed.SeedUsers(userManager);
+                    await Seed.SeedUsers(userManager,customerService);
                 }
                 catch (Exception ex)
                 {

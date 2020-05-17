@@ -18,25 +18,25 @@ const routes: Routes = [
   },
   {
     path: 'customer',
-    loadChildren: () => import('./pages/customer/customer.module').then(mod => mod.CustomerModule)// ,
-    // canActivate: [AuthGuard],
-    // data: { role: Role.Customer}
+    loadChildren: () => import('./pages/customer/customer.module').then(mod => mod.CustomerModule),
+    canActivate: [AuthGuard],
+    data: { role: Role.Customer}
   },
   {
     path: 'partner',
-    loadChildren: () => import('./pages/partner/partner.module').then(mod => mod.PartnerModule)// ,
-    // canActivate: [AuthGuard],
-    // data: {role: Role.Partner}
+    loadChildren: () => import('./pages/partner/partner.module').then(mod => mod.PartnerModule),
+    canActivate: [AuthGuard],
+    data: {role: Role.Partner}
   },
   {
     path: 'admin',
-    loadChildren: () => import('./pages/admin/admin.module').then(mod => mod.AdminModule)// ,
-    // canActivate: [AuthGuard],
-    // data: {role: Role.Admin}
+    loadChildren: () => import('./pages/admin/admin.module').then(mod => mod.AdminModule),
+    canActivate: [AuthGuard],
+    data: {role: Role.Admin}
   },
   {
     path: '',
-    redirectTo: '/customer/home',
+    redirectTo: `/login`,
     pathMatch: 'full',
   },
   {

@@ -39,7 +39,7 @@ namespace DbCard.Services.Implementations
             if (userCreating.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "Customer");
-                var customerCreating = await _customerService.CreateAsync(customerDto);
+                var customerCreating = await _customerService.MapAsync(customerDto);
                 return customerCreating;
             }
             else
@@ -63,7 +63,7 @@ namespace DbCard.Services.Implementations
         {
             var checkingPasswordResult = await _signInManager.PasswordSignInAsync(userForLogin.Username, userForLogin.Password, false, false);
 
-            if(checkingPasswordResult.Succeeded)
+            if (checkingPasswordResult.Succeeded)
             {
                 var user = _userManager.Users.SingleOrDefault(x => x.UserName == userForLogin.Username);
                 return await GenerateJwtTokenAsync(user);
@@ -71,18 +71,27 @@ namespace DbCard.Services.Implementations
             else
                 return new LoginResult(false);
         }
+        public async Task<ValidationErrors> ValidateUserName(string userName)
+        {
+            var error = "Such user already exists";
+            if (await _userManager.FindByNameAsync(userName) != null)
+                return new ValidationErrors (true, error);
+            else
+                return new ValidationErrors (false);
+        }
         private async Task<LoginResult> GenerateJwtTokenAsync(User user)
         {
             var userClaims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.Name, user.Email)
             };
 
             var roles = await _userManager.GetRolesAsync(user);
 
-            userClaims.AddRange(roles.Select(role => new Claim(ClaimsIdentity.DefaultRoleClaimType, role)));
-
+            userClaims.AddRange(roles.Select(role => new Claim("role", role)));
+            var claimsIdentity = new ClaimsIdentity(userClaims, "", ClaimTypes.NameIdentifier, ClaimsIdentity.DefaultRoleClaimType);
             var signinCredentials = new SigningCredentials(_authenticationOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256);
             var jwtSecurityToken = new JwtSecurityToken(
                  issuer: _authenticationOptions.Issuer,
@@ -92,21 +101,27 @@ namespace DbCard.Services.Implementations
                  signingCredentials: signinCredentials
             );
             var tokenHandler = new JwtSecurityTokenHandler();
-            return new LoginResult(tokenHandler.WriteToken(jwtSecurityToken), true);
+            return new LoginResult(true, tokenHandler.WriteToken(jwtSecurityToken));
         }
     }
     public class LoginResult
     {
         public string EncodedToken { get; protected set; }
         public bool Succeeded { get; protected set; }
-        public LoginResult(bool succeeded)
-        {
-            Succeeded = succeeded;
-        }
-        public LoginResult(string encodedToken, bool succeeded)
+        public LoginResult(bool succeeded, string encodedToken = "")
         {
             EncodedToken = encodedToken;
             Succeeded = succeeded;
+        }
+    }
+    public class ValidationErrors
+    {
+        public bool Error { get; protected set; }
+        public string ErrorBody { get; protected set; }
+        public ValidationErrors(bool error, string errorBody = "")
+        {
+            Error = error;
+            ErrorBody = errorBody;
         }
     }
 }

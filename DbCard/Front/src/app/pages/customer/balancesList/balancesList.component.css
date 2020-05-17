@@ -3,15 +3,72 @@
   left: 5%;
   position: absolute;
 }
-.premiumBtn{
-  background-color:  rgb(41, 85, 155);
-  color: white;
-  font-size: x-large;
+.filterBtn{
+  color: black;
+  font-size: larger;
   margin: 10px;
 }
-.standartBtn{
- margin: 10px;
- font-size: x-large;
- background-color: #cccc;
- color: white;
+.filterBtn:hover{
+  color: rgb(0, 92, 128);
+  font-size: larger;
+  margin: 10px;
+}
+.mat-expansion-panel .mat-expansion-panel-header{
+flex-direction: column;
+min-height: 70px;
+}
+.mat-expansion-panel-header-title {
+  color: white;
+}
+a{
+  font-size: small;
+}
+.name{
+ padding: 5px;
+ font-size: xx-large;
+}
+.currentDiscount{
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+   text-align: center;
+}
+.currentDiscount p{
+  font-size: x-small;
+}
+.discountContent .mat-list-item{
+  height: 20px;
+}
+.mat-expansion-panel{
+  width:500px;
+}
+.progress{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 15%;
+  margin-left: 15%;
+  width: 200px;
+}
+.discountContent{
+  display: flex;
+  flex-direction: row;
+}
+.discountContent .mat-list-item .discountItem{
+  display: flex;
+  flex-direction: row;
+}
+.currentDiscount .percent{
+  font-size: x-large;
+  flex-direction: row;
+}
+.category{
+  margin: 5px;
+  font-size: small;
+}
+.balanceTable{
+  position: absolute;
+  width: 100%;
+  top: 82px;
+  margin-right: 100px;
 }

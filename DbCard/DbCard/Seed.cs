@@ -1,5 +1,9 @@
 ﻿using DbCard.Context;
+using DbCard.Domain;
 using DbCard.Domain.Auth;
+using DbCard.Services;
+using DbCard.Infrastructure.Extensions;
+using DbCard.Services.Implementations;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
@@ -9,13 +13,6 @@ namespace DbCard.Infrastructure
 {
     public class Seed
     {
-        public static async Task SeedCustomers(DbCardContext context)
-        {
-            if (!context.Customers.Any())
-            {
-               await context.SaveChangesAsync();
-            }
-        }
 
         public static async Task SeedPartners(DbCardContext context)
         {
@@ -25,20 +22,26 @@ namespace DbCard.Infrastructure
             }
         }
 
-        public static async Task SeedUsers(UserManager<User> userManager)
+        public static async Task SeedUsers(UserManager<User> userManager, ICustomerService customerService)
         {
             if (!userManager.Users.Any())
             {
                 var user = new User()
                 {
-                    UserName = "admin",
-                    Email = "admin@dbcard.com",
+                    UserName = "john11",
+                    Email = "john1@dbcard.com"
                 };
                 await userManager.CreateAsync(user, "Qwerty12345");
-                await userManager.AddToRoleAsync(user, "Admin");
+                await userManager.AddToRoleAsync(user, "Customer");
+                var customer = new Customer()
+                {
+                    FirstName = "John",
+                    LastName = "Doe",
+                    Barcode = Guid.NewGuid().NewShortGuid()
+                };
+                await customerService.CreateAsync(customer, user);
             }
         }
-
         public static async Task SeedRoles(RoleManager<Role> roleManager)
         {
             if(!roleManager.Roles.Any())

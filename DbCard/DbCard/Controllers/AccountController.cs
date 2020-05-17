@@ -6,6 +6,7 @@ using DbCard.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 
 namespace DbCard.Controllers
@@ -15,15 +16,13 @@ namespace DbCard.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
-        private readonly RoleManager<Role> _roleManager;
-        public AccountController(IAccountService accountService, RoleManager<Role> roleManager)
+        public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
-            _roleManager = roleManager;
         }
-        // POST: api/Account
+        // POST: api/Account/customerRegistration
         [AllowAnonymous]
-        [HttpPost("CustomerRegistration")]
+        [HttpPost("customerRegistration")]
         public async Task<IActionResult> CustomerRegistration(CustomerForRegistration customer)
         {
             var result = await _accountService.CustomerRegistration(customer);
@@ -32,9 +31,9 @@ namespace DbCard.Controllers
             else
                 return BadRequest();
         }
-
+        // POST: api/Account/partnerRegistration
         [AllowAnonymous]
-        [HttpPost("PartnerRegistration")]
+        [HttpPost("partnerRegistration")]
         public async Task<IActionResult> PartnerRegistration(PartnerForRegistration partner)
         {
             var result = await _accountService.PartnerRegistration(partner);
@@ -44,16 +43,23 @@ namespace DbCard.Controllers
                 return BadRequest();
         }
 
-        // POST: api/Account
+        // POST: api/Account/login
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserForLogin userForLogin)
+        public async Task<IActionResult> Login([FromBody]UserForLogin userForLogin)
         {
             var result = await _accountService.Login(userForLogin);
             if (result.Succeeded)
                 return Ok(new { AccessToken = result.EncodedToken });
             else
                 return Unauthorized();
+        }
+        [AllowAnonymous]
+        [HttpPost("validateUserName")]
+        public async Task<IActionResult> ValidateUserName(string userName)
+        {
+            var result = await _accountService.ValidateUserName(userName);
+            return Ok(result);
         }
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DbCard.Context.Migrations
 {
     [DbContext(typeof(DbCardContext))]
-    [Migration("20200511223712_Categories")]
-    partial class Categories
+    [Migration("20200515130933_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

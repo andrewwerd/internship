@@ -1,41 +1,56 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule} from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule} from '@angular/material/radio';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatMomentDateModule} from '@angular/material-moment-adapter';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app.routing';
-// import { JwtModule } from '@auth0/angular-jwt';
+
 
 import { NotFoundPageComponent } from './pages/NotFoundPage/notFoundPage.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AppComponent } from './app.component';
-import { environment } from 'src/environments/environment';
-import { MatRippleModule, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { RegistrationComponent } from './pages/registration/registration.component';
-import { MatDatepickerModule} from '@angular/material/datepicker';
-import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatGridListModule } from '@angular/material/grid-list';
+
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegistrationComponent,
     AppComponent,
+    RegistrationComponent,
     NotFoundPageComponent
   ],
   imports: [
+    MatGridListModule,
+    MatListModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatAutocompleteModule,
+    MatSelectModule,
     MatCardModule,
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
     MatRippleModule,
     MatDatepickerModule,
+    MatProgressSpinnerModule,
     MatStepperModule,
     MatRadioModule,
     BrowserModule,
@@ -46,7 +61,8 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/ma
     MatMomentDateModule
   ],
   providers: [
-    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: 'ru-ru'}
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    // {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 

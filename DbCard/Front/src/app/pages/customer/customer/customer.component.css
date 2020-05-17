@@ -37,6 +37,7 @@ body {
 .app-snav-container {
     margin-top: 64px;
     flex: 1;
+    background: url('../../../../assets/img/background-main.jpg');
   }
 .app-menu{
   color: white;

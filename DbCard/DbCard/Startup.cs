@@ -6,12 +6,14 @@ using DbCard.Services;
 using DbCard.Services.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OnlineBookShop.API.Infrastructure.Extensions;
 using System.Reflection;
+using System.Security.Claims;
 
 namespace DbCard
 {
@@ -39,8 +41,6 @@ namespace DbCard
 
             var authOptions = services.ConfigureAuthOptions(Configuration);
             services.AddJwtAuthentication(authOptions);
-
-
             services.AddControllers(options =>
             {
                 options.Filters.Add(new AuthorizeFilter());
@@ -67,14 +67,14 @@ namespace DbCard
             {
                 app.UseMiddleware<ErrorHandlingMiddleware>();
             }
-
+            app.UseCors(configurePolicy => configurePolicy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseRouting();
             app.UseStaticFiles();
             app.UseDefaultFiles();
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors(configurePolicy => configurePolicy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
 
             app.UseEndpoints(endpoints =>
             {

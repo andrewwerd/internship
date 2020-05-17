@@ -2,7 +2,9 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { AccountService } from '../_services/account.service';
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthGuard implements CanActivate {
     constructor(private accountService: AccountService, private router: Router) {}
 
@@ -13,7 +15,6 @@ export class AuthGuard implements CanActivate {
                 this.router.navigate(['/']);
                 return false;
             }
-            this.router.navigate([`/${currentUser.role}`]);
             return true;
           }
       this.router.navigate(['login'], { queryParams: { returnUrl: state.url }});

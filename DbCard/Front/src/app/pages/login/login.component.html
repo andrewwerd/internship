@@ -1,46 +1,46 @@
-<div  class="container">
+<div class="container">
   <div class="parentContainer">
     <div class="Logo">
-        <img style="height: 100px" src='../../assets/img/app_logo.png' alt="Logo">
+      <img style="height: 100px" src='../../assets/img/app_logo.png' alt="Logo">
     </div>
-      <mat-card class="loginForm">
-        <mat-card-header>
-          <h2>Вход</h2>
-          <div *ngIf="error" class = "alert alert-danger">{{error}}</div>
-        </mat-card-header>
-        <mat-card-content>
-          <form [formGroup]="userLoginForm">
-            <mat-form-field style="display: block">
-              <input matInput type="text" placeholder="Логин" formControlName="userName" (click)="submitted=!submitted"/>
-            </mat-form-field>
-            <div *ngIf="submitted"  class="error">
-              <div *ngIf="userName.errors.required && userName.touched">
-                Это поле обязательно
-              </div>
+    <mat-card class="loginForm">
+      <mat-card-header>
+        <div *ngIf="error" class="errorLogin">{{error}}</div>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="userLoginForm">
+          <mat-form-field style="display: block">
+            <input matInput type="text" placeholder="Логин" formControlName="userName" />
+          </mat-form-field>
+          <div *ngIf="submitted" class="error">
+            <div *ngIf="userName.hasError('required') && !userName.touched && !userName.dirty">
+              Это поле обязательно
             </div>
-            <mat-form-field style="display: block">
-              <input matInput type="password" placeholder="Пароль" formControlName="password" (click)="submitted=!submitted"/>
-            </mat-form-field>
-            <div *ngIf="submitted"  class="error">
-              <div *ngIf="password.errors.required && password.touched">
-                Это поле обязательно
-              </div>
+          </div>
+          <mat-form-field style="display: block">
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Пароль" formControlName="password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          <div *ngIf="submitted" class="error">
+            <div *ngIf="password.hasError('required') && !password.touched && !password.dirty">
+              Это поле обязательно
             </div>
-          </form>
-        </mat-card-content>
-        <mat-card-actions>
-          <div class="buttons" style="display: flex; flex-direction: column;">
-            <button mat-raised-button class="submitBtn" style="color: rgb(83,114,164);" [disabled] = "loading">
-              <span *ngIf="loading" class="spinner-border sppiner-border-sm mr-1"></span>
-              Войти
-            </button>
-          <a routerLink="/registration">
-            <button mat-button class="registerBtn" style="font-size: 16px;font-family: Roboto;">
-              <span style="color: rgb(83, 114, 164)">Регистрация</span>
-            </button>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="buttons">
+          <button mat-raised-button class="submitBtn" [disabled]="loading" (click)='onSubmit()'>
+            Войти
+          </button>
+          <a mat-button routerLink="/registration">
+            <span class="registerBtn">Регистрация</span>
           </a>
         </div>
-        </mat-card-actions>
-      </mat-card>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </div>

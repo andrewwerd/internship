@@ -1,8 +1,6 @@
 ﻿using DbCard.Domain.Auth;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DbCard.Domain
 {
@@ -13,9 +11,20 @@ namespace DbCard.Domain
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string Gender { get; set; }
+        public string Barcode { get; set; }
         public int Age
         {
-            get => (int)((DateTime.Today - DateOfBirth).TotalDays / 365.2425);
+            get
+            {
+                var now = DateTime.Now;
+                var totalYears =  now.Year - DateOfBirth.Year;
+
+                if (now < DateOfBirth.AddYears(totalYears))
+                {
+                    totalYears--;
+                }
+                return totalYears;
+            }
         }
         public DateTime DateOfBirth { get; set; }
         public DateTime DateOfRegistration { get; set; }

@@ -22,15 +22,24 @@ namespace DbCard.Controllers
             _roleManager = roleManager;
         }
 
-        // GET: api/Customer/MyDiscounts
+        // GET: api/customer/myDiscounts
         [Authorize(Roles = "Customer")]
-        [HttpGet("MyDiscounts")]
+        [HttpGet("myDiscounts")]
         public async Task<ActionResult<IEnumerable<PremiumBalance>>> MyDiscounts(long id)
         {
             var myDiscounts = await _customerService.MyDiscounts(id);
             if (myDiscounts == null) return NoContent();
             return Ok(await _customerService.MyDiscounts(id));
         }
-        //GET: api/Customer/id/
+        [Authorize(Roles = "Customer")]
+        [HttpGet("currentUser")]
+        public async Task<ActionResult<object>> GetCurrentUser()
+        {
+            var customer = await _customerService.GetCurrentUser();
+            if (customer != null)
+                return Ok(customer);
+            else
+                return NotFound();
+        }
     }
 }

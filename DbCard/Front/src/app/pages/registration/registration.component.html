@@ -1,58 +1,253 @@
-<div class="container" style="background:rgb(83, 114, 164);">
-  <div class="main_container" style="margin: auto; background: rgba(255,255,255,0.5); width:80%;">
-    <mat-horizontal-stepper>
-      <mat-step [stepControl]="userRegistrationForm">
-        <form [formGroup]="userRegistrationForm" #form1>
+<div class="container">
+  <div class="main_container">
+    <mat-horizontal-stepper [linear]="false">
+      <mat-step>
+        <ng-template matStepLabel>Регистрация данных пользователя</ng-template>
+        <form [formGroup]="userRegistrationForm">
           <ng-template matStepLabel>Регистрация данных пользователя</ng-template>
-          <mat-form-field style="display: block" >
-            <input matInput type="text" placeholder="Логин" formControlName="userName"/>
-          </mat-form-field>
-          <div *ngIf="form1.invalid && (form1.errors.required && form1.touched)"  class="error">
-            Это поле обязательно
+          <div id="userName">
+            <mat-form-field>
+              <input matInput type="text" placeholder="Логин" formControlName="userName" />
+            </mat-form-field>
+            <div *ngIf="userForm.userName.touched" class="error">
+              <div *ngIf="userForm.userName.hasError('required')">
+                Это поле обязательно
+              </div>
+            </div>
           </div>
-          <mat-form-field style="display: block">
-            <input matInput type="password" placeholder="Пароль" formControlName="password" />
-          </mat-form-field>
-         <div *ngIf="form1.invalid && (form1.errors.required && form1.touched)"  class="error">
-            Это поле обязательно
+          <div id="password">
+            <mat-form-field>
+              <input matInput type="password" placeholder="Пароль" formControlName="password" />
+            </mat-form-field>
+            <div *ngIf="userForm.password.touched || userForm.password.dirty" class="error">
+              <div *ngIf="userForm.password.hasError('required')">
+                Это поле обязательно
+              </div>
+              <div *ngIf=" userForm.password.invalid && !userForm.password.hasError('required')">
+                <div [style.color]="userForm.password.hasError('number')?'red':'black'">
+                  Пароль должен содержать цифры
+                </div>
+                <div [style.color]="userForm.password.hasError('capital')?'red':'black'">
+                  Пароль должен содержать заглавные буквы
+                </div>
+                <div [style.color]="userForm.password.hasError('lower')?'red':'black'">
+                  Пароль должен содержать строчные буквы
+                </div>
+                <div [style.color]="userForm.password.hasError('minlength')?'red':'black'">
+                  Пароль должен содержать 8 символов
+                </div>
+              </div>
+            </div>
           </div>
-          <mat-form-field>
-            <mat-radio-button value="Покупатель" formControlName="userType"> Пользователь</mat-radio-button>
-          </mat-form-field>
-          <div>
-            <button mat-button matStepperNext>Далее</button>
+          <div id="passwordConfirm">
+            <mat-form-field>
+              <input matInput type="password" placeholder="Повторите пароль" formControlName="passwordConfirm" />
+            </mat-form-field>
+            <div *ngIf="userForm.passwordConfirm.touched || userForm.passwordConfirm.dirty" class="error">
+              <div *ngIf="userForm.passwordConfirm.hasError('required')">
+                Это поле обязательно
+              </div>
+              <div *ngIf=" userForm.passwordConfirm.invalid && !userForm.passwordConfirm.hasError('required')">
+                <div [style.color]="userForm.passwordConfirm.hasError('passwordNotConfirmed')?'red':'black'">
+                  Пароль не совпадает
+                </div>
+              </div>
+            </div>
           </div>
+          <div id="email">
+            <mat-form-field>
+              <input matInput type="text" placeholder="Email" formControlName="email">
+            </mat-form-field>
+            <div *ngIf="userForm.email.touched || userForm.email.dirty" class="error">
+              <div *ngIf="userForm.email.hasError('required')">
+                Это поле обязательно
+              </div>
+              <div *ngIf=" userForm.email.invalid && !userForm.email.hasError('required')">
+                <div [style.color]="userForm.email.hasError('email')?'red':'black'">
+                  Введите email в формате "example@gmail.com"
+                </div>
+              </div>
+            </div>
+          </div>
+          <mat-radio-group formControlName="userType" class="radioGroup">
+            <br>
+            <mat-radio-button value="customer"> Пользователь</mat-radio-button>
+            <br>
+            <mat-radio-button value="partner"> Коммерческий партнёр</mat-radio-button>
+            <br>
+          </mat-radio-group>
         </form>
+        <div>
+          <button [disabled]="userRegistrationForm.invalid" mat-button matStepperNext>Далее</button>
+        </div>
       </mat-step>
-      <mat-step stepControl="customerRegistrationForm">
-        <ng-template matStepLabel>Регистрация данных покупателя</ng-template>
-        <form [formGroup]="customerRegistrationForm" #form2>
-          <ng-template matStepLabel>Регистрация данных пользователя</ng-template>
-          <mat-form-field style="display: block" >
-            <input matInput type="text" placeholder="Имя" formControlName="firstName"/>
-          </mat-form-field>
-          <div *ngIf="form1.invalid && (form1.errors.required && form1.touched)"  class="error">
-            Это поле обязательно
-          </div>
-          <mat-form-field style="display: block" >
-            <input matInput type="text" placeholder="Фамилия" formControlName="LastName"/>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput max="maxDate" [matDatepicker]="myDatepicker" formControlName="birthday">
-            <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-            <mat-datepicker #myDatepicker></mat-datepicker>
-          </mat-form-field>
-          <div *ngIf="form1.invalid && (form1.errors.required && form1.touched)"  class="error">
-            Это поле обязательно
-          </div>
-          <mat-form-field>
-            <input matInput type="file" placeholder="Фото" formControlName="Avatar"/>
-          </mat-form-field>
+      <mat-step>
+        <ng-container *ngIf="userForm.userType.value === 'customer'; else elseTemplate">
+          <ng-template matStepLabel>Регистрация данных покупателя</ng-template>
+          <form [formGroup]="customerRegistrationForm">
+            <div id="firstName">
+              <mat-form-field>
+                <input matInput type="text" placeholder="Имя" formControlName="firstName" />
+              </mat-form-field>
+              <div *ngIf="customerForm.firstName.touched && customerForm.firstName.hasError('required')" class="error">
+                Это поле обязательно
+              </div>
+            </div>
+            <div id="lastName">
+              <mat-form-field>
+                <input matInput type="text" placeholder="Фамилия" formControlName="lastName" />
+              </mat-form-field>
+              <div *ngIf="customerForm.lastName.touched && customerForm.lastName.hasError('required')" class="error">
+                Это поле обязательно
+              </div>
+            </div>
+            <div id="birthday">
+              <mat-form-field>
+                <mat-label>День рождения</mat-label>
+                <input matInput [max]="maxDate" [matDatepicker]="myDatepicker" formControlName="birthday">
+                <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #myDatepicker></mat-datepicker>
+              </mat-form-field>
+              <div *ngIf="customerForm.birthday.touched && customerForm.birthday.hasError('required')" class="error">
+                Это поле обязательно
+              </div>
+            </div>
+            <div id="gender">
+              <mat-form-field>
+                <mat-label>Пол</mat-label>
+                <mat-select formControlName="gender">
+                  <mat-option value="Male">Мужской</mat-option>
+                  <mat-option value="Female">Женский</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div *ngIf="customerForm.gender.touched && customerForm.gender.hasError('required')" class="error">
+                Это поле обязательно
+              </div>
+            </div>
+            <div id="avatar">
+              <input type="file" placeholder="Фото" (change)="onFileSelected($event)">
+            </div>
+          </form>
           <div>
-            <button mat-button matStepperNext>Далее</button>
+            <button mat-button matStepperPrevious>Назад</button>
+            <button mat-button [disabled]="customerRegistrationForm.invalid" matStepperNext>Далее</button>
           </div>
-        </form>
-    </mat-step>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <ng-template matStepLabel>Регистрация данных партнёра</ng-template>
+          <form [formGroup]="partnerRegistrationForm">
+            <div id="name">
+              <mat-form-field>
+                <input matInput type="text" placeholder="Название" formControlName="name" />
+              </mat-form-field>
+              <div *ngIf="partnerForm.name.touched" class="error">
+                <div *ngIf="partnerForm.name.hasError('required')">
+                  Это поле обязательно
+                </div>
+              </div>
+            </div>
+            <div class="category">
+              <div id="categoryField">
+                <mat-form-field>
+                  <mat-label>Категория</mat-label>
+                  <mat-select formControlName="category" onblur="onCategorySelected">
+                    <mat-option *ngFor="let category of categories" [value]="category.id">
+                      {{category.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div *ngIf="partnerForm.category.touched && userForm.category.hasError('required')" class="error">
+                  Это поле обязательно
+                </div>
+              </div>
+              <div id="subcategory">
+                <div *ngIf="partnerForm.category.valid">
+                  <mat-form-field>
+                    <mat-label>Категория</mat-label>
+                    <mat-select formControlName="category">
+                      <mat-option *ngFor="let category of subcategories" [value]="category.id">
+                        {{category.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div *ngIf="partnerForm.subcategory.touched && partnerForm.subcategory.hasError('required')"
+                    class="error">
+                    Это поле обязательно
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="birthdayDiscount">
+              <mat-checkbox (click)="birthdayDiscount=!birthdayDiscount">Скидка дня рождения</mat-checkbox>
+              <div *ngIf="birthdayDiscount">
+                <mat-form-field>
+                  <input matInput type="number" formControlName="birthdayDiscount">
+                </mat-form-field>
+              </div>
+            </div>
+          </form>
+          <div>
+            <button mat-button matStepperPrevious>Назад</button>
+            <button mat-button [disabled]="partnerRegistrationForm.invalid" matStepperNext>Далее</button>
+          </div>
+        </ng-template>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Подтверждение регистрации</ng-template>
+        <mat-grid-list class="submitContainer" [cols]=2>
+          <mat-grid-tile class="customerInfo">
+            <mat-list>
+              <ng-container *ngIf="userForm.userType.value === 'customer'; else partnerTemplate">
+                <mat-list-item>
+                  Имя: {{customerForm.firstName.value}}
+                </mat-list-item>
+                <mat-list-item>
+                  Фамилия: {{customerForm.lastName.value}}
+                </mat-list-item>
+                <mat-list-item>
+                  Дата рождения: {{customerForm.birthday.value | date : 'dd.MM.yyyy'}}
+                </mat-list-item>
+                <mat-list-item>
+                  Пол: {{(customerForm.firstName.value==='Male')?'Мужской':'Женский'}}
+                </mat-list-item>
+                <mat-list-item>
+                  Email: {{userForm.email.value}}
+                </mat-list-item>
+              </ng-container>
+              <ng-template #partnerTemplate>
+                <mat-list-item>
+                  Название: {{partnerForm.name.value}}
+                </mat-list-item>
+                <mat-list-item>
+                  Категория: {{partnerForm.category.value}}
+                </mat-list-item>
+                <mat-list-item>
+                  Подкатегория: {{partnerForm.subcategory.value | date : 'dd.MM.yyyy'}}
+                </mat-list-item>
+                <div *ngIf="birthdayDiscount">
+                  Скидка дня рождения: {{partnerForm.birthdayDiscount.value}}
+                </div>
+                <mat-list-item>
+                  Пол: {{(customerForm.firstName.value==='Male')?'Мужской':'Женский'}}
+                </mat-list-item>
+                <mat-list-item>
+                  Email: {{userForm.email.value}}
+                </mat-list-item>
+              </ng-template>
+            </mat-list>
+          </mat-grid-tile>
+          <mat-grid-tile class="avatar">
+            <ng-container *ngIf="foto!=null; else noAvatar">
+              <img [src]="foto">
+            </ng-container>
+            <ng-template #noAvatar>
+              <img src="../../../assets/img/no-avatar.png">
+            </ng-template>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <button mat-button matStepperPrevious>Назад</button>
+        <button mat-button (click)="onRegisterSubmit()">Подтвердить</button>
+      </mat-step>
     </mat-horizontal-stepper>
   </div>
 </div>

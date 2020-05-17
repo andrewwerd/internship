@@ -11,5 +11,6 @@ namespace DbCard.Services
         Task<LoginResult> Login(UserForLogin userForLogin);
         Task<bool> CustomerRegistration(CustomerForRegistration customerDto);
         Task<bool> PartnerRegistration(PartnerForRegistration customerDto);
+        Task<ValidationErrors> ValidateUserName(string userName);
     }
 }
