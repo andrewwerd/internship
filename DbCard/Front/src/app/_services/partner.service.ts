@@ -21,12 +21,6 @@ export class PartnerService{
     gerPartner(id: number): Observable<Partner> {
         return this.http.get<Partner>(this.baseUrl + 'partners/' + id);
     }
-    getCategories(): Observable<Category[]>{
-      return this.http.get<Category[]>(this.baseUrl + 'categories/');
-    }
-    getSubcategories(id: number): Observable<Category[]>{
-      return this.http.get<Category[]>(this.baseUrl + 'categories/' + id);
-    }
     savePartner(partner: Partner): Observable<Partner> {
         if (partner.Id > 0) {
           return this.updatePartner(partner);

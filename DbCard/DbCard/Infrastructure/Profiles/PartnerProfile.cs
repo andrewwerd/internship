@@ -7,11 +7,8 @@ namespace DbCard.Infrastructure.Profiles.Partners
     {
         public PartnerProfile()
         {
-            CreateMap<Domain.Partner, PartnerGridRow>()
-                .ForMember(x => x.Logo, e => e.MapFrom(z => z.Logo));
-            CreateMap<PartnerForRegistration, Domain.Partner>()
-                .ForMember(x => x.Logo, e => e.MapFrom(z => z.Logo))
-                .ForMember(x => x.Filials, e => e.MapFrom(z => z.Filial));
+            CreateMap<Domain.Partner, Partner>();
+            CreateMap<PartnerForRegistration, Domain.Partner>();
         }
     }
 }

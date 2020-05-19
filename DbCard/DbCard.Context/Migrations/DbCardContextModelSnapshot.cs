@@ -19,49 +19,6 @@ namespace DbCard.Context.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DbCard.Domain.Address", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("FilialId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("HouseNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Region")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FilialId")
-                        .IsUnique();
-
-                    b.ToTable("Addresses");
-                });
-
             modelBuilder.Entity("DbCard.Domain.Auth.Role", b =>
                 {
                     b.Property<long>("Id")
@@ -267,7 +224,7 @@ namespace DbCard.Context.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
@@ -275,6 +232,10 @@ namespace DbCard.Context.Migrations
                         .HasColumnType("rowversion");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Categories");
                 });
@@ -404,6 +365,14 @@ namespace DbCard.Context.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HouseNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsMainOffice")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -417,10 +386,18 @@ namespace DbCard.Context.Migrations
                         .HasColumnType("nvarchar(15)")
                         .HasMaxLength(15);
 
+                    b.Property<string>("Region")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -483,8 +460,11 @@ namespace DbCard.Context.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("BirthdayDiscount")
+                    b.Property<decimal?>("BirthdayDiscount")
                         .HasColumnType("decimal(3, 2)");
+
+                    b.Property<long>("CategoryId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("DateOfRegistration")
                         .ValueGeneratedOnAdd()
@@ -515,42 +495,22 @@ namespace DbCard.Context.Migrations
                     b.Property<string>("Site")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("SubcategoryId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("SubcategoryId");
+
                     b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Partners");
-                });
-
-            modelBuilder.Entity("DbCard.Domain.PartnerSubcategories", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("PartnerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion");
-
-                    b.Property<long>("SubcategoryId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PartnerId");
-
-                    b.HasIndex("SubcategoryId");
-
-                    b.ToTable("PartnerSubcategories");
                 });
 
             modelBuilder.Entity("DbCard.Domain.PremiumDiscount", b =>
@@ -630,48 +590,6 @@ namespace DbCard.Context.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("DbCard.Domain.Schedule", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("FilialId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Friday")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Monday")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("RowVersion")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("Saturday")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Sunday")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Thursday")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tuesday")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Wednesday")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FilialId")
-                        .IsUnique();
-
-                    b.ToTable("Schedule");
-                });
-
             modelBuilder.Entity("DbCard.Domain.StandartDiscount", b =>
                 {
                     b.Property<long>("Id")
@@ -711,7 +629,7 @@ namespace DbCard.Context.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
@@ -721,6 +639,10 @@ namespace DbCard.Context.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("Name", "CategoryId")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Subcategories");
                 });
@@ -780,15 +702,6 @@ namespace DbCard.Context.Migrations
                     b.HasIndex("FilialId");
 
                     b.ToTable("TransactionHistory");
-                });
-
-            modelBuilder.Entity("DbCard.Domain.Address", b =>
-                {
-                    b.HasOne("DbCard.Domain.Filial", "Filial")
-                        .WithOne("Address")
-                        .HasForeignKey("DbCard.Domain.Address", "FilialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("DbCard.Domain.Auth.RoleClaim", b =>
@@ -898,6 +811,18 @@ namespace DbCard.Context.Migrations
 
             modelBuilder.Entity("DbCard.Domain.Partner", b =>
                 {
+                    b.HasOne("DbCard.Domain.Category", "Category")
+                        .WithMany("Partners")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DbCard.Domain.Subcategory", "Subcategory")
+                        .WithMany("Partners")
+                        .HasForeignKey("SubcategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("DbCard.Domain.Auth.User", "User")
                         .WithOne("Partner")
                         .HasForeignKey("DbCard.Domain.Partner", "UserId")
@@ -905,24 +830,10 @@ namespace DbCard.Context.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DbCard.Domain.PartnerSubcategories", b =>
-                {
-                    b.HasOne("DbCard.Domain.Partner", "Partner")
-                        .WithMany("PartnerSubcategories")
-                        .HasForeignKey("PartnerId")
-                        .IsRequired();
-
-                    b.HasOne("DbCard.Domain.Subcategory", "Subcategory")
-                        .WithMany("Partners")
-                        .HasForeignKey("SubcategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("DbCard.Domain.PremiumDiscount", b =>
                 {
                     b.HasOne("DbCard.Domain.Partner", "Partner")
-                        .WithMany("PremiumDiscount")
+                        .WithMany("PremiumDiscounts")
                         .HasForeignKey("PartnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -943,15 +854,6 @@ namespace DbCard.Context.Migrations
                     b.HasOne("DbCard.Domain.Partner", "Partner")
                         .WithMany("Reviews")
                         .HasForeignKey("PartnerId");
-                });
-
-            modelBuilder.Entity("DbCard.Domain.Schedule", b =>
-                {
-                    b.HasOne("DbCard.Domain.Filial", "Filial")
-                        .WithOne("Schedule")
-                        .HasForeignKey("DbCard.Domain.Schedule", "FilialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("DbCard.Domain.StandartDiscount", b =>

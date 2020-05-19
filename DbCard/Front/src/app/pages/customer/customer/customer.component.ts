@@ -1,5 +1,5 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { Customer } from '../../../_models/customer';
+import { Component, OnInit } from '@angular/core';
+import { Customer } from '../../../_models/customer/customer';
 import { CustomerService } from '../../../_services/customer.service';
 import { AccountService } from 'src/app/_services/account.service';
 import { CustomerDataService } from 'src/app/_services/customerData.service';
@@ -8,9 +8,8 @@ import { CustomerDataService } from 'src/app/_services/customerData.service';
   selector: 'app-customer',
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.css'],
-  providers: [CustomerDataService]
 })
-export class CustomerComponent implements AfterViewInit, OnInit {
+export class CustomerComponent implements  OnInit {
   customer: Customer;
   constructor(private accountService: AccountService,
               private customerService: CustomerService,
@@ -19,9 +18,6 @@ export class CustomerComponent implements AfterViewInit, OnInit {
   ngOnInit(){
     this.loadCustomer();
   }
-  ngAfterViewInit(){
-   this.customerData.setData(this.customer);
-  }
   logout() {
     this.accountService.logout();
   }
@@ -29,6 +25,9 @@ export class CustomerComponent implements AfterViewInit, OnInit {
   //   return this.customer.Avatar != null;
   // }
   loadCustomer() {
-    this.customerService.getCustomer().subscribe((customer: Customer) => { this.customer = customer; });
+    this.customerService.getCustomer().subscribe((customer: Customer) => {
+      this.customer = customer;
+      this.customerData.setData(this.customer);
+    });
   }
 }

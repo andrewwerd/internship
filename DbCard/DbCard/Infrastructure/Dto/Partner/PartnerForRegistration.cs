@@ -1,4 +1,5 @@
-﻿using DbCard.Infrastructure.Dto.User;
+﻿using DbCard.Infrastructure.Dto.Filial;
+using DbCard.Infrastructure.Dto.User;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,10 @@ namespace DbCard.Infrastructure.Dto.Partner
         public IFormFile Logo { get; set; }
 
         [Required]
-        public List<string> Categories { get; set; }
+        public long CategoryId { get; set; }
 
         [Required]
-        public List<string> Subcategory { get; set; }
+        public long SubcategoryId { get; set; }
 
         [Required]
         [StringLength(4000, MinimumLength = 5)]
@@ -28,9 +29,7 @@ namespace DbCard.Infrastructure.Dto.Partner
         [Range(0, 100)]
         public decimal? BirthdayDiscount { get; set; }
         [Required]
-        public List<Filial.Filial> Filial { get; set; }
-        [Required]
-        public string PhoneNumber { get; set; }
+        public FilialForAdd Filial { get; set; }
         public string Site { get; set; }
     }
 }

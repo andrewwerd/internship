@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-using DbCard.Models;
 using DbCard.Domain;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using System.Text;
+using DbCard.Infrastructure.Models;
 
 namespace DbCard.Infrastructure.Extensions
 {

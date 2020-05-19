@@ -1,10 +1,9 @@
 <div class="container">
   <div class="main_container">
-    <mat-horizontal-stepper [linear]="false">
+    <mat-horizontal-stepper [linear]="true">
       <mat-step>
         <ng-template matStepLabel>Регистрация данных пользователя</ng-template>
         <form [formGroup]="userRegistrationForm">
-          <ng-template matStepLabel>Регистрация данных пользователя</ng-template>
           <div id="userName">
             <mat-form-field>
               <input matInput type="text" placeholder="Логин" formControlName="userName" />
@@ -12,6 +11,9 @@
             <div *ngIf="userForm.userName.touched" class="error">
               <div *ngIf="userForm.userName.hasError('required')">
                 Это поле обязательно
+              </div>
+              <div *ngIf="userForm.userName.hasError('isTaken')">
+                Такой логин уже занят
               </div>
             </div>
           </div>
@@ -53,6 +55,11 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div id="passwordConfirm">
+            <mat-form-field>
+              <input matInput type="text" placeholder="Номер телефона" formControlName="phoneNumber" />
+            </mat-form-field>
           </div>
           <div id="email">
             <mat-form-field>
@@ -104,10 +111,11 @@
             <div id="birthday">
               <mat-form-field>
                 <mat-label>День рождения</mat-label>
-                <input matInput [max]="maxDate" [matDatepicker]="myDatepicker" formControlName="birthday">
+                <input matInput [matDatepicker]="myDatepicker" formControlName="birthday">
                 <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
                 <mat-datepicker #myDatepicker></mat-datepicker>
               </mat-form-field>
+              {{customerForm.birthday.value}}
               <div *ngIf="customerForm.birthday.touched && customerForm.birthday.hasError('required')" class="error">
                 Это поле обязательно
               </div>
@@ -135,10 +143,12 @@
         </ng-container>
         <ng-template #elseTemplate>
           <ng-template matStepLabel>Регистрация данных партнёра</ng-template>
+          <h3>Информация о Вас</h3>
+          <mat-divider></mat-divider>
           <form [formGroup]="partnerRegistrationForm">
             <div id="name">
               <mat-form-field>
-                <input matInput type="text" placeholder="Название" formControlName="name" />
+                <input matInput type="text" placeholder="Название" formControlName="name"/>
               </mat-form-field>
               <div *ngIf="partnerForm.name.touched" class="error">
                 <div *ngIf="partnerForm.name.hasError('required')">
@@ -150,38 +160,73 @@
               <div id="categoryField">
                 <mat-form-field>
                   <mat-label>Категория</mat-label>
-                  <mat-select formControlName="category" onblur="onCategorySelected">
-                    <mat-option *ngFor="let category of categories" [value]="category.id">
-                      {{category.name}}
+                  <mat-select formControlName="categoryId">
+                    <mat-option *ngFor="let category of categories" [value]="category?.id" (click)="onCategorySelected(category?.id)">
+                      {{category?.name}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-                <div *ngIf="partnerForm.category.touched && userForm.category.hasError('required')" class="error">
+                <div *ngIf="partnerForm.categoryId?.touched && partnerForm.categoryId?.hasError('required')" class="error">
                   Это поле обязательно
                 </div>
               </div>
               <div id="subcategory">
-                <div *ngIf="partnerForm.category.valid">
+                <div *ngIf="partnerForm.categoryId?.valid">
                   <mat-form-field>
-                    <mat-label>Категория</mat-label>
-                    <mat-select formControlName="category">
-                      <mat-option *ngFor="let category of subcategories" [value]="category.id">
-                        {{category.name}}
+                    <mat-label>Подкатегория</mat-label>
+                    <mat-select formControlName="subcategoryId">
+                      <mat-option *ngFor="let category of subcategories" [value]="category?.id">
+                        {{category?.name}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
-                  <div *ngIf="partnerForm.subcategory.touched && partnerForm.subcategory.hasError('required')"
+                  <div *ngIf="partnerForm.subcategoryId?.touched && partnerForm.subcategoryId?.hasError('required')"
                     class="error">
                     Это поле обязательно
                   </div>
                 </div>
               </div>
             </div>
+            <div id="site">
+              <mat-form-field>
+                <input matInput type="text" placeholder="Сайт" formControlName="site">
+              </mat-form-field>
+            </div>
             <div id="birthdayDiscount">
-              <mat-checkbox (click)="birthdayDiscount=!birthdayDiscount">Скидка дня рождения</mat-checkbox>
-              <div *ngIf="birthdayDiscount">
+              <mat-checkbox #checkbox (change)="birthdayDiscount=!birthdayDiscount">Скидка дня рождения</mat-checkbox>
+              <div *ngIf="checkbox.checked">
                 <mat-form-field>
-                  <input matInput type="number" formControlName="birthdayDiscount">
+                  <input matInput type="number" [max]="100" [min]="0" placeholder="Скидка дня рождения"
+                    formControlName="birthdayDiscount">
+                </mat-form-field>
+              </div>
+            </div>
+            <div id = "description">
+              <mat-form-field>
+                <textarea matInput placeholder="Описание" formControlName="description"></textarea>
+              </mat-form-field>
+            </div>
+            <br>
+            <div class="filialForm">
+              <mat-divider></mat-divider>
+              <mat-divider></mat-divider>
+              <mat-divider></mat-divider>
+              <h3>Адрес главного офиса</h3>
+              <div class="form" formGroupName="filial">
+                <mat-form-field>
+                  <input matInput type="text" placeholder="Номер телефона" formControlName="phoneNumber">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type="text" placeholder="Регион" formControlName="region">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type="text" placeholder="Город" formControlName="city">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type="text" placeholder="Улица" formControlName="street">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type="text" placeholder="Номер дома" formControlName="houseNumber">
                 </mat-form-field>
               </div>
             </div>
@@ -195,7 +240,7 @@
       <mat-step>
         <ng-template matStepLabel>Подтверждение регистрации</ng-template>
         <mat-grid-list class="submitContainer" [cols]=2>
-          <mat-grid-tile class="customerInfo">
+          <mat-grid-tile class="submitInfo">
             <mat-list>
               <ng-container *ngIf="userForm.userType.value === 'customer'; else partnerTemplate">
                 <mat-list-item>
@@ -208,7 +253,7 @@
                   Дата рождения: {{customerForm.birthday.value | date : 'dd.MM.yyyy'}}
                 </mat-list-item>
                 <mat-list-item>
-                  Пол: {{(customerForm.firstName.value==='Male')?'Мужской':'Женский'}}
+                  Пол: {{(customerForm.gender.value==='Male')?'Мужской':'Женский'}}
                 </mat-list-item>
                 <mat-list-item>
                   Email: {{userForm.email.value}}
@@ -219,16 +264,21 @@
                   Название: {{partnerForm.name.value}}
                 </mat-list-item>
                 <mat-list-item>
-                  Категория: {{partnerForm.category.value}}
+                  Категория: {{category}}
                 </mat-list-item>
                 <mat-list-item>
-                  Подкатегория: {{partnerForm.subcategory.value | date : 'dd.MM.yyyy'}}
+                  Подкатегория: {{subcategory}}
                 </mat-list-item>
                 <div *ngIf="birthdayDiscount">
-                  Скидка дня рождения: {{partnerForm.birthdayDiscount.value}}
+                  Скидка дня рождения: {{partnerForm.birthdayDiscount.value}}%
                 </div>
                 <mat-list-item>
-                  Пол: {{(customerForm.firstName.value==='Male')?'Мужской':'Женский'}}
+                  Адрес:
+                  <br>
+                  {{filialForm.region?.value}}
+                  {{filialForm.city?.value}}
+                  {{filialForm.street?.value}}
+                  {{filialForm.houseNumber?.value}}
                 </mat-list-item>
                 <mat-list-item>
                   Email: {{userForm.email.value}}

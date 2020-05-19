@@ -14,7 +14,6 @@ namespace DbCard.Infrastructure.Dto.Partner
         [Required]
         [StringLength(40, MinimumLength = 1)]
         public string Name { get; set; }
-        public IFormFile Logo { get; set; }
         [Required]
         [StringLength(40, MinimumLength = 1)]
         public string Category { get; set; }

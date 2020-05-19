@@ -15,6 +15,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app.routing';
+import { CommonModule } from '@angular/common';
+import {MatNativeDateModule} from '@angular/material/core';
 
 
 import { NotFoundPageComponent } from './pages/NotFoundPage/notFoundPage.component';
@@ -27,6 +29,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { ConfirmDialogComponent } from './pages/registration/conirmDialog/confirmDialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DateHttpInterceptor } from './_interceptors/jsonDate.interceptor';
 
 
 
@@ -35,9 +40,13 @@ import { MatGridListModule } from '@angular/material/grid-list';
     LoginComponent,
     AppComponent,
     RegistrationComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    ConfirmDialogComponent
   ],
   imports: [
+    MatNativeDateModule,
+    CommonModule,
+    MatDialogModule,
     MatGridListModule,
     MatListModule,
     MatIconModule,

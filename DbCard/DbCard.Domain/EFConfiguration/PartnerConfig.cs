@@ -24,6 +24,16 @@ namespace DbCard.Domain.EFConfiguration
                 .IsRequired()
                 .HasMaxLength(4000);
 
+            builder.HasOne(x => x.Category)
+                .WithMany(p => p.Partners)
+                .HasForeignKey(x => x.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.Subcategory)
+                .WithMany(p => p.Partners)
+                .HasForeignKey(x => x.SubcategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(40);

@@ -18,12 +18,10 @@ namespace DbCard.Context
         public DbSet<PremiumDiscount> PremiumDiscounts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Subcategory> Subcategories { get; set; }
-        public DbSet<PartnerSubcategories> PartnerSubcategories { get; set; }
         public DbSet<Filial> Filials { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<FavoritePartners> FavoritePartners { get; set; }
-        public DbSet<Address> Addresses { get; set; }
 
         public DbCardContext()
         {
@@ -40,7 +38,6 @@ namespace DbCard.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new AddressConfig());
             modelBuilder.ApplyConfiguration(new CustomerConfig());
             modelBuilder.ApplyConfiguration(new CustomersBalanceConfig());
             modelBuilder.ApplyConfiguration(new FilialConfig());
@@ -53,7 +50,6 @@ namespace DbCard.Context
             modelBuilder.ApplyConfiguration(new FavoritePartnersConfig());
             modelBuilder.ApplyConfiguration(new CategoryConfig());
             modelBuilder.ApplyConfiguration(new SubcategoryConfig());
-            modelBuilder.ApplyConfiguration(new PartnerSubcategoriesConfig());
             ApplyIdentityMapConfiguration(modelBuilder);
         }
         private void ApplyIdentityMapConfiguration(ModelBuilder modelBuilder)

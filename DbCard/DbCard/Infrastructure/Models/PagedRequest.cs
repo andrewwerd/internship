@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DbCard.Models
+namespace DbCard.Infrastructure.Models
 {
     public class PagedRequest
     {

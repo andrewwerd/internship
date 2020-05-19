@@ -10,6 +10,8 @@ import { map, first } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { User } from '../_models/account/user';
 import { Router } from '@angular/router';
+import { CustomerForRegistration } from '../_models/customer/customerForRegistration';
+import { PartnerForRegistration } from '../_models/partners/partnerForRegistration';
 
 @Injectable({
   providedIn: 'root'
@@ -27,14 +29,17 @@ export class AccountService {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
+
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
 
+  // login
   isLoggedIn(): boolean {
     const token = localStorage.getItem('accessToken');
     return token ? true : false;
   }
+
   login(userForLogin: UserForLogin) {
     return this.http.post<any>(this.baseUrl + 'login/', userForLogin)
       .pipe(map((loginResult) => {
@@ -48,13 +53,27 @@ export class AccountService {
         return loginResult;
       }));
   }
+
   logout() {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('accessToken');
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
+
+  // registration
   validateName(userName: string): Observable<ValidationErrors> {
-   return this.http.post<ValidationErrors>(this.baseUrl + 'validateUserName', userName);
+    return this.http.get<ValidationErrors>(this.baseUrl + 'validateUserName', { params: { userName } });
+  }
+
+  validateEmail(email: string): Observable<ValidationErrors> {
+    return this.http.get<ValidationErrors>(this.baseUrl + 'validateUserName', { params: { email } });
+  }
+
+  customerRegistration( customer: CustomerForRegistration){
+    return this.http.post<boolean>(this.baseUrl + 'customerRegistration', customer);
+  }
+  partnerRegistration( partner: PartnerForRegistration){
+    return this.http.post<boolean>(this.baseUrl + 'partnerRegistration', partner);
   }
 }

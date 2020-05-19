@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using DbCard.Infrastructure.Models;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -34,12 +35,12 @@ namespace DbCard.Services.Implementations
 
         public async Task<bool> CustomerRegistration(CustomerForRegistration customerDto)
         {
-            var user = new User { Email = customerDto.Email, UserName = customerDto.UserName };
+            var user = new User { Email = customerDto.Email, UserName = customerDto.UserName, PhoneNumber = customerDto.PhoneNumber };
             var userCreating = await _userManager.CreateAsync(user, customerDto.Password);
             if (userCreating.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "Customer");
-                var customerCreating = await _customerService.MapAsync(customerDto);
+                var customerCreating = await _customerService.CreateFromDtoAsync(customerDto, user);
                 return customerCreating;
             }
             else
@@ -48,12 +49,13 @@ namespace DbCard.Services.Implementations
 
         public async Task<bool> PartnerRegistration(PartnerForRegistration partnerDto)
         {
-            var user = new User { Email = partnerDto.Email, UserName = partnerDto.UserName };
+            var user = new User { Email = partnerDto.Email, UserName = partnerDto.UserName, PhoneNumber = partnerDto.PhoneNumber};
             var userCreating = await _userManager.CreateAsync(user, partnerDto.Password);
             if (userCreating.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "Partner");
-                var partnerCreating = await _partnerService.CreateAsync(partnerDto);
+                var partnerCreating = await _partnerService.CreateFromDtoAsync(partnerDto, user);
+                if (!partnerCreating) await _userManager.DeleteAsync(user);
                 return partnerCreating;
             }
             else
@@ -102,26 +104,6 @@ namespace DbCard.Services.Implementations
             );
             var tokenHandler = new JwtSecurityTokenHandler();
             return new LoginResult(true, tokenHandler.WriteToken(jwtSecurityToken));
-        }
-    }
-    public class LoginResult
-    {
-        public string EncodedToken { get; protected set; }
-        public bool Succeeded { get; protected set; }
-        public LoginResult(bool succeeded, string encodedToken = "")
-        {
-            EncodedToken = encodedToken;
-            Succeeded = succeeded;
-        }
-    }
-    public class ValidationErrors
-    {
-        public bool Error { get; protected set; }
-        public string ErrorBody { get; protected set; }
-        public ValidationErrors(bool error, string errorBody = "")
-        {
-            Error = error;
-            ErrorBody = errorBody;
         }
     }
 }

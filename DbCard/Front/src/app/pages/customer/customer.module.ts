@@ -54,7 +54,7 @@ import { BalancesListComponent } from './balancesList/balancesList.component';
 import { NewsListComponent } from './newsList/newsList.component';
 import { NewsPageComponent } from './newsPage/newsPage.component';
 import { StatisticComponent } from './statistic/statistic.component';
-import { BarcodeDialogComponent } from './home/barcode-dialog';
+import { BarcodeDialogComponent } from './home/barcodeDialog/barcodeDialog.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MdlCurrencyPipe } from 'src/app/components/pipes/mdl.pipe';
 

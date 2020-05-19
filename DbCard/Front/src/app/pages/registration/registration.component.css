@@ -13,26 +13,26 @@ body {
   background: rgba(255, 255, 255, 0.5);
   width: 60%;
 }
-.error{
-  color:red;
+.error {
+  color: red;
   font-size: x-small;
 }
-form{
-display: flex;
-flex-direction: column;
-}
-.radioGroup{
+form {
   display: flex;
   flex-direction: column;
 }
-.category{
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+}
+.category {
   display: flex;
   flex-direction: row;
 }
-.category #subcategory{
+.category #subcategory {
   margin-left: 5px;
 }
-.submitContainer{
+.submitContainer {
   display: flex;
   flex-direction: row;
 }
@@ -41,6 +41,15 @@ flex-direction: column;
   overflow: hidden;
   padding: 0;
 }
-.avatar{
+.avatar {
   text-align: end;
+}
+.filialForm .form .mat-form-field {
+  margin: 5px;
+}
+.description {
+  height: 150px;
+}
+.submitInfo {
+  text-align: left;
 }

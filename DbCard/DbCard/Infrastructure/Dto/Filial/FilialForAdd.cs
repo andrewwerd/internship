@@ -9,6 +9,8 @@ namespace DbCard.Infrastructure.Dto.Filial
     public class FilialForAdd
     {
         [Required]
+        public string Region { get; set; }
+        [Required]
         public string City { get; set; }
         [Required]
         public string Street { get; set; }
@@ -16,6 +18,5 @@ namespace DbCard.Infrastructure.Dto.Filial
         public string HouseNumber { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
-        public long PartnerId { get; set; }
     }
 }

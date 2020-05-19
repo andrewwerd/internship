@@ -12,6 +12,8 @@ namespace DbCard.Domain.EFConfiguration
         {
             builder.Property(b => b.RowVersion)
                    .IsRowVersion();
+            builder.HasIndex(x => x.Name)
+                .IsUnique();
         }
     }
 }

@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Customer } from '../_models/customer';
+import {  BehaviorSubject } from 'rxjs';
+import { Customer } from '../_models/customer/customer';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CustomerDataService {
-  private customerSource = new Subject<Customer>();
+  private customerSource = new BehaviorSubject<Customer>(null);
 
   customer$ = this.customerSource.asObservable();
 

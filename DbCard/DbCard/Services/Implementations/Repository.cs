@@ -2,7 +2,7 @@
 using DbCard.Context;
 using DbCard.Domain;
 using DbCard.Infrastructure.Extensions;
-using DbCard.Models;
+using DbCard.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -32,7 +32,7 @@ namespace DbCard.Services
         public async Task<TEntity> Delete(long id)
         {
             var entity = await _context.Set<TEntity>().FindAsync(id);
-            if(entity == null)
+            if (entity == null)
             {
                 throw new Exception($"Object of type {typeof(TEntity)} with id { id } not found");
             }
@@ -46,7 +46,7 @@ namespace DbCard.Services
             await _context.SaveChangesAsync();
             return entity;
         }
-        public async Task<IEnumerable<TEntity>> GetByPredicate(Expression<Func<TEntity,bool>> p)
+        public async Task<IEnumerable<TEntity>> GetByPredicate(Expression<Func<TEntity, bool>> p)
         {
             return await _context.Set<TEntity>().Where(p).ToListAsync();
         }
@@ -81,6 +81,10 @@ namespace DbCard.Services
             _context.Entry(item).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return item;
+        }
+        public bool Any(Expression<Func<TEntity, bool>> p)
+        {
+            return _context.Set<TEntity>().Any(p);
         }
         private IQueryable<TEntity> IncludeProperties(params Expression<Func<TEntity, object>>[] includeProperties)
         {

@@ -1,7 +1,7 @@
 import { AccountService } from 'src/app/_services/account.service';
 import { Observable } from 'rxjs';
 import { ValidationErrors, AbstractControl, AsyncValidatorFn } from '@angular/forms';
-import { debounceTime, take, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 export function TakenUserNameValidator(accountservice: AccountService): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {

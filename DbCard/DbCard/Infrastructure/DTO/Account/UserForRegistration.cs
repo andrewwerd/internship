@@ -11,5 +11,7 @@ namespace DbCard.Infrastructure.Dto.User
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+        [Required]
+        public string PhoneNumber;
     }
 }

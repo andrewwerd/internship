@@ -1,28 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { PartnerService } from 'src/app/_services/partner.service';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { CategoryService } from 'src/app/_services/category.service';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import { MY_FORMATS } from 'src/app/components/dateFormat/dataFormat';
 import { AccountService } from 'src/app/_services/account.service';
 import { TakenUserNameValidator } from 'src/app/components/validators/userNameValidator';
 import { hasCapitalLetterValidator, hasNumberValidator, hasLowercaseLetterValidator, confirmPasswordValidator } from 'src/app/components/validators/passwordValidator';
-import { categoryValidator } from '../../components/validators/categoryValidator';
 import { Category } from 'src/app/_models/category';
-
+import { PartnerForRegistration } from 'src/app/_models/partners/partnerForRegistration';
+import { CustomerForRegistration } from 'src/app/_models/customer/customerForRegistration';
+import { Router } from '@angular/router';
+import { ConfirmDialogComponent } from './conirmDialog/confirmDialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css'],
   providers: [
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-    },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: 'ru' }
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true }},
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {strict: true}},
+    CategoryService
   ]
 })
 export class RegistrationComponent implements OnInit {
@@ -32,14 +32,20 @@ export class RegistrationComponent implements OnInit {
   categoryValid: boolean;
   categories: Category[];
   subcategories: Category[];
+  success: boolean;
   foto: File;
   maxDate: Date;
   birthdayDiscount = false;
+  dialogRef: any;
+
 
   constructor(
     private accountService: AccountService,
-    private partnerService: PartnerService,
-    private formBuilder: FormBuilder) {
+    private categoryService: CategoryService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private dialog: MatDialog
+  ) {
     const currentYear = new Date().getFullYear();
     this.maxDate = new Date(currentYear - 16, 0, 1);
   }
@@ -48,10 +54,18 @@ export class RegistrationComponent implements OnInit {
     this.loadCategories();
     this.partnerRegistrationForm = this.formBuilder.group({
       name: ['', [Validators.required]],
-      category: ['', [Validators.required]],
-      subcategory: ['', [Validators.required]],
+      categoryId: ['', [Validators.required]],
+      subcategoryId: ['', [Validators.required]],
       birthdayDiscount: [''],
+      site: [''],
       description: ['', [Validators.required]],
+      filial: this.formBuilder.group({
+        region: ['', [Validators.required]],
+        city: ['', [Validators.required]],
+        street: ['', [Validators.required]],
+        houseNumber: ['', [Validators.required]],
+        phoneNumber: ['', [Validators.required]]
+      })
     });
     this.customerRegistrationForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
@@ -80,36 +94,91 @@ export class RegistrationComponent implements OnInit {
         Validators.required,
         Validators.email
       ]],
-      phone: ['', [
+      phoneNumber: ['', [
         Validators.required,
         Validators.min(9)
       ]],
       userType: ['', [Validators.required]]
     });
   }
+
   get userForm() {
     return this.userRegistrationForm.controls;
   }
   get customerForm() {
     return this.customerRegistrationForm.controls;
   }
+
   get partnerForm() {
     return this.partnerRegistrationForm.controls;
   }
-  get birthday(){
-    return new Date(this.customerForm.birthday.value);
+
+  get filialForm() {
+    return (this.partnerRegistrationForm.get('filial') as FormGroup).controls;
   }
-  onCategorySelected() {
-    if (this.partnerForm.category.valid) {
-      this.partnerService.getSubcategories(this.partnerForm.category.value)
-      .subscribe((arg: Category[]) => this.subcategories = arg);
+
+  get category() {
+    if (this.partnerForm.categoryId?.value) {
+      return this.categories.find(x => x.id === this.partnerForm.categoryId.value)?.name;
     }
   }
-  loadCategories(){
-    this.partnerService.getCategories()
-    .subscribe((categories: Category[]) => this.categories = categories);
+
+  get subcategory() {
+    if (this.partnerForm.subcategoryId?.value) {
+      return this.subcategories.find(x => x.id === this.partnerForm.subcategoryId.value)?.name;
+    }
   }
-  onRegisterSubmit(){
+
+  onCategorySelected(id: number) {
+    if (id) {
+      this.categoryService.getSubcategories(id)
+        .subscribe((arg: Category[]) => this.subcategories = arg);
+    }
+  }
+
+  loadCategories() {
+    this.categoryService.getCategories()
+      .subscribe((categories: Category[]) => this.categories = categories);
+  }
+
+  onRegisterSubmit() {
+    if (this.userForm.userType.value === 'customer') {
+      const customer: CustomerForRegistration = { ...this.customerRegistrationForm.value };
+      customer.email = this.userForm.email.value;
+      customer.userName = this.userForm.userName.value;
+      customer.password = this.userForm.password.value;
+      this.accountService.customerRegistration(customer).subscribe(
+        result => {
+          this.success = result;
+          this.openDialog();
+        }
+      );
+    }
+    else if (this.userForm.userType.value === 'partner') {
+      const partner: PartnerForRegistration = { ...this.partnerRegistrationForm.value };
+      if (!this.birthdayDiscount){
+        partner.birthdayDiscount = null;
+      }
+      partner.phoneNumber = this.userForm.phoneNumber.value;
+      partner.email = this.userForm.email.value;
+      partner.userName = this.userForm.userName.value;
+      partner.password = this.userForm.password.value;
+      this.accountService.partnerRegistration(partner).subscribe(
+        result => {
+          this.success = result;
+          this.openDialog();
+        }
+      );
+    }
+  }
+
+  openDialog(): void {
+    this.dialogRef = this.dialog.open(ConfirmDialogComponent, { data: this.success });
+    this.dialogRef.afterClosed().subscribe(result => {
+      if (this.success) {
+        this.router.navigate(['/login']);
+      }
+    });
   }
   onFileSelected(event) {
     this.foto = event.target.files[0];

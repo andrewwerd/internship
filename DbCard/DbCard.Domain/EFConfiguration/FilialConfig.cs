@@ -14,6 +14,15 @@ namespace DbCard.Domain.EFConfiguration
             builder.Property(x => x.IsMainOffice)
                 .IsRequired()
                 .HasDefaultValue(false);
+
+            builder.Property(b => b.HouseNumber).IsRequired();
+
+            builder.Property(b => b.Region).IsRequired();
+
+            builder.Property(b => b.Street).IsRequired();
+
+            builder.Property(b => b.City).IsRequired();
+
             builder.Property(e => e.PhoneNumber)
                 .IsRequired()
                 .HasMaxLength(15);

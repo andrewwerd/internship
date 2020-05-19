@@ -11,35 +11,17 @@ namespace DbCard.Infrastructure.Dto.Balance
         public string Category { get; set; }
         public string Subcategory { get; set; }
         public decimal CurrentAmount { get; set; }
-        public PremiumDiscount curDiscount
-        {
-            get
-            {
-                return Discounts.LastOrDefault(x => x.PriceOfDiscount < CurrentAmount);
-            }
-        }
+        public PremiumDiscount CurDiscount => Discounts.LastOrDefault(x => x.PriceOfDiscount < CurrentAmount);
         public decimal NextAmount
         {
             get
             {
-                var d = Discounts.FirstOrDefault(x => x.PriceOfDiscount > CurrentAmount);
+                var d = Discounts.OrderBy(x=>x.PriceOfDiscount).FirstOrDefault(x => x.PriceOfDiscount > CurrentAmount);
                 return (d != null) ? d.PriceOfDiscount : Discounts.Last().PriceOfDiscount;
             }
         }
-        public decimal DiscountPercent
-        {
-            get
-            {
-                return curDiscount.DiscountPercent;
-            }
-        }
-        public decimal AccumulatingPercent
-        {
-            get
-            {
-                return curDiscount.AccumulatingPercent;
-            }
-        }
+        public decimal DiscountPercent => CurDiscount.DiscountPercent;
+        public decimal AccumulatingPercent=> CurDiscount.AccumulatingPercent;
         public List<PremiumDiscount> Discounts { get; set; }
     }
 }

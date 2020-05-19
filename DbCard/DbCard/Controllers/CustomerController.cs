@@ -22,15 +22,6 @@ namespace DbCard.Controllers
             _roleManager = roleManager;
         }
 
-        // GET: api/customer/myDiscounts
-        [Authorize(Roles = "Customer")]
-        [HttpGet("myDiscounts")]
-        public async Task<ActionResult<IEnumerable<PremiumBalance>>> MyDiscounts(long id)
-        {
-            var myDiscounts = await _customerService.MyDiscounts(id);
-            if (myDiscounts == null) return NoContent();
-            return Ok(await _customerService.MyDiscounts(id));
-        }
         [Authorize(Roles = "Customer")]
         [HttpGet("currentUser")]
         public async Task<ActionResult<object>> GetCurrentUser()

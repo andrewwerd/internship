@@ -1,14 +1,16 @@
 import { FilialForAdd } from '../filial/filialForAdd';
 
 export interface PartnerForRegistration{
-    Id: number;
-    UserId: number;
-    Name: string;
-    Category: string;
-    Subcategory: string;
-    Desciption: string;
-    Filial: FilialForAdd;
-    Logo: File;
-    Site: string;
+    name: string;
+    categoryId: string;
+    subcategoryId: string;
+    desciption: string;
+    filial: FilialForAdd;
+    site: string;
+    birthdayDiscount: number;
+    userName: string;
+    password: string;
+    email: string;
+    phoneNumber: string;
 }
 

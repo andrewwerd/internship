@@ -16,7 +16,7 @@ namespace DbCard.Domain.EFConfiguration
             builder.Property(e => e.PriceOfDiscount).HasColumnType("decimal(10, 2)");
 
             builder.HasOne(d => d.Partner)
-                .WithMany(p => p.PremiumDiscount)
+                .WithMany(p => p.PremiumDiscounts)
                 .HasForeignKey(d => d.PartnerId)
                 .OnDelete(DeleteBehavior.Cascade);
         }

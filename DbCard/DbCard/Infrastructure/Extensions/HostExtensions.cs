@@ -26,6 +26,7 @@ namespace DbCard.Infrastructure.Extensions
                     var customerService = services.GetRequiredService<ICustomerService>();
                     context.Database.Migrate();
 
+                    await Seed.SeedCategories(context);
                     await Seed.SeedRoles(roleManager);
                     await Seed.SeedUsers(userManager,customerService);
                 }

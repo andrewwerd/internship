@@ -10,7 +10,6 @@
 //using Microsoft.Extensions.Logging;
 //using AutoMapper;
 //using DbCard.Infrastructure.Dto.Partner;
-//using DbCard.Models;
 
 //namespace DbCard.Controllers
 //{
@@ -37,7 +36,7 @@
 //                return NotFound();
 //            }
 //            var partnersDto = new List<Infrastructure.Dto.Partner.Partner>();
-//            foreach(var i in partners)
+//            foreach (var i in partners)
 //            {
 //                partnersDto.Add(_mapper.Map<Infrastructure.Dto.Partner.Partner>(i));
 //            }
@@ -61,7 +60,7 @@
 //        public async Task<IActionResult> PutPartner(PartnerForUpdate partnerDto)
 //        {
 //            var partner = await _repository.GetById(partnerDto.Id);
-//            if(partner == null)
+//            if (partner == null)
 //            {
 //                return NotFound();
 //            }

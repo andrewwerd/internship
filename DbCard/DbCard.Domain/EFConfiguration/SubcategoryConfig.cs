@@ -13,6 +13,8 @@ namespace DbCard.Domain.EFConfiguration
                        .OnDelete(DeleteBehavior.Cascade);
             builder.Property(b => b.RowVersion)
                 .IsRowVersion();
+            builder.HasIndex(x => new { x.Name, x.CategoryId })
+                .IsUnique();
         }
     }
 }

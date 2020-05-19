@@ -49,9 +49,11 @@ namespace DbCard
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IPartnerService, PartnerService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IDiscountService, DiscountService>();
 
 
         }

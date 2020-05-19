@@ -2,10 +2,9 @@ import { Component, Input, AfterViewInit, OnInit, OnDestroy } from '@angular/cor
 
 import { MyDiscount } from '../../../_models/discounts/myDiscount';
 import { DiscountService } from '../../../_services/discount.service';
-import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
-import { BarcodeDialogComponent } from './barcode-dialog';
+import { BarcodeDialogComponent } from './barcodeDialog/barcodeDialog.component';
 import { CustomerDataService } from 'src/app/_services/customerData.service';
 import { Subscription } from 'rxjs';
 
@@ -58,17 +57,17 @@ export class HomeComponent implements OnInit, OnDestroy {
                 customerData: CustomerDataService
               )
               {
-                this.subscription = customerData.customer$.subscribe(customer => this.customerGuid = customer.barcode);
+                this.subscription = customerData.customer$.subscribe(customer => this.customerGuid = customer?.barcode);
               }
 
   ngOnInit(){
-    this.loadMyDiscountsFromApi();
+    this.loadMyDiscounts();
   }
 
   openDialog() {
     this.dialog.open(BarcodeDialogComponent, { data: this.customerGuid});
   }
-  loadMyDiscountsFromApi() {
+  loadMyDiscounts() {
       this.discountService.getMyDiscountsScrolled(this.page).subscribe((myDiscounts: MyDiscount[]) => {this.myDiscounts = myDiscounts; });
   }
   hasLogo(discount: MyDiscount): boolean {
@@ -76,7 +75,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   OnScroll(){
     this.page++;
-    this.loadMyDiscountsFromApi();
+    this.loadMyDiscounts();
   }
   ngOnDestroy(){
     this.subscription.unsubscribe();

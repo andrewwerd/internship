@@ -1,12 +1,9 @@
-﻿using DbCard.Domain.Auth;
-using DbCard.Infrastructure.Dto.Customer;
+﻿using DbCard.Infrastructure.Dto.Customer;
 using DbCard.Infrastructure.Dto.Partner;
 using DbCard.Infrastructure.Dto.User;
 using DbCard.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 
 namespace DbCard.Controllers
@@ -26,10 +23,7 @@ namespace DbCard.Controllers
         public async Task<IActionResult> CustomerRegistration(CustomerForRegistration customer)
         {
             var result = await _accountService.CustomerRegistration(customer);
-            if (result)
-                return Ok();
-            else
-                return BadRequest();
+            return Ok(result);
         }
         // POST: api/Account/partnerRegistration
         [AllowAnonymous]
@@ -37,10 +31,7 @@ namespace DbCard.Controllers
         public async Task<IActionResult> PartnerRegistration(PartnerForRegistration partner)
         {
             var result = await _accountService.PartnerRegistration(partner);
-            if (result)
-                return Ok();
-            else
-                return BadRequest();
+                return Ok(result);
         }
 
         // POST: api/Account/login
@@ -55,8 +46,8 @@ namespace DbCard.Controllers
                 return Unauthorized();
         }
         [AllowAnonymous]
-        [HttpPost("validateUserName")]
-        public async Task<IActionResult> ValidateUserName(string userName)
+        [HttpGet("validateUserName")]
+        public async Task<IActionResult> ValidateUserName([FromQuery]string userName)
         {
             var result = await _accountService.ValidateUserName(userName);
             return Ok(result);

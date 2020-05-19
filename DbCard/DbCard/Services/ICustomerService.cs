@@ -10,10 +10,9 @@ namespace DbCard.Services
     public interface ICustomerService
     {
         Task<bool> CreateAsync(Domain.Customer customer, User user);
-        Task<bool> MapAsync(CustomerForRegistration customerDto);
+        Task<bool> CreateFromDtoAsync(CustomerForRegistration customerDto, User user);
         Task<bool> UpdateAsync(long id, CustomerForRegistration customerDto);
-        Task<IEnumerable<PremiumBalance>> MyDiscounts(long id);
-        void AddFavoritePartner(long id, PartnerGridRow partnerDto);
+        void AddFavoritePartner(long customerId, long partnerId);
         void DeleteFavoritePartner(long customerId, long partnerId);
         Task<Customer> GetCurrentUser();
         Task<IEnumerable<Domain.Customer>> GetAll();
