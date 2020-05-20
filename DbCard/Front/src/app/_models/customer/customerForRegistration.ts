@@ -1,7 +1,7 @@
 export class CustomerForRegistration{
   firstName: string;
   lastName: string;
-  birthday: string;
+  birthday: Date;
   gender: string;
   userName: string;
   password: string;

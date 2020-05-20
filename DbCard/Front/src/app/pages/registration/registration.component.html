@@ -1,7 +1,7 @@
 <div class="container">
   <div class="main_container">
     <mat-horizontal-stepper [linear]="true">
-      <mat-step>
+      <mat-step [formGroup]="userRegistrationForm">
         <ng-template matStepLabel>Регистрация данных пользователя</ng-template>
         <form [formGroup]="userRegistrationForm">
           <div id="userName">
@@ -115,7 +115,6 @@
                 <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
                 <mat-datepicker #myDatepicker></mat-datepicker>
               </mat-form-field>
-              {{customerForm.birthday.value}}
               <div *ngIf="customerForm.birthday.touched && customerForm.birthday.hasError('required')" class="error">
                 Это поле обязательно
               </div>

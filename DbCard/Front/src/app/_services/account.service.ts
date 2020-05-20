@@ -67,7 +67,7 @@ export class AccountService {
   }
 
   validateEmail(email: string): Observable<ValidationErrors> {
-    return this.http.get<ValidationErrors>(this.baseUrl + 'validateUserName', { params: { email } });
+    return this.http.get<ValidationErrors>(this.baseUrl + 'validateEmail', { params: { email } });
   }
 
   customerRegistration( customer: CustomerForRegistration){

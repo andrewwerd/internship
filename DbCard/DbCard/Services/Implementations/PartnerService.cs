@@ -13,16 +13,24 @@ namespace DbCard.Services
 {
     class PartnerService : IPartnerService
     {
+        private readonly IRepository<Category> _repositoryCategory;
+        private readonly IRepository<Subcategory> _repositorySubcategory;
         private readonly IMapper _mapper;
         private readonly IRepository<Domain.Partner> _partnerRepository;
-        private readonly ICategoryService _categoryService;
         private readonly IHttpContextAccessor _httpContext;
 
-        public PartnerService(IMapper mapper, IRepository<Domain.Partner> partnerRepository, ICategoryService categoryService, IHttpContextAccessor httpContext)
+        public PartnerService(
+            IMapper mapper,
+            IRepository<Subcategory> repositorySubategory,
+            IRepository<Domain.Partner> partnerRepository,
+            IHttpContextAccessor httpContext,
+            IRepository<Category> repositoryCategory
+            )
         {
+            _repositoryCategory = repositoryCategory;
+            _repositorySubcategory = repositorySubategory;
             _mapper = mapper;
             _partnerRepository = partnerRepository;
-            _categoryService = categoryService;
             _httpContext = httpContext;
         }
         public async Task<bool> CreateAsync(Domain.Partner partner, User user)
@@ -34,7 +42,38 @@ namespace DbCard.Services
             }
             if (partner.DateOfRegistration == null) partner.DateOfRegistration = DateTime.Now;
             if (partner.CustomersBalances == null) partner.CustomersBalances = new List<CustomersBalance>();
-            if (partner.Filials == null) partner.Filials = new List<Filial>();
+            if (partner.Filials == null) partner.Filials = new List<Domain.Filial>();
+            if (partner.News == null) partner.News = new List<News>();
+            if (partner.PremiumDiscounts == null) partner.PremiumDiscounts = new List<PremiumDiscount>();
+            if (partner.StandartDiscounts == null) partner.StandartDiscounts = new List<StandartDiscount>();
+            if (partner.MyCustomers == null) partner.MyCustomers = new List<FavoritePartners>();
+            if (partner.Reviews == null) partner.Reviews = new List<Review>();
+
+            try
+            {
+                await _partnerRepository.Add(partner);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return true;
+        }
+        public async Task<bool> CreateFromDtoAsync(PartnerForRegistration partnerDto, User user)
+        {
+            var partner = _mapper.Map<Domain.Partner>(partnerDto);
+            var filial = _mapper.Map<Domain.Filial>(partnerDto.Filial);
+            filial.IsMainOffice = true;
+
+            if (partner.User == null)
+            {
+                partner.User = user;
+                partner.UserId = user.Id;
+            }
+            partner.DateOfRegistration = DateTime.Now;
+            if (partner.CustomersBalances == null) partner.CustomersBalances = new List<CustomersBalance>();
+            if (partner.Filials == null) partner.Filials = new List<Domain.Filial>();
+            partner.Filials.Add(filial);
             if (partner.News == null) partner.News = new List<News>();
             if (partner.PremiumDiscounts == null) partner.PremiumDiscounts = new List<PremiumDiscount>();
             if (partner.StandartDiscounts == null) partner.StandartDiscounts = new List<StandartDiscount>();
@@ -51,39 +90,20 @@ namespace DbCard.Services
             }
             return true;
         }
-        public async Task<bool> CreateFromDtoAsync(PartnerForRegistration partnerDto, User user)
+        public async Task AddToCategory(Domain.Partner partner, string categoryName)
         {
-            var partner = _mapper.Map<Domain.Partner>(partnerDto);
-            var filial = _mapper.Map<Filial>(partnerDto.Filial);
-            filial.IsMainOffice = true;
+            var category = (await _repositoryCategory.GetByPredicate(p => p.Name == categoryName)).Single();
+            partner.CategoryId = category.Id;
+        }
+        public async Task AddToSubcategory(Domain.Partner partner, string subcategoryName)
+        {
+            var subcategory = (await _repositorySubcategory.GetByPredicate(p => p.Name == subcategoryName && p.CategoryId == partner.CategoryId)).Single();
+            partner.SubcategoryId = subcategory.Id;
+        }
 
-            if (partner.User == null)
-            {
-                partner.User = user;
-                partner.UserId = user.Id;
-            }
-            partner.DateOfRegistration = DateTime.Now;
-            if (partner.CustomersBalances == null) partner.CustomersBalances = new List<CustomersBalance>();
-            if (partner.Filials == null) partner.Filials = new List<Filial>();
-            partner.Filials.Add(filial);
-            if (partner.News == null) partner.News = new List<News>();
-            if (partner.PremiumDiscounts == null) partner.PremiumDiscounts = new List<PremiumDiscount>();
-            if (partner.StandartDiscounts == null) partner.StandartDiscounts = new List<StandartDiscount>();
-            if (partner.MyCustomers == null) partner.MyCustomers = new List<FavoritePartners>();
-            if (partner.Reviews == null) partner.Reviews = new List<Review>();
-
-            await _categoryService.AddToCategory(partner, partner.CategoryId);
-            await _categoryService.AddToSubcategory(partner, partner.SubcategoryId);
-
-            try
-            {
-                await _partnerRepository.Add(partner);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            return true;
+        public async Task<long> GetIdByName(string name)
+        {
+            return (await _partnerRepository.GetByPredicate(p => p.Name == name)).Single().Id;
         }
         public async Task<Infrastructure.Dto.Partner.Partner> GetCurrentUser()
         {

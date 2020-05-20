@@ -14,15 +14,14 @@ namespace DbCard.Domain.EFConfiguration
             builder.HasIndex(e => e.UserId)
                     .IsUnique();
 
-            builder.Property(e => e.BirthdayDiscount).HasColumnType("decimal(3, 2)");
+            builder.Property(e => e.BirthdayDiscount).HasColumnType("decimal(4, 2)");
 
             builder.Property(e => e.DateOfRegistration)
                 .HasColumnType("date")
                 .HasDefaultValueSql("(getdate())");
 
             builder.Property(e => e.Description)
-                .IsRequired()
-                .HasMaxLength(4000);
+                .IsRequired();
 
             builder.HasOne(x => x.Category)
                 .WithMany(p => p.Partners)
@@ -38,7 +37,7 @@ namespace DbCard.Domain.EFConfiguration
                 .IsRequired()
                 .HasMaxLength(40);
 
-            builder.Property(e => e.Rating).HasColumnType("decimal(2, 2)");
+            builder.Property(e => e.Rating).HasColumnType("decimal(4, 2)");
 
             builder.HasOne(d => d.User)
                 .WithOne(p => p.Partner)

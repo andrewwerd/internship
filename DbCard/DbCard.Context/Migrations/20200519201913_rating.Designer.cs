@@ -4,14 +4,16 @@ using DbCard.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DbCard.Context.Migrations
 {
     [DbContext(typeof(DbCardContext))]
-    partial class DbCardContextModelSnapshot : ModelSnapshot
+    [Migration("20200519201913_rating")]
+    partial class rating
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,6 +278,9 @@ namespace DbCard.Context.Migrations
                         .HasColumnType("nvarchar(40)")
                         .HasMaxLength(40);
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
@@ -415,7 +420,8 @@ namespace DbCard.Context.Migrations
 
                     b.Property<string>("Body")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(4000)")
+                        .HasMaxLength(4000);
 
                     b.Property<DateTime>("DateOfCreation")
                         .ValueGeneratedOnAdd()
@@ -439,7 +445,8 @@ namespace DbCard.Context.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
 
                     b.HasKey("Id");
 
@@ -468,7 +475,8 @@ namespace DbCard.Context.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(4000)")
+                        .HasMaxLength(4000);
 
                     b.Property<byte[]>("Logo")
                         .HasColumnType("varbinary(max)");
@@ -657,8 +665,10 @@ namespace DbCard.Context.Migrations
                     b.Property<decimal>("AmountForPay")
                         .HasColumnType("decimal(10, 2)");
 
-                    b.Property<long>("CategoryId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
 
                     b.Property<long>("CustomerId")
                         .HasColumnType("bigint");
@@ -687,18 +697,11 @@ namespace DbCard.Context.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.Property<long>("SubcategoryId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("FilialId");
-
-                    b.HasIndex("SubcategoryId");
 
                     b.ToTable("TransactionHistory");
                 });
@@ -875,11 +878,6 @@ namespace DbCard.Context.Migrations
 
             modelBuilder.Entity("DbCard.Domain.Transaction", b =>
                 {
-                    b.HasOne("DbCard.Domain.Category", "Category")
-                        .WithMany("Transactions")
-                        .HasForeignKey("CategoryId")
-                        .IsRequired();
-
                     b.HasOne("DbCard.Domain.Customer", "Customer")
                         .WithMany("Transactions")
                         .HasForeignKey("CustomerId")
@@ -889,11 +887,6 @@ namespace DbCard.Context.Migrations
                     b.HasOne("DbCard.Domain.Filial", "Filial")
                         .WithMany("Transactions")
                         .HasForeignKey("FilialId");
-
-                    b.HasOne("DbCard.Domain.Subcategory", "Subcategory")
-                        .WithMany("Transactions")
-                        .HasForeignKey("SubcategoryId")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

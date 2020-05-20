@@ -12,3 +12,12 @@ export function TakenUserNameValidator(accountservice: AccountService): AsyncVal
     );
   };
 }
+export function TakenEmailValidator(accountservice: AccountService): AsyncValidatorFn {
+  return (control: AbstractControl): Observable<ValidationErrors | null> => {
+    return accountservice.validateEmail(control.value).pipe(
+      map(result => {
+        return result.error ? { isTaken: true } : null;
+      })
+    );
+  };
+}

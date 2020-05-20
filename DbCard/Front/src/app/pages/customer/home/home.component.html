@@ -10,12 +10,7 @@
                 <a routerLink="partner/{{discount.PartnerId}}" matTooltip="{{discount.PartnerName}}" style="text-decoration: none;">
                     <mat-card class="discount-card">
                       <div class="logo">
-                        <ng-container *ngIf="hasLogo(discount); else elseTemplate">
-                          <img mat-card-image [src]="discount.Logo" alt="Logo of {{discount.PartnerName}}">
-                        </ng-container>
-                        <ng-template #elseTemplate>
                           <img mat-card-image src='../../../assets/img/no-logo.png' alt="Logo of {{discount.PartnerName}}">
-                        </ng-template>
                       </div>
                         <mat-card-content>
                         <span class="discountPercent">{{discount.DiscountPercent }}%  {{discount.AccumulationPercent }}%</span>

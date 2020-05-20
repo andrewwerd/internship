@@ -9,9 +9,9 @@ namespace DbCard.Domain.EFConfiguration
         {
             builder.Property(b => b.RowVersion)
                 .IsRowVersion();
-            builder.Property(e => e.AmountOfDiscount).HasColumnType("decimal(4, 2)");
+            builder.Property(e => e.AmountOfDiscount).HasColumnType("decimal(10, 2)");
 
-            builder.Property(e => e.DiscountPercent).HasColumnType("decimal(2, 2)");
+            builder.Property(e => e.DiscountPercent).HasColumnType("decimal(5, 2)");
 
             builder.HasOne(d => d.Partner)
                 .WithMany(p => p.StandartDiscounts)

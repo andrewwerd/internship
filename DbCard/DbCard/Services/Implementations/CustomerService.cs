@@ -126,9 +126,9 @@ namespace DbCard.Services.Implementations
             return customerDto;
         }
 
-        public async Task<IEnumerable<Domain.Customer>> GetAll()
+        public async Task<Domain.Customer> GetByName(string userName)
         {
-            return await _customerRepository.GetAll();
+            return (await _customerRepository.GetByPredicate(p => p.User.UserName == userName)).Single();
         }
     }
 }

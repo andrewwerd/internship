@@ -9,5 +9,8 @@ namespace DbCard.Services
         Task<bool> CreateAsync(Domain.Partner partner, User user);
         Task<bool> CreateFromDtoAsync(PartnerForRegistration partnerDto, User user);
         Task<Infrastructure.Dto.Partner.Partner> GetCurrentUser();
+        Task AddToCategory(Domain.Partner partner, string categoryName);
+        Task AddToSubcategory(Domain.Partner partner, string subcategoryName);
+        Task<long> GetIdByName(string name);
     }
 }

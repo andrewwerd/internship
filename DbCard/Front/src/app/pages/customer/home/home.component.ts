@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 
 import { MyDiscount } from '../../../_models/discounts/myDiscount';
 import { DiscountService } from '../../../_services/discount.service';
@@ -14,12 +14,11 @@ import { Subscription } from 'rxjs';
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnDestroy, AfterViewInit {
     myDiscounts: MyDiscount[] = [{
       Id: 1,
       PartnerId : 1,
       PartnerName : '№1',
-      Logo : null,
       DiscountPercent : 1,
       AccumulationPercent : 2
     },
@@ -27,7 +26,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       Id: 2,
       PartnerId : 2,
       PartnerName : 'Enter',
-      Logo : null,
       DiscountPercent : 1,
       AccumulationPercent : 2
     },
@@ -35,7 +33,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       Id: 3,
       PartnerId : 3,
       PartnerName : 'Darwin',
-      Logo : null,
       DiscountPercent : 1,
       AccumulationPercent : 2
     },
@@ -43,7 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       Id: 4,
       PartnerId : 4,
       PartnerName : 'Frizerie',
-      Logo : null,
+
       DiscountPercent : 1,
       AccumulationPercent : 2
     }];
@@ -54,13 +51,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     constructor(
                 private discountService: DiscountService,
                 public dialog: MatDialog,
-                customerData: CustomerDataService
+                private customerData: CustomerDataService
               )
               {
                 this.subscription = customerData.customer$.subscribe(customer => this.customerGuid = customer?.barcode);
               }
 
-  ngOnInit(){
+  ngAfterViewInit() {
     this.loadMyDiscounts();
   }
 
@@ -68,10 +65,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.dialog.open(BarcodeDialogComponent, { data: this.customerGuid});
   }
   loadMyDiscounts() {
-      this.discountService.getMyDiscountsScrolled(this.page).subscribe((myDiscounts: MyDiscount[]) => {this.myDiscounts = myDiscounts; });
-  }
-  hasLogo(discount: MyDiscount): boolean {
-    return discount.Logo != null;
+      this.discountService.getMyDiscounts(this.customerGuid).subscribe((myDiscounts: MyDiscount[]) => {this.myDiscounts = myDiscounts; });
   }
   OnScroll(){
     this.page++;

@@ -15,6 +15,6 @@ namespace DbCard.Services
         void AddFavoritePartner(long customerId, long partnerId);
         void DeleteFavoritePartner(long customerId, long partnerId);
         Task<Customer> GetCurrentUser();
-        Task<IEnumerable<Domain.Customer>> GetAll();
+        Task<Domain.Customer> GetByName(string userName);
     }
 }

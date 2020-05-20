@@ -8,7 +8,7 @@ namespace DbCard.Domain
     {
         public string PartnerName { get; set; }
         public string FilialAddress { get; set; }
-        public string Category { get; set; }
+
         public decimal AllAmount { get; set; }
         private decimal amountForPay;
         public decimal AmountForPay
@@ -21,7 +21,11 @@ namespace DbCard.Domain
         public DateTime DateTime { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Filial Filial { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual Subcategory Subcategory { get; set; }
         public long CustomerId { get; set; }
         public long? FilialId { get; set; }
+        public long SubcategoryId { get; set; }
+        public long CategoryId { get; set; }
     }
 }

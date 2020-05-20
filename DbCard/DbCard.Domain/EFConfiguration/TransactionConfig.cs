@@ -16,9 +16,15 @@ namespace DbCard.Domain.EFConfiguration
 
             builder.Property(e => e.AmountForPay).HasColumnType("decimal(10, 2)");
 
-            builder.Property(e => e.Category)
-                .IsRequired()
-                .HasMaxLength(40);
+            builder.HasOne(x => x.Category)
+                .WithMany(p => p.Transactions)
+                .HasForeignKey(d => d.CategoryId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.HasOne(x => x.Subcategory)
+    .WithMany(p => p.Transactions)
+    .HasForeignKey(d => d.SubcategoryId)
+    .OnDelete(DeleteBehavior.ClientSetNull);
 
             builder.Property(e => e.DiscountAmount).HasColumnType("decimal(10, 2)");
 

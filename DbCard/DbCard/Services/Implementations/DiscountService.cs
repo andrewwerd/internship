@@ -12,16 +12,18 @@ namespace DbCard.Services.Implementations
     public class DiscountService: IDiscountService
     {
         private readonly DbCardContext _context;
-        private readonly IRepository<CustomersBalance> _balancesRepository;
+        private readonly ICustomerService _customerService;
 
-        public DiscountService(IRepository<CustomersBalance> balancesRepository, DbCardContext context)
+        public DiscountService(
+            ICustomerService customerService,
+            DbCardContext context)
         {
+            _customerService = customerService;
             _context = context;
-            _balancesRepository = balancesRepository;
         }
-        public async Task<IEnumerable<MyDiscount>> GetMyDiscounts(long id)
+        public async Task<IEnumerable<MyDiscount>> GetMyDiscounts(string barcode)
         {
-            var _balances = _context.CustomersBalances.Where(x => x.IsPremium && x.CustomerId == id);
+            var _balances = _context.CustomersBalances.Where(x => x.IsPremium && x.Customer.Barcode == barcode);
             var discount = _balances
                 .Select(x => _context.Partners
                     .Where(p => p.Id == x.PartnerId)
@@ -29,7 +31,7 @@ namespace DbCard.Services.Implementations
                        premiumDiscount => premiumDiscount.PremiumDiscounts, 
                        (partner, premiumDiscount) => new { premiumDiscount, partner })
                     .OrderBy(z => z.premiumDiscount.PriceOfDiscount)
-                    .LastOrDefault(p => p.premiumDiscount.PriceOfDiscount < x.Amount)ue);
+                    .LastOrDefault(p => p.premiumDiscount.PriceOfDiscount < x.Amount));
             var myDiscounts = discount
                   .Select(x => new MyDiscount()
                   {
@@ -40,6 +42,37 @@ namespace DbCard.Services.Implementations
                       PartnerName = x.partner.Name
                   }).ToListAsync();
             return await myDiscounts;
+        }
+
+        public async Task<Domain.PremiumDiscount> GetPremiumDiscountByBalanceAsync(CustomersBalance balance)
+        {
+            var discounts = _context.Partners
+                 .Where(i => i.Id == balance.PartnerId)
+                 .SelectMany(s => s.PremiumDiscounts)
+                 .OrderBy(x => x.PriceOfDiscount); 
+            var discount = discounts.LastOrDefaultAsync(p => p.PriceOfDiscount < balance.Amount);
+            if (await discount == null) discount = discounts.LastAsync();
+            return await discount;
+        }
+
+        public async Task<Domain.StandartDiscount> GetStandartDiscountByBalanceAsync(CustomersBalance balance, decimal amount)
+        {
+            var discounts = _context.Partners
+                .Where(i => i.Id == balance.PartnerId)
+                .SelectMany(s => s.StandartDiscounts)
+                .OrderBy(x => x.AmountOfDiscount);
+             var discount = discounts.LastOrDefaultAsync(d => d.AmountOfDiscount > amount);
+            if ((await discount) == null) discount = discounts.LastAsync();
+            return await discount;
+        }
+        public async Task<decimal> GetPremiumPrice(CustomersBalance balance)
+        {
+            var price = (await _context.Partners
+                .Where(i => i.Id == balance.PartnerId)
+                .SelectMany(s => s.PremiumDiscounts)
+                .OrderBy(x => x.PriceOfDiscount)
+                .FirstAsync()).PriceOfDiscount;
+            return price;
         }
     }
 }

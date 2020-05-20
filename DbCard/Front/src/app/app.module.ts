@@ -31,7 +31,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ConfirmDialogComponent } from './pages/registration/conirmDialog/confirmDialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DateHttpInterceptor } from './_interceptors/jsonDate.interceptor';
 
 
 
@@ -71,7 +70,6 @@ import { DateHttpInterceptor } from './_interceptors/jsonDate.interceptor';
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    // {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 

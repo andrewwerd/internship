@@ -54,7 +54,9 @@ namespace DbCard
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IDiscountService, DiscountService>();
-
+            services.AddScoped<IFilialService, FilialService>();
+            services.AddScoped<ITransactionService, TransactionsService>();
+            services.AddScoped<IBalanceService, BalanceService>();
 
         }
 
