@@ -19,7 +19,7 @@ namespace DbCard.Services
         Task<TEntity> Update(TEntity item);
         Task<bool> SaveAll();
         bool Any(Expression<Func<TEntity, bool>> p);
-        Task<PaginatedResult<TDto>> GetPagedData<TDto>(PagedRequest pagedRequest) where TDto : class;
+        Task<PaginatedResult<TDto>> GetPagedData<TDto>(PagedRequest pagedRequest, Expression<Func<TEntity, bool>> expression = null) where TDto : class;
     }
 
 }

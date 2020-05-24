@@ -4,6 +4,7 @@ using DbCard.Domain;
 using DbCard.Infrastructure.Extensions;
 using DbCard.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
+using SQLitePCL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,9 +67,9 @@ namespace DbCard.Services
             return await query.FirstOrDefaultAsync(entity => entity.Id == id);
         }
 
-        public async Task<PaginatedResult<TDto>> GetPagedData<TDto>(PagedRequest pagedRequest) where TDto : class
+        public async Task<PaginatedResult<TDto>> GetPagedData<TDto>(PagedRequest pagedRequest, Expression<Func<TEntity, bool>> optionalPredicate = null) where TDto : class
         {
-            return await _context.Set<TEntity>().CreatePaginatedResultAsync<TEntity, TDto>(pagedRequest, _mapper);
+            return await _context.Set<TEntity>().CreatePaginatedResultAsync<TEntity, TDto>(pagedRequest, _mapper, optionalPredicate);
         }
 
         public async Task<bool> SaveAll()

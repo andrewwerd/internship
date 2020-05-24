@@ -1,0 +1,39 @@
+.container{
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+.table{
+  width: 95%;
+  margin: auto;
+  margin-top: 20px;
+}
+.buttons{
+  margin-left: 50px;
+}
+.resetButton{
+  margin-right: 10px;
+  background-color:darkgrey;
+  color: white;
+}
+.filterButton{
+  margin-right: 10px;
+  background-color: rgb(41, 85, 155);
+  color: white;
+}
+.confirmButton{
+  margin-right: 20px;
+  background-color: rgb(41, 85, 155);
+  color: white;
+}
+.mat-column-category {
+  width: 10px;
+}
+.filterForm{
+  display: flex;
+  flex-direction: column;
+}
+.deleteButton{
+  background-color:lightblue;
+  min-height: 30px;
+  margin: 5px;
+}

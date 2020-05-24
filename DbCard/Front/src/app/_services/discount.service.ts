@@ -4,6 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { MyDiscount } from '../_models/discounts/myDiscount';
 import { Observable } from 'rxjs';
 import { Customer } from '../_models/customer/customer';
+import { PagedResult } from '../_models/tablePaginate/pagedResult';
+import { PaginatedRequest } from '../_models/tablePaginate/paginatedRequest';
+import { ScrollRequest } from '../_models/scrollPaginate/scroll';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +19,10 @@ export class DiscountService {
     private http: HttpClient
   ) { }
 
-  getMyDiscounts(customer: string): Observable<MyDiscount[]> {
-    return this.http.get<MyDiscount[]>(this.baseUrl + 'myDiscounts', {params: {customer}});
-  }
-  getMyDiscountsScrolled(page: number): Observable<MyDiscount[]> {
-    return this.http.post<MyDiscount[]>(this.baseUrl + 'MyDiscounts', page);
+  getMyDiscountsScrollPaged(scrollRequest: ScrollRequest): Observable<MyDiscount[]> {
+    return this.http.post<MyDiscount[]>(this.baseUrl + 'myDiscounts', scrollRequest);
   }
 }
+
+
 

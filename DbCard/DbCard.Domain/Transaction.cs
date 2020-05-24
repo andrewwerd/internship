@@ -7,7 +7,7 @@ namespace DbCard.Domain
     public class Transaction : Entity<long>
     {
         public string PartnerName { get; set; }
-        public string FilialAddress { get; set; }
+        public string Address { get; set; }
 
         public decimal AllAmount { get; set; }
         private decimal amountForPay;

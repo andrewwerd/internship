@@ -4,7 +4,6 @@ export class Balance{
     id: number;
     partnerId: number;
     partnerName: string;
-    partnerLogo: File;
     partnerSubcategory: string;
     partnerCategory: string;
     currentAmount: number;

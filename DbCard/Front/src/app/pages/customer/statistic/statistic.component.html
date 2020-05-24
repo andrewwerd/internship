@@ -1,0 +1,144 @@
+<div class="container">
+  <mat-card class='table' style="height: 100%;">
+    <mat-card-header>
+      <mat-card-title class="view-card-title">
+        <h1>Последние транзакции</h1>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <mat-form-field>
+          <mat-placeholder>
+            <b> Поиск</b>
+          </mat-placeholder>
+          <input matInput [formControl]="searchInput" (keyup.enter)="applySearch()">
+          <button mat-icon-button matSuffix (click)="applyFilters()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+        <div class="buttons">
+          <button mat-raised-button class="filterButton" (click)="sidenav.toggle()">
+            <mat-icon>filter_list</mat-icon>
+          </button>
+          <button mat-raised-button class="resetButton" (click)="resetGrid()">
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-table #table [dataSource]="pagedTransactions?.items" matSort matSortActive="dateTime" matSortDirection="desc">
+
+      <ng-container matColumnDef="partnerName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Партнёр </mat-header-cell>
+        <mat-cell *matCellDef="let transaction"> {{transaction.partnerName}} </mat-cell>
+        <mat-footer-cell>Всего</mat-footer-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Филиал </mat-header-cell>
+        <mat-cell *matCellDef="let transaction"> {{transaction.address}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Категория </mat-header-cell>
+        <mat-cell *matCellDef="let transaction"> {{transaction.category}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="subcategory">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Подкатегория </mat-header-cell>
+        <mat-cell *matCellDef="let transaction"> {{transaction.subcategory}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="dateTime">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Дата и время </mat-header-cell>
+        <mat-cell *matCellDef="let transaction"> {{transaction.dateTime | date}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="allAmount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Сумма </mat-header-cell>
+        <mat-cell *matCellDef="let transaction"> {{transaction.allAmount }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="amountForPay">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Сумма к оплате </mat-header-cell>
+        <mat-cell *matCellDef="let transaction"> {{transaction.amountForPay }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="discountAmount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Сумма скидки </mat-header-cell>
+        <mat-cell *matCellDef="let transaction"> {{transaction.discountAmount }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="accumulationAmount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Накопленная сумма </mat-header-cell>
+        <mat-cell *matCellDef="let transaction"> {{transaction.accumulationAmount }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let transaction" style="justify-content:right;">
+          <button mat-mini-fab class = "deleteButton" (click)="deleteTransaction(transaction.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <!-- <mat-footer-row *matFooterRowDef="displayedColumns" class="example-first-footer-row"></mat-footer-row> -->
+
+    </mat-table>
+
+    <mat-paginator [length]="pagedTransactions?.total" [pageSizeOptions]="[5, 10, 25, 50]" pageSize="5"
+      showFirstLastButtons></mat-paginator>
+  </mat-card>
+
+
+  <mat-sidenav class="filter-panel" dark #sidenav position="end" mode="push" opened="false">
+    <mat-card class="profile-card">
+      <mat-card-header>
+        <mat-card-subtitle>
+          <button mat-raised-button class="confirmButton" (click)="applyFilters();sidenav.toggle()">
+            Применить
+          </button>
+          <button mat-raised-button class="resetFilterButton" style="color:white; background-color:rgb(166, 235, 252)"
+            (click)="resetGrid(); sidenav.toggle()">
+            Сбросить
+          </button>
+        </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+    <mat-nav-list style="margin-left:20px;">
+      <form [formGroup]="filterForm" (ngSubmit)="sidenav.toggle()" class="filterForm">
+        <mat-form-field>
+          <mat-label>Период</mat-label>
+          <mat-select formControlName="period">
+            <mat-option [value]="period[period.Day]">Последний день</mat-option>
+            <mat-option [value]="period[period.Week]">Последняя неделя</mat-option>
+            <mat-option [value]="period[period.Month]">Последняя месяц</mat-option>
+            <mat-option [value]="period[period.Year]">Последняя год</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Категория</mat-label>
+          <mat-select formControlName="category">
+            <mat-option *ngFor="let category of categories" [value]="category?.name"
+              (click)="onCategorySelected(category?.id)" (change)="filter.subcategory?.setValue('')">
+              {{category?.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="filter.category?.value !== '' ">
+          <mat-form-field>
+            <mat-label>Подкатегория</mat-label>
+            <mat-select formControlName="subcategory">
+              <mat-option *ngFor="let category of subcategories" [value]="category?.name">
+                {{category?.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-nav-list>
+  </mat-sidenav>
+</div>

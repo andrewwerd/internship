@@ -28,7 +28,7 @@ namespace DbCard.Domain.EFConfiguration
 
             builder.Property(e => e.DiscountAmount).HasColumnType("decimal(10, 2)");
 
-            builder.Property(e => e.FilialAddress)
+            builder.Property(e => e.Address)
                 .IsRequired()
                 .HasMaxLength(40);
 

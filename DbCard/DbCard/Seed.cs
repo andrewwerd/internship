@@ -3,11 +3,9 @@ using DbCard.Domain;
 using DbCard.Domain.Auth;
 using DbCard.Infrastructure.Extensions;
 using DbCard.Services;
-using DbCard.Services.Implementations;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -35,19 +33,19 @@ namespace DbCard.Infrastructure
                         new PremiumDiscount()
                         {
                             DiscountPercent = (decimal)1.5,
-                            AccumulatingPercent = (decimal)0.5,
+                            AccumulationPercent = (decimal)0.5,
                             PriceOfDiscount = 500,
                         },
                         new PremiumDiscount()
                         {
                             DiscountPercent = (decimal)2,
-                            AccumulatingPercent = (decimal)0.5,
+                            AccumulationPercent = (decimal)0.5,
                             PriceOfDiscount = 5000,
                         },
                         new PremiumDiscount()
                         {
                             DiscountPercent = 2,
-                            AccumulatingPercent = 1,
+                            AccumulationPercent = 1,
                             PriceOfDiscount = 7000,
                         }
                     },
@@ -185,19 +183,19 @@ namespace DbCard.Infrastructure
                         new PremiumDiscount()
                         {
                             DiscountPercent = 1.5M,
-                            AccumulatingPercent = 0.5M,
+                            AccumulationPercent = 0.5M,
                             PriceOfDiscount = 1000,
                         },
                         new PremiumDiscount()
                         {
                             DiscountPercent = 2M,
-                            AccumulatingPercent = 1M,
+                            AccumulationPercent = 1M,
                             PriceOfDiscount = 2500,
                         },
                         new PremiumDiscount()
                         {
                             DiscountPercent = 2M,
-                            AccumulatingPercent = 2M,
+                            AccumulationPercent = 2M,
                             PriceOfDiscount = 5000,
                         }
                     },
@@ -326,19 +324,19 @@ namespace DbCard.Infrastructure
                         new PremiumDiscount()
                         {
                             DiscountPercent = 2M,
-                            AccumulatingPercent = 1M,
+                            AccumulationPercent = 1M,
                             PriceOfDiscount = 5000,
                         },
                         new PremiumDiscount()
                         {
                             DiscountPercent = 3M,
-                            AccumulatingPercent = 2M,
+                            AccumulationPercent = 2M,
                             PriceOfDiscount = 10000,
                         },
                         new PremiumDiscount()
                         {
                             DiscountPercent = 5M,
-                            AccumulatingPercent = 2M,
+                            AccumulationPercent = 2M,
                             PriceOfDiscount = 20000,
                         }
                     },
@@ -462,19 +460,19 @@ namespace DbCard.Infrastructure
                         new PremiumDiscount()
                         {
                             DiscountPercent = 1.5M,
-                            AccumulatingPercent = 0.5M,
+                            AccumulationPercent = 0.5M,
                             PriceOfDiscount = 1500,
                         },
                         new PremiumDiscount()
                         {
                             DiscountPercent = 2M,
-                            AccumulatingPercent = 2M,
+                            AccumulationPercent = 2M,
                             PriceOfDiscount = 5000,
                         },
                         new PremiumDiscount()
                         {
                             DiscountPercent = 3M,
-                            AccumulatingPercent = 3M,
+                            AccumulationPercent = 3M,
                             PriceOfDiscount = 7000,
                         }
                     },
@@ -597,19 +595,19 @@ namespace DbCard.Infrastructure
                         new PremiumDiscount()
                         {
                             DiscountPercent = 3M,
-                            AccumulatingPercent = 1M,
+                            AccumulationPercent = 1M,
                             PriceOfDiscount = 2500,
                         },
                         new PremiumDiscount()
                         {
                             DiscountPercent = 5M,
-                            AccumulatingPercent = 2M,
+                            AccumulationPercent = 2M,
                             PriceOfDiscount = 5000,
                         },
                         new PremiumDiscount()
                         {
                             DiscountPercent = 8M,
-                            AccumulatingPercent = 1M,
+                            AccumulationPercent = 1M,
                             PriceOfDiscount = 7000,
                         }
                     },
@@ -668,7 +666,7 @@ namespace DbCard.Infrastructure
                         new PremiumDiscount()
                         {
                             DiscountPercent = 5M,
-                            AccumulatingPercent = 0M,
+                            AccumulationPercent = 0M,
                             PriceOfDiscount = 2500,
                         }
                     },
@@ -715,13 +713,13 @@ namespace DbCard.Infrastructure
                         new PremiumDiscount()
                         {
                             DiscountPercent = 2M,
-                            AccumulatingPercent = 0.5M,
+                            AccumulationPercent = 0.5M,
                             PriceOfDiscount = 1000,
                         },
                         new PremiumDiscount()
                         {
                             DiscountPercent = 5M,
-                            AccumulatingPercent = 2M,
+                            AccumulationPercent = 2M,
                             PriceOfDiscount = 5000,
                         }
                     },
@@ -783,8 +781,6 @@ namespace DbCard.Infrastructure
                 await partnerService.AddToCategory(Romstal, "Для дома");
                 await partnerService.AddToSubcategory(Romstal, "Прочее");
                 await partnerService.CreateAsync(Romstal, user7);
-
-
             }
         }
 

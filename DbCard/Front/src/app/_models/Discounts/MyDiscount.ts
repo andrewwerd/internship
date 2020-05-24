@@ -1,7 +1,7 @@
 export class MyDiscount{
-    Id: number;
-    PartnerId: number;
-    PartnerName: string;
-    DiscountPercent: number;
-    AccumulationPercent: number;
+    id: number;
+    partnerId: number;
+    partnerName: string;
+    discountPercent: number;
+    accumulationPercent: number;
 }

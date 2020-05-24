@@ -1,23 +1,24 @@
 <div class="container">
-    <h2 class = "title">Мои скидки</h2>
-    <button  mat-raised-button  class="barcode" (click)="openDialog()">
-        <img src ='../../../assets/img/barcode.png'>
-    </button>
-    <div class="discountTable" infiniteScroll (scrolled)="OnScroll()">
-        <mat-grid-list cols="3" rowHeight="300px">
-            <mat-grid-tile
-                *ngFor="let discount of myDiscounts">
-                <a routerLink="partner/{{discount.PartnerId}}" matTooltip="{{discount.PartnerName}}" style="text-decoration: none;">
-                    <mat-card class="discount-card">
-                      <div class="logo">
-                          <img mat-card-image src='../../../assets/img/no-logo.png' alt="Logo of {{discount.PartnerName}}">
-                      </div>
-                        <mat-card-content>
-                        <span class="discountPercent">{{discount.DiscountPercent }}%  {{discount.AccumulationPercent }}%</span>
-                        </mat-card-content>
-                    </mat-card>
-                </a>
-            </mat-grid-tile>
-          </mat-grid-list>
-    </div>
+  <h2 class="title">Мои скидки</h2>
+  <button mat-raised-button class="barcode" (click)="openDialog()">
+    <img src='../../../assets/img/barcode.png'>
+  </button>
+  <div class="discountTable" infinite-scroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300"
+    (scrolled)="onScroll()">
+    <mat-grid-list cols="3" rowHeight="300px">
+      <mat-grid-tile *ngFor="let discount of myDiscounts">
+        <a routerLink="partner/{{discount?.partnerId}}" matTooltip="{{discount?.partnerName}}"
+          style="text-decoration: none;">
+          <mat-card class="discount-card">
+            <div class="logo">
+              <img mat-card-image src='../../../assets/img/no-logo.png' alt="Logo of {{discount?.partnerName}}">
+            </div>
+            <mat-card-content>
+              <span class="discountPercent">{{discount?.discountPercent }}% {{discount?.accumulationPercent }}%</span>
+            </mat-card-content>
+          </mat-card>
+        </a>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
 </div>

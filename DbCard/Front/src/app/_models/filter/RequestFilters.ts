@@ -1,5 +1,5 @@
-import { FilterLogicalOperators } from './FilterLogicalOperators';
-import { Filter } from './Filter';
+import { FilterLogicalOperators } from './filterLogicalOperators';
+import { Filter } from './filter';
 
 export interface RequestFilters {
     logicalOperator: FilterLogicalOperators;

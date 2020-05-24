@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Customer } from '../_models/customer/customer';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { CustomerForRegistration } from '../_models/customer/customerForRegistration';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class CustomerService {
   constructor(private http: HttpClient) { }
 
   getCustomer(): Observable<Customer>{
-    return this.http.get<Customer>(this.baseUrl + 'currentUser');
+    return this.http.get<Customer>(this.baseUrl + 'currentCustomer');
   }
   editCustomer(customer: Customer): Observable<Customer>{
     return this.http.put<Customer>(this.baseUrl + 'customers/' + customer.id, customer);

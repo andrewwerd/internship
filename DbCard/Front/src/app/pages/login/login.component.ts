@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
 
   constructor(private accountService: AccountService,
               private router: Router,
-              private route: ActivatedRoute,
               private formBuilder: FormBuilder
   ) {
     if (this.accountService.currentUserValue) {

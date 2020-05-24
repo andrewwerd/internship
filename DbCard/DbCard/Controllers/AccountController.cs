@@ -52,5 +52,12 @@ namespace DbCard.Controllers
             var result = await _accountService.ValidateUserName(userName);
             return Ok(result);
         }
+        [AllowAnonymous]
+        [HttpGet("validateEmail")]
+        public async Task<IActionResult> ValidateEmail([FromQuery]string email)
+        {
+            var result = await _accountService.ValidateEmail(email);
+            return Ok(result);
+        }
     }
 }

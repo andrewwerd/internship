@@ -7,10 +7,10 @@ namespace DbCard.Infrastructure.Dto.Balance
 {
     public class MyDiscount
     {
-        public long Id;
-        public long PartnerId;
-        public string PartnerName;
-        public decimal DiscountPercent;
-        public decimal AccumulationPercent;
+        public long Id { get; set; }
+        public long PartnerId { get; set; }
+        public string PartnerName { get; set; }
+        public decimal DiscountPercent { get; set; }
+        public decimal AccumulationPercent { get; set; }
     }
 }

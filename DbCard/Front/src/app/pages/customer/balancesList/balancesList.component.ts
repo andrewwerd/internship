@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Balance } from '../../../_models/discounts/balance';
+import { FormControl } from '@angular/forms';
+import { BalanceService } from 'src/app/_services/balance.service';
+import { Filter } from 'src/app/_models/filter/filter';
+import { FilterLogicalOperators } from 'src/app/_models/filter/filterLogicalOperators';
+import { RequestFilters } from 'src/app/_models/filter/requestFilters';
 
 @Component({
   selector: 'app-balances-list',
@@ -7,9 +12,8 @@ import { Balance } from '../../../_models/discounts/balance';
   styleUrls: ['./balancesList.component.css']
 })
 export class BalancesListComponent implements OnInit {
-  Balances: Balance[] = [{
+  balances: Balance[] = [{
     id: 3,
-    partnerLogo: null,
     partnerId: 3,
     partnerName: 'Darwin',
     discountPercent: 1,
@@ -38,7 +42,6 @@ export class BalancesListComponent implements OnInit {
   },
   {
     id: 4,
-    partnerLogo: null,
     partnerId: 4,
     partnerName: 'Enter',
     discountPercent: 1,
@@ -62,14 +65,40 @@ export class BalancesListComponent implements OnInit {
     resetDate: new Date(2020, 12, 31),
     isPremium: false
   }];
-  constructor() { }
+  searchInput = new FormControl('');
+  requestFilters: RequestFilters;
+  constructor(private balanceService: BalanceService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.loadBalances();
+   }
   OnScroll() { }
   getAll() { }
   getPremium() { }
   getStandart() { }
-  progress(): number {
-    return 40;
+
+
+  loadBalances() {
+    this.balanceService.getBalancesPaged().subscribe(balances => this.balances = balances);
+  }
+
+  applySearch() {
+    this.createFiltersFromSearchInput();
+    this.loadBalances();
+  }
+
+  private createFiltersFromSearchInput() {
+    const filterValue = this.searchInput.value.trim();
+    if (filterValue) {
+      const filters: Filter[] = [];
+      const filter: Filter = { path: 'partner.name', value: filterValue };
+      filters.push(filter);
+      this.requestFilters = {
+        logicalOperator: FilterLogicalOperators.Or,
+        filters
+      };
+    } else {
+      this.getAll();
+    }
   }
 }

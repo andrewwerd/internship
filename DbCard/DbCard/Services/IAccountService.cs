@@ -12,5 +12,6 @@ namespace DbCard.Services
         Task<bool> CustomerRegistration(CustomerForRegistration customerDto);
         Task<bool> PartnerRegistration(PartnerForRegistration customerDto);
         Task<ValidationErrors> ValidateUserName(string userName);
+        Task<ValidationErrors> ValidateEmail(string email);
     }
 }

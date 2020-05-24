@@ -81,6 +81,14 @@ namespace DbCard.Services.Implementations
             else
                 return new ValidationErrors (false);
         }
+        public async Task<ValidationErrors> ValidateEmail(string email)
+        {
+            var error = "Such user already exists";
+            if (await _userManager.FindByEmailAsync(email) != null)
+                return new ValidationErrors(true, error);
+            else
+                return new ValidationErrors(false);
+        }
         private async Task<LoginResult> GenerateJwtTokenAsync(User user)
         {
             var userClaims = new List<Claim>

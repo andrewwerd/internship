@@ -33,7 +33,6 @@ export class RegistrationComponent implements OnInit {
   categories: Category[];
   subcategories: Category[];
   success: boolean;
-  foto: File;
   maxDate: Date;
   birthdayDiscount = false;
   dialogRef: any;
@@ -91,7 +90,7 @@ export class RegistrationComponent implements OnInit {
         confirmPasswordValidator('password')
       ]],
       email: ['', {
-        validators: [[Validators.required], [ Validators.email]],
+        validators: [Validators.required, Validators.email],
         asyncValidators: [TakenEmailValidator(this.accountService)],
         updateOn: 'blur'
       }],
@@ -181,8 +180,6 @@ export class RegistrationComponent implements OnInit {
       }
     });
   }
-  onFileSelected(event) {
-    this.foto = event.target.files[0];
-  }
+
 }
 

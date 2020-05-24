@@ -1,0 +1,11 @@
+<div>
+  <ng-container *ngIf="data; else elseTemplate">
+    <h1 mat-dialog-title>Поздравляем!</h1>
+    <p>Вы успешно зарегестрировались в нашем сервисе</p>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <h1 mat-dialog-title>Извините!</h1>
+    <p>Произошла ошибка регистрации, повторите попытку позже</p>
+  </ng-template>
+    <button class="mat-raised-button"(click)="close()">Хорошо</button>
+</div>

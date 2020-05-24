@@ -7,24 +7,50 @@ using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using System.Text;
 using DbCard.Infrastructure.Models;
+using System.Linq.Expressions;
+using System;
+using System.Collections.Generic;
 
 namespace DbCard.Infrastructure.Extensions
 {
-    public static class QuerableExtensions
+    public static class QueryableExtensions
     {
-        public async static Task<PaginatedResult<TDto>> CreatePaginatedResultAsync<TEntity,TDto>(this IQueryable<TEntity> query, PagedRequest pagedRequest, IMapper mapper)
+        public async static Task<IEnumerable<TDto>> CreateScrollPaginatedResultAsync<TEntity, TDto>(
+            this IQueryable<TEntity> query,
+            ScrollRequest scrollRequest,
+            IMapper mapper,
+            Expression<Func<TEntity, bool>> optionalPredicate = null)
               where TEntity : Entity<long>
               where TDto : class
         {
-            query = query.ApplyFilters(pagedRequest);
+            //query = query.ApplyFilters(scrollRequest, optionalPredicate);
+
+            //query = query.Paginate(scrollRequest);
+
+            var projectionResult = query.ProjectTo<TDto>(mapper.ConfigurationProvider);
+
+            var listResult = await projectionResult.ToListAsync();
+
+            return listResult;
+        }
+
+        public async static Task<PaginatedResult<TDto>> CreatePaginatedResultAsync<TEntity, TDto>(
+            this IQueryable<TEntity> query, 
+            PagedRequest pagedRequest, 
+            IMapper mapper, 
+            Expression<Func<TEntity, bool>> optionalPredicate = null)
+              where TEntity : Entity<long>
+              where TDto : class
+        {
+            query = query.ApplyFilters(pagedRequest, optionalPredicate);
 
             var total = await query.CountAsync();
+
+            query = query.Sort(pagedRequest);
 
             query = query.Paginate(pagedRequest);
 
             var projectionResult = query.ProjectTo<TDto>(mapper.ConfigurationProvider);
-
-            projectionResult = projectionResult.Sort(pagedRequest);
 
             var listResult = await projectionResult.ToListAsync();
 
@@ -37,7 +63,7 @@ namespace DbCard.Infrastructure.Extensions
             };
         }
 
-        private static IQueryable<T> Paginate<T>(this IQueryable<T> query, PagedRequest pagedRequest)
+        private static IQueryable<T> Paginate<T>(this IQueryable<T> query, PagedRequestBase pagedRequest)
         {
             var entities = query.Skip((pagedRequest.PageIndex) * pagedRequest.PageSize).Take(pagedRequest.PageSize);
             return entities;
@@ -52,10 +78,16 @@ namespace DbCard.Infrastructure.Extensions
             return query;
         }
 
-        private static IQueryable<T> ApplyFilters<T>(this IQueryable<T> query, PagedRequest pagedRequest)
+        private static IQueryable<T> ApplyFilters<T>(
+            this IQueryable<T> query, 
+            PagedRequestBase pagedRequest, 
+            Expression<Func<T, bool>> optionalPredicate = null)
         {
+            if (optionalPredicate != null) query = query.Where(optionalPredicate);
+
             var predicate = new StringBuilder();
             var requestFilters = pagedRequest.RequestFilters;
+
             for (int i = 0; i < requestFilters.Filters.Count; i++)
             {
                 if (i > 0)

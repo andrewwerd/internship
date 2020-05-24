@@ -38,6 +38,8 @@ namespace DbCard.Infrastructure.Extensions
                 }
                 catch (Exception)
                 {
+                    var context = services.GetRequiredService<DbCardContext>();
+                    context.Database.EnsureDeleted();
                     throw;
                 }
             }

@@ -131,9 +131,6 @@
                 Это поле обязательно
               </div>
             </div>
-            <div id="avatar">
-              <input type="file" placeholder="Фото" (change)="onFileSelected($event)">
-            </div>
           </form>
           <div>
             <button mat-button matStepperPrevious>Назад</button>
@@ -147,7 +144,7 @@
           <form [formGroup]="partnerRegistrationForm">
             <div id="name">
               <mat-form-field>
-                <input matInput type="text" placeholder="Название" formControlName="name"/>
+                <input matInput type="text" placeholder="Название" formControlName="name" />
               </mat-form-field>
               <div *ngIf="partnerForm.name.touched" class="error">
                 <div *ngIf="partnerForm.name.hasError('required')">
@@ -160,12 +157,14 @@
                 <mat-form-field>
                   <mat-label>Категория</mat-label>
                   <mat-select formControlName="categoryId">
-                    <mat-option *ngFor="let category of categories" [value]="category?.id" (click)="onCategorySelected(category?.id)">
+                    <mat-option *ngFor="let category of categories" [value]="category?.id"
+                      (click)="onCategorySelected(category?.id)">
                       {{category?.name}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-                <div *ngIf="partnerForm.categoryId?.touched && partnerForm.categoryId?.hasError('required')" class="error">
+                <div *ngIf="partnerForm.categoryId?.touched && partnerForm.categoryId?.hasError('required')"
+                  class="error">
                   Это поле обязательно
                 </div>
               </div>
@@ -200,7 +199,7 @@
                 </mat-form-field>
               </div>
             </div>
-            <div id = "description">
+            <div id="description">
               <mat-form-field>
                 <textarea matInput placeholder="Описание" formControlName="description"></textarea>
               </mat-form-field>
@@ -286,12 +285,7 @@
             </mat-list>
           </mat-grid-tile>
           <mat-grid-tile class="avatar">
-            <ng-container *ngIf="foto!=null; else noAvatar">
-              <img [src]="foto">
-            </ng-container>
-            <ng-template #noAvatar>
-              <img src="../../../assets/img/no-avatar.png">
-            </ng-template>
+            <img src="../../../assets/img/no-avatar.png">
           </mat-grid-tile>
         </mat-grid-list>
         <button mat-button matStepperPrevious>Назад</button>
