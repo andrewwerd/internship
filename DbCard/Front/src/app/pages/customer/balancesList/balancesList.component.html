@@ -1,5 +1,5 @@
 <div class="container">
-  <button mat-button class="filterBtn" (click)="getAll()" onmouseover="changeColor">Все</button>
+  <button mat-button class="filterBtn" (click)="getAll()">Все</button>
   <button mat-button class="filterBtn" (click)="getPremium()">Премиум</button>
   <button mat-button class="filterBtn" (click)="getStandart()">Стандарт</button>
 </div>
@@ -9,7 +9,8 @@
   </mat-placeholder>
   <input matInput [formControl]="searchInput" (keyup.enter)="applySearch()">
 </mat-form-field>
-<div class="balanceTable" infiniteScroll (scrolled)="OnScroll()">
+<div class="balanceTable" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300"
+  [infiniteScrollContainer]="'mat-sidenav-content'" [fromRoot]="true" (scrolled)="onScroll()">
   <mat-grid-list cols="2" rowHeight="300px">
     <mat-grid-tile *ngFor="let balance of balances">
       <mat-expansion-panel>
@@ -40,13 +41,15 @@
             <p>Скидка</p>
             <mat-list *ngFor="let discount of balance.discounts">
               <mat-list-item>
-                <span class="discountItem">От {{discount.amount | mdl}} {{discount.discountPercent}}%<span *ngIf="balance.isPremium">{{discount.accumulatingPercent}}% </span>
+                <span class="discountItem">От {{discount.amount | mdl}} {{discount.discountPercent}}%<span
+                    *ngIf="balance.isPremium">{{discount.accumulatingPercent}}% </span>
                 </span>
               </mat-list-item>
             </mat-list>
           </div>
           <div class="progress">
-            <mat-progress-bar mode="determinate" [value]="100*balance.currentAmount/balance.nextAmount"></mat-progress-bar>
+            <mat-progress-bar mode="determinate" [value]="100*balance.currentAmount/balance.nextAmount">
+            </mat-progress-bar>
             <p> {{balance.currentAmount}} из {{balance.nextAmount | mdl}}</p>
           </div>
         </div>

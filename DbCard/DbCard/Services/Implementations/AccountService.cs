@@ -13,6 +13,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using DbCard.Infrastructure.Dto.Account;
+using AutoMapper;
 
 namespace DbCard.Services.Implementations
 {
@@ -24,13 +27,25 @@ namespace DbCard.Services.Implementations
 
         private readonly ICustomerService _customerService;
         private readonly IPartnerService _partnerService;
-        public AccountService(IOptions<AuthOptions> authenticationOptions, SignInManager<User> signInManager, UserManager<User> userManager, ICustomerService customerService, IPartnerService partnerService)
+        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IMapper _mapper;
+
+        public AccountService(
+            IHttpContextAccessor contextAccessor,
+            IOptions<AuthOptions> authenticationOptions,
+            SignInManager<User> signInManager, 
+            UserManager<User> userManager,
+            ICustomerService customerService, 
+            IPartnerService partnerService,
+            IMapper mapper)
         {
             _authenticationOptions = authenticationOptions.Value;
             _signInManager = signInManager;
             _userManager = userManager;
             _customerService = customerService;
             _partnerService = partnerService;
+            _contextAccessor = contextAccessor;
+            _mapper = mapper;
         }
 
         public async Task<bool> CustomerRegistration(CustomerForRegistration customerDto)
@@ -89,6 +104,30 @@ namespace DbCard.Services.Implementations
             else
                 return new ValidationErrors(false);
         }
+        public async Task<ValidationErrors> CheckPassword(string password)
+        {
+            var currentUser =await GetCurrentUser();
+            var error = "Wrong password";
+            if (!await _userManager.CheckPasswordAsync(currentUser, password))
+                return new ValidationErrors(true, error);
+            else
+                return new ValidationErrors(false);
+        }
+        public async Task<UserForEdit> GetCurrentUserDto()
+        {
+            var currentUser = await GetCurrentUser();
+            var currentUserDto = new UserForEdit();
+            _mapper.Map(currentUser, currentUserDto);
+            return currentUserDto;
+        }
+        private async Task<User> GetCurrentUser()
+        {
+            var currentUserEmail = _contextAccessor.HttpContext.User.Claims.SingleOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+
+            var currentUser = await _userManager.FindByEmailAsync(currentUserEmail);
+
+            return currentUser;
+        }
         private async Task<LoginResult> GenerateJwtTokenAsync(User user)
         {
             var userClaims = new List<Claim>
@@ -112,6 +151,20 @@ namespace DbCard.Services.Implementations
             );
             var tokenHandler = new JwtSecurityTokenHandler();
             return new LoginResult(true, tokenHandler.WriteToken(jwtSecurityToken));
+        }
+
+        public async Task<bool> EditUser(UserForEdit userForEdit)
+        {
+            var currentUser = await GetCurrentUser();
+            _mapper.Map(userForEdit, currentUser);
+            var updateResult = await _userManager.UpdateAsync(currentUser);
+            return updateResult.Succeeded;
+        }
+        public async Task<bool> EditPassword(PasswordForEdit passwordForEdit)
+        {
+            var currentUser = await GetCurrentUser();
+            var updateResult = await _userManager.ChangePasswordAsync(currentUser, passwordForEdit.CurrentPassword, passwordForEdit.NewPassword);
+            return updateResult.Succeeded;
         }
     }
 }

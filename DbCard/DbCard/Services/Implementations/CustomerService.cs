@@ -16,37 +16,33 @@ namespace DbCard.Services.Implementations
     {
         private readonly IRepository<Domain.Customer> _customerRepository;
         private readonly IRepository<FavoritePartners> _favoritePartnersRepository;
-        private readonly IHttpContextAccessor _context;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _contextAccessor;
 
         public CustomerService(
-            IHttpContextAccessor context,
             IMapper mapper,
             IRepository<Domain.Customer> customerRepository,
-            IRepository<FavoritePartners> favoriteRepo
+            IRepository<FavoritePartners> favoriteRepo,
+            IHttpContextAccessor contextAccessor
             )
         {
             _customerRepository = customerRepository;
-            _context = context;
+            _contextAccessor = contextAccessor;
             _mapper = mapper;
             _favoritePartnersRepository = favoriteRepo;
         }
 
         public async Task<bool> CreateAsync(Domain.Customer customer, User user)
         {
-            if (customer.User == null)
+            if (customer.UserId == 0)
             {
-                customer.User = user;
                 customer.UserId = user.Id;
             }
             if (customer.DateOfBirth == null) customer.DateOfBirth = default;
+
             customer.DateOfRegistration = DateTime.Now;
-            if (customer.Barcode == null) customer.Barcode = Guid.NewGuid().NewShortGuid();
-            if (customer.Gender == null) customer.Gender = "Male";
-            if (customer.Transactions == null) customer.Transactions = new List<Transaction>();
-            if (customer.FavoritePartners == null) customer.FavoritePartners = new List<FavoritePartners>();
-            if (customer.CustomersBalances == null) customer.CustomersBalances = new List<CustomersBalance>();
-            if (customer.Reviews == null) customer.Reviews = new List<Review>();
+            customer.Barcode = customer.Barcode ?? Guid.NewGuid().NewShortGuid();
+            customer.Gender = customer.Gender ?? "Male";
             try
             {
                 await _customerRepository.Add(customer);
@@ -61,19 +57,10 @@ namespace DbCard.Services.Implementations
         public async Task<bool> CreateFromDtoAsync(CustomerForRegistration customerDto, User user)
         {
             var customer = _mapper.Map<Domain.Customer>(customerDto);
-            if (customer.User == null)
-            {
-                customer.User = user;
-                customer.UserId = user.Id;
-            }
-            if (customer.DateOfBirth == null) customer.DateOfBirth = new DateTime(customerDto.DateOfBirth);
+
+            if (customer.UserId == 0) customer.UserId = user.Id;
             customer.DateOfRegistration = DateTime.Now;
-            if (customer.Barcode == null) customer.Barcode = Guid.NewGuid().NewShortGuid();
-            if (customer.Gender == null) customer.Gender = "Male";
-            if (customer.Transactions == null) customer.Transactions = new List<Transaction>();
-            if (customer.FavoritePartners == null) customer.FavoritePartners = new List<FavoritePartners>();
-            if (customer.CustomersBalances == null) customer.CustomersBalances = new List<CustomersBalance>();
-            if (customer.Reviews == null) customer.Reviews = new List<Review>();
+            customer.Barcode = customer.Barcode ?? Guid.NewGuid().NewShortGuid();
             try
             {
                 await _customerRepository.Add(customer);
@@ -114,21 +101,45 @@ namespace DbCard.Services.Implementations
 
         public async void DeleteFavoritePartner(long customerId, long partnerId)
         {
-            var favoritePartner = (await _favoritePartnersRepository.GetByPredicate(x => x.Partner.Id == partnerId && x.CustomerId == customerId)).Single();
+            var favoritePartners = await _favoritePartnersRepository.GetByPredicate(x => x.Partner.Id == partnerId && x.CustomerId == customerId);
+            var favoritePartner = favoritePartners.Single();
             await _favoritePartnersRepository.Delete(favoritePartner);
         }
 
-        public async Task<Infrastructure.Dto.Customer.Customer> GetCurrentUser()
+        public async Task<Infrastructure.Dto.Customer.Customer> GetCurrentCustomerDto()
         {
-            var currentUser = _context.HttpContext.User.Claims.SingleOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-            var customer = (await _customerRepository.GetByPredicate(x => x.User.Email == currentUser)).SingleOrDefault();
+            var customer = await GetCurrentCustomer();
             var customerDto = _mapper.Map<Infrastructure.Dto.Customer.Customer>(customer);
+
             return customerDto;
         }
-
-        public async Task<Domain.Customer> GetByName(string userName)
+        public async Task<Domain.Customer> GetCurrentCustomer()
         {
-            return (await _customerRepository.GetByPredicate(p => p.User.UserName == userName)).Single();
+            var currentUserEmail = _contextAccessor.HttpContext.User.Claims.SingleOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            var customers = await _customerRepository.GetByPredicate(x => x.User.Email == currentUserEmail);
+            var customer = customers.SingleOrDefault();
+
+            return customer;
+        }
+        public async Task<Domain.Customer> GetByNameAsync(string userName)
+        {
+            var customer = await _customerRepository.GetByPredicate(p => p.User.UserName == userName);
+            return customer.Single();
+        }
+
+        public async Task<bool> EditCustomer(Infrastructure.Dto.Customer.Customer customerDto)
+        {
+            var customer = await GetCurrentCustomer();
+            _mapper.Map(customerDto, customer);
+            try
+            {
+                await _customerRepository.Update(customer);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

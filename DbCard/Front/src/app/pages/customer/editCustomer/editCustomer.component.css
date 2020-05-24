@@ -1,0 +1,11 @@
+.mat-line{
+  font-size: large;
+}
+mat-card{
+  width:95%;
+  margin: auto;
+  margin-top: 10px;
+}
+mat-expansion-panel{
+margin-bottom: 15px;
+}

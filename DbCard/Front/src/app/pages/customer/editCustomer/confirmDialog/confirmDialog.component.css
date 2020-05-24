@@ -1,0 +1,13 @@
+.confirm-dialog {
+  min-width: 350px;
+  }
+.confirm-dialog-title {
+  margin-top:0px;
+}
+.confirm-dialog-content {
+  padding-top:10px;
+  padding-bottom:20px;
+}
+.confirm-dialog-action {
+  justify-content: center;
+}

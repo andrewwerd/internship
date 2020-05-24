@@ -4,7 +4,7 @@ export function confirmPasswordValidator(controlToCompare: string): ValidatorFn 
     return (control: AbstractControl): ValidationErrors => {
       let compare: boolean;
       if (control.parent) {
-      compare  = control.parent.get(controlToCompare).value !== control.value;
+      compare  = control.parent.get(controlToCompare)?.value !== control.value;
       }
       return compare ? {passwordNotConfirmed: {value: compare}} : null;
     };

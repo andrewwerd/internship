@@ -16,7 +16,7 @@ import { ScrollRequest } from 'src/app/_models/scrollPaginate/scroll';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnDestroy, OnInit {
-  myDiscounts: MyDiscount[];
+  myDiscounts: MyDiscount[] = [];
   pageSize = 6;
   pageIndex = 0;
   customerGuid: string;
@@ -40,7 +40,9 @@ export class HomeComponent implements OnDestroy, OnInit {
     const scrollRequest = new ScrollRequest(this.pageIndex, this.pageSize);
     this.discountService.getMyDiscountsScrollPaged(scrollRequest)
       .subscribe((pagedDiscounts: MyDiscount[]) => {
-        this.myDiscounts = pagedDiscounts;
+        if (pagedDiscounts) {
+          this.addItems(pagedDiscounts);
+        }
       });
   }
   addItems(discounts: MyDiscount[]) {
@@ -50,7 +52,6 @@ export class HomeComponent implements OnDestroy, OnInit {
   }
   onScroll() {
     this.pageIndex++;
-    console.log('scrolldown');
     this.loadMyDiscounts();
   }
   ngOnDestroy() {

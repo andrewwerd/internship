@@ -29,7 +29,10 @@ namespace DbCard.Services
             await _context.SaveChangesAsync();
             return item;
         }
-
+        public IQueryable<TEntity> Get()
+        {
+            return _context.Set<TEntity>().AsQueryable();
+        }
         public async Task<TEntity> Delete(long id)
         {
             var entity = await _context.Set<TEntity>().FindAsync(id);

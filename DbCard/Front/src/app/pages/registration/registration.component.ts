@@ -11,7 +11,7 @@ import { Category } from 'src/app/_models/category';
 import { PartnerForRegistration } from 'src/app/_models/partners/partnerForRegistration';
 import { CustomerForRegistration } from 'src/app/_models/customer/customerForRegistration';
 import { Router } from '@angular/router';
-import { ConfirmDialogComponent } from './conirmDialog/confirmDialog.component';
+import { ConfirmRegistrationDialogComponent } from './conirmDialog/confirmRegistrationDialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MomentUtcDateAdapter} from '../../_workaround/dateLocale.workaround';
 
@@ -46,7 +46,7 @@ export class RegistrationComponent implements OnInit {
     private dialog: MatDialog
   ) {
     const currentYear = new Date().getFullYear();
-    this.maxDate = new Date(currentYear - 16, 0, 1);
+    this.maxDate = new Date(currentYear - 16, 0, 0);
   }
 
   ngOnInit() {
@@ -69,7 +69,7 @@ export class RegistrationComponent implements OnInit {
     this.customerRegistrationForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      birthday: ['', [Validators.required]],
+      dateOfBirth: ['', [Validators.required]],
       gender: ['', [Validators.required]],
     });
     this.userRegistrationForm = this.formBuilder.group({
@@ -173,7 +173,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   openDialog(): void {
-    this.dialogRef = this.dialog.open(ConfirmDialogComponent, { data: this.success });
+    this.dialogRef = this.dialog.open(ConfirmRegistrationDialogComponent, { data: this.success });
     this.dialogRef.afterClosed().subscribe(result => {
       if (this.success) {
         this.router.navigate(['/login']);

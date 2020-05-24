@@ -1,0 +1,164 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h1>Редактировать страницу</h1>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span mat-line> Редактировать личную информацию</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form [formGroup]="customerEditForm">
+        <div id="firstName">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Имя" formControlName="firstName" />
+          </mat-form-field>
+          <div *ngIf="customerForm.firstName.touched && customerForm.firstName.hasError('required')" class="error">
+            Это поле обязательно
+          </div>
+        </div>
+        <div id="lastName">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Фамилия" formControlName="lastName" />
+          </mat-form-field>
+          <div *ngIf="customerForm.lastName.touched && customerForm.lastName.hasError('required')" class="error">
+            Это поле обязательно
+          </div>
+        </div>
+        <div id="birthday">
+          <mat-form-field>
+            <mat-label>День рождения</mat-label>
+            <input matInput [max]="maxDate" [matDatepicker]="myDatepicker" formControlName="dateOfBirth">
+            <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker></mat-datepicker>
+          </mat-form-field>
+          <div *ngIf="customerForm.dateOfBirth.touched && customerForm.dateOfBirth.hasError('required')" class="error">
+            Это поле обязательно
+          </div>
+        </div>
+        <div id="gender">
+          <mat-form-field>
+            <mat-label>Пол</mat-label>
+            <mat-select formControlName="gender">
+              <mat-option value="Male">Мужской</mat-option>
+              <mat-option value="Female">Женский</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div *ngIf="customerForm.gender.touched && customerForm.gender.hasError('required')" class="error">
+            Это поле обязательно
+          </div>
+        </div>
+      </form>
+      <button mat-button [disabled]="customerEditForm.invalid" (click)="openDialogForCustomerConfirm()"> Подтвердить </button>
+      <button mat-button (click)="resetCustomer()"> Отменить </button>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span mat-line> Редактировать информацию пользователя</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form [formGroup]="userEditForm">
+        <div id="userName">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Логин" formControlName="userName" />
+          </mat-form-field>
+          <div *ngIf="userForm.userName.touched" class="error">
+            <div *ngIf="userForm.userName.hasError('required')">
+              Это поле обязательно
+            </div>
+            <div *ngIf="userForm.userName.hasError('isTaken')">
+              Такой логин уже занят
+            </div>
+          </div>
+        </div>
+        <div id="phoneNumber">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Номер телефона" formControlName="phoneNumber" />
+          </mat-form-field>
+        </div>
+        <div id="email">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Email" formControlName="email">
+          </mat-form-field>
+          <div *ngIf="userForm.email.touched || userForm.email.dirty" class="error">
+            <div *ngIf="userForm.email.hasError('required')">
+              Это поле обязательно
+            </div>
+            <div *ngIf=" userForm.email.invalid && !userForm.email.hasError('required')">
+              <div [style.color]="userForm.email.hasError('email')?'red':'black'">
+                Введите email в формате "example@gmail.com"
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <button mat-button [disabled]="userEditForm.invalid" (click)="openDialogForUserConfirm()"> Подтвердить </button>
+      <button mat-button (click)="resetUser()"> Отменить </button>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+       <span mat-line> Изменить пароль </span>
+      </mat-expansion-panel-header>
+      <form [formGroup]="passwordEditForm">
+        <div id="oldPassword">
+          <mat-form-field>
+            <input matInput type="password" placeholder="Старый пароль" formControlName="currentPassword" />
+          </mat-form-field>
+          <div *ngIf="passwordForm.currentPassword.touched || passwordForm.currentPassword.dirty" class="error">
+            <div *ngIf="passwordForm.currentPassword.hasError('required')">
+              Это поле обязательно
+            </div>
+            <div *ngIf="passwordForm.currentPassword.hasError('isWrong')">
+              Пароль неверный
+            </div>
+          </div>
+        </div>
+        <div id="newPassword">
+          <mat-form-field>
+            <input matInput type="password" placeholder="Новый пароль" formControlName="newPassword" />
+          </mat-form-field>
+          <div *ngIf="passwordForm.newPassword.touched || passwordForm.newPassword.dirty" class="error">
+            <div *ngIf="passwordForm.newPassword.hasError('required')">
+              Это поле обязательно
+            </div>
+            <div *ngIf=" passwordForm.newPassword.invalid && !passwordForm.newPassword.hasError('required')">
+              <div [style.color]="passwordForm.newPassword.hasError('number')?'red':'black'">
+                Пароль должен содержать цифры
+              </div>
+              <div [style.color]="passwordForm.newPassword.hasError('capital')?'red':'black'">
+                Пароль должен содержать заглавные буквы
+              </div>
+              <div [style.color]="passwordForm.newPassword.hasError('lower')?'red':'black'">
+                Пароль должен содержать строчные буквы
+              </div>
+              <div [style.color]="passwordForm.newPassword.hasError('minlength')?'red':'black'">
+                Пароль должен содержать 8 символов
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="passwordConfirm">
+          <mat-form-field>
+            <input matInput type="password" placeholder="Повторите пароль" formControlName="newPasswordConfirm" />
+          </mat-form-field>
+          <div *ngIf="passwordForm.newPasswordConfirm.touched || passwordForm.newPasswordConfirm.dirty" class="error">
+            <div *ngIf="passwordForm.newPasswordConfirm.hasError('required')">
+              Это поле обязательно
+            </div>
+            <div *ngIf=" passwordForm.newPasswordConfirm.invalid && !passwordForm.newPasswordConfirm.hasError('required')">
+              <div [style.color]="passwordForm.newPasswordConfirm.hasError('passwordNotConfirmed')?'red':'black'">
+                Пароль не совпадает
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <button mat-button [disabled]="passwordEditForm.invalid" (click)="openDialogForPasswordConfirm()"> Подтвердить </button>
+      <button mat-button (click)="resetPassword()"> Отменить </button>
+    </mat-expansion-panel>
+  </mat-card>
+</div>

@@ -14,60 +14,51 @@ namespace DbCard.Services.Implementations
 {
     public class DiscountService : IDiscountService
     {
-        private readonly DbCardContext _context;
         private readonly ICustomerService _customerService;
         private readonly IMapper _mapper;
+        private readonly IRepository<CustomersBalance> _customerBalancesRepository;
 
         public DiscountService(
             ICustomerService customerService,
-            DbCardContext context,
-            IMapper mapper)
+            IMapper mapper,
+            IRepository<CustomersBalance> customerBalancesRepository)
         {
             _customerService = customerService;
-            _context = context;
             _mapper = mapper;
+            _customerBalancesRepository = customerBalancesRepository;
         }
         public async Task<IEnumerable<MyDiscount>> GetMyDiscountsPaged(ScrollRequest scrollRequest)
         {
-            var customer = await _customerService.GetCurrentUser();
-            var _balances = _context.CustomersBalances.Where(x => x.IsPremium && x.Customer.Id == customer.Id);
-            var discounts = _balances
-                .Select(x => _context.Partners
-                    .Where(p => p.Id == x.PartnerId)
-                    .SelectMany(
-                       partner => partner.PremiumDiscounts)
-                    .OrderBy(z => z.PriceOfDiscount)
-                    .LastOrDefault(p => p.PriceOfDiscount < x.Amount));
-            var myDiscounts = discounts.CreateScrollPaginatedResultAsync<Domain.PremiumDiscount, MyDiscount>(scrollRequest, _mapper);
-            return await myDiscounts;
+            var customer = await _customerService.GetCurrentCustomer();
+            var discounts = _customerBalancesRepository
+                .Get()
+                .Where(x => x.IsPremium && x.CustomerId == customer.Id)
+                .SelectMany(
+                    x => x.Partner.PremiumDiscounts
+                    .OrderByDescending(z => z.PriceOfDiscount)
+                    .Where(p => p.PriceOfDiscount < x.Amount)
+                    .Take(1));
+            var myDiscounts = await discounts.CreateScrollPaginatedResultAsync<Domain.PremiumDiscount, MyDiscount>(scrollRequest, _mapper);
+            return myDiscounts;
         }
 
-        public async Task<Domain.PremiumDiscount> GetPremiumDiscountByBalanceAsync(CustomersBalance balance)
+        public Domain.PremiumDiscount GetPremiumDiscountByBalanceAsync(CustomersBalance balance)
         {
-            var discounts = _context.Partners
-                 .Where(i => i.Id == balance.PartnerId)
-                 .SelectMany(s => s.PremiumDiscounts)
-                 .OrderBy(x => x.PriceOfDiscount);
-            var discount = await discounts.LastOrDefaultAsync(p => p.PriceOfDiscount < balance.Amount);
-            return discount ?? await discounts.LastAsync();
+            var discounts = balance.Partner.PremiumDiscounts.OrderBy(x => x.PriceOfDiscount);
+            var discount = discounts.LastOrDefault(p => p.PriceOfDiscount < balance.Amount);
+            return discount ?? discounts.Last();
         }
 
-        public async Task<Domain.StandartDiscount> GetStandartDiscountByBalanceAsync(CustomersBalance balance, decimal amount)
+        public Domain.StandartDiscount GetStandartDiscountByBalanceAsync(CustomersBalance balance, decimal amount)
         {
-            var discounts = _context.Partners
-                .Where(i => i.Id == balance.PartnerId)
-                .SelectMany(s => s.StandartDiscounts)
-                .OrderBy(x => x.AmountOfDiscount);
-            var discount = await discounts.LastOrDefaultAsync(d => d.AmountOfDiscount > amount);
-            return discount ?? await discounts.LastAsync();
+            var discounts = balance.Partner.StandartDiscounts.OrderBy(x => x.AmountOfDiscount);
+            var discount = discounts.LastOrDefault(d => d.AmountOfDiscount > amount);
+            return discount ?? discounts.Last();
         }
-        public async Task<decimal> GetPremiumPrice(CustomersBalance balance)
+        public decimal GetPremiumPrice(CustomersBalance balance)
         {
-            var price = (await _context.Partners
-                .Where(i => i.Id == balance.PartnerId)
-                .SelectMany(s => s.PremiumDiscounts)
-                .OrderBy(x => x.PriceOfDiscount)
-                .FirstAsync()).PriceOfDiscount;
+            var discount = balance.Partner.PremiumDiscounts.OrderBy(x => x.PriceOfDiscount).First();
+            var price = discount.PriceOfDiscount;
             return price;
         }
     }

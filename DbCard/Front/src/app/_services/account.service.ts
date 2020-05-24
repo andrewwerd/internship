@@ -4,6 +4,7 @@ import { UserForLogin } from '../_models/account/userForLogin';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ValidationErrors } from '@angular/forms';
+import {UserForEdit} from '../_models/account/userForEdit';
 
 import { map, first } from 'rxjs/operators';
 
@@ -12,6 +13,7 @@ import { User } from '../_models/account/user';
 import { Router } from '@angular/router';
 import { CustomerForRegistration } from '../_models/customer/customerForRegistration';
 import { PartnerForRegistration } from '../_models/partners/partnerForRegistration';
+import { PasswordForEdit } from '../_models/account/passwordForEdit';
 
 @Injectable({
   providedIn: 'root'
@@ -73,7 +75,21 @@ export class AccountService {
   customerRegistration( customer: CustomerForRegistration){
     return this.http.post<boolean>(this.baseUrl + 'customerRegistration', customer);
   }
+
   partnerRegistration( partner: PartnerForRegistration){
     return this.http.post<boolean>(this.baseUrl + 'partnerRegistration', partner);
+  }
+  // edit user
+  getUser(): Observable<UserForEdit>{
+    return this.http.get<UserForEdit>(this.baseUrl + 'getCurrentUser');
+  }
+  checkPassword(password: string): Observable<ValidationErrors> {
+    return this.http.get<ValidationErrors>(this.baseUrl + 'checkPassword', { params: { password } });
+  }
+  editUser(userToSave: UserForEdit): Observable<any>{
+    return this.http.put<any>(this.baseUrl + 'editUser', userToSave);
+  }
+  editPassword(password: PasswordForEdit): Observable<any>{
+    return this.http.put<any>(this.baseUrl + 'editPassword', password);
   }
 }

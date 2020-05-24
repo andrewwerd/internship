@@ -8,14 +8,8 @@ namespace DbCard.Infrastructure.Profiles
     {
         public BalanceProfile()
         {
-            CreateMap<CustomersBalance, PremiumBalance>()
-                .ForMember(x => x.Logo, e => e.MapFrom(z => z.Partner.Logo))
-                .ForMember(x => x.CurrentAmount, e => e.MapFrom(z => z.Amount))
-                .ForMember(x => x.Discounts, e => e.MapFrom(z => z.Partner.PremiumDiscounts));
-            CreateMap<CustomersBalance, StandartBalance>()
-                .ForMember(x => x.Logo, e => e.MapFrom(z => z.Partner.Logo))
-                .ForMember(x => x.CurrentAmount, e => e.MapFrom(z => z.Amount))
-                .ForMember(x => x.Discounts, e => e.MapFrom(z => z.Partner.StandartDiscounts));
+            CreateMap<CustomersBalance, CustomerBalance>()
+                .ForMember(x => x.CurrentAmount, e => e.MapFrom(z => z.Amount));
         }
     }
 }

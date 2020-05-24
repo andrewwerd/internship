@@ -4,12 +4,10 @@ namespace DbCard.Infrastructure.Dto.User
 {
     public class UserForLogin
     {
-        [Required(ErrorMessage = "Это поле обязательно для ввода!")]
-        [Display(Name = "Логин")]
+        [Required]
+        [Display]
         public string Username { get; set; }
-        [Required(ErrorMessage = "Это поле обязательно для ввода!")]
-        [Display(Name = "Пароль")]
-        [DataType(DataType.Password)]
+        [Required]
         public string Password { get; set; }
     }
 }

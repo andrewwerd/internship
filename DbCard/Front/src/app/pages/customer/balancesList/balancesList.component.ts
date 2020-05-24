@@ -5,6 +5,7 @@ import { BalanceService } from 'src/app/_services/balance.service';
 import { Filter } from 'src/app/_models/filter/filter';
 import { FilterLogicalOperators } from 'src/app/_models/filter/filterLogicalOperators';
 import { RequestFilters } from 'src/app/_models/filter/requestFilters';
+import { ScrollRequest } from 'src/app/_models/scrollPaginate/scroll';
 
 @Component({
   selector: 'app-balances-list',
@@ -12,74 +13,52 @@ import { RequestFilters } from 'src/app/_models/filter/requestFilters';
   styleUrls: ['./balancesList.component.css']
 })
 export class BalancesListComponent implements OnInit {
-  balances: Balance[] = [{
-    id: 3,
-    partnerId: 3,
-    partnerName: 'Darwin',
-    discountPercent: 1,
-    accumulationPercent: 2,
-    currentAmount: 100,
-    nextAmount: 1000,
-    discounts: [{
-      amount: 1001,
-      discountPercent: 2,
-      accumulatingPercent: 1
-    },
-    {
-      amount: 1500,
-      discountPercent: 5,
-      accumulatingPercent: 3
-    },
-    {
-      amount: 2000,
-      discountPercent: 10,
-      accumulatingPercent: 5
-    }
-    ],
-    partnerCategory: 'Магазин',
-    partnerSubcategory: 'Электроника',
-    isPremium: true
-  },
-  {
-    id: 4,
-    partnerId: 4,
-    partnerName: 'Enter',
-    discountPercent: 1,
-    currentAmount: 100,
-    nextAmount: 500,
-    discounts: [{
-      amount: 1000,
-      discountPercent: 2
-    },
-    {
-      amount: 1500,
-      discountPercent: 5
-    },
-    {
-      amount: 2000,
-      discountPercent: 10
-    }
-    ],
-    partnerCategory: 'Магазин',
-    partnerSubcategory: 'Электроника',
-    resetDate: new Date(2020, 12, 31),
-    isPremium: false
-  }];
+  balances: Balance[] = [];
+  pageIndex = 0;
+  pageSize = 6;
   searchInput = new FormControl('');
   requestFilters: RequestFilters;
   constructor(private balanceService: BalanceService) { }
 
   ngOnInit(): void {
     this.loadBalances();
-   }
-  OnScroll() { }
-  getAll() { }
-  getPremium() { }
-  getStandart() { }
+  }
 
+  getAll() {
+    this.requestFilters = { filters: [], logicalOperator: FilterLogicalOperators.And };
+    this.loadBalances();
+  }
+
+  getPremium() {
+    const filter: Filter = { path: 'type', value: 'premium' };
+    this.applyFilterFromButton(filter);
+    this.loadBalances();
+  }
+
+  getStandart() {
+    const filter: Filter = { path: 'type', value: 'standart' };
+    this.applyFilterFromButton(filter);
+    this.loadBalances();
+  }
 
   loadBalances() {
-    this.balanceService.getBalancesPaged().subscribe(balances => this.balances = balances);
+    const scrollRequest = new ScrollRequest(this.pageIndex, this.pageSize, this.requestFilters);
+    this.balanceService.getBalancesPaged(scrollRequest).subscribe((pagedBalances: Balance[]) => {
+      if (pagedBalances) {
+        this.addItems(pagedBalances);
+      }
+    });
+  }
+
+  addItems(discounts: Balance[]) {
+    discounts.forEach(element => {
+      this.balances.push(element);
+    });
+  }
+
+  onScroll() {
+    this.pageIndex++;
+    this.loadBalances();
   }
 
   applySearch() {
@@ -99,6 +78,17 @@ export class BalancesListComponent implements OnInit {
       };
     } else {
       this.getAll();
+    }
+  }
+
+  private applyFilterFromButton(filter: Filter) {
+    if (filter) {
+      const filters: Filter[] = [];
+      filters.push(filter);
+      this.requestFilters = {
+        logicalOperator: FilterLogicalOperators.And,
+        filters
+      };
     }
   }
 }

@@ -14,10 +14,12 @@ namespace DbCard.Controllers
     public class DiscountsController : ControllerBase
     {
         private readonly IDiscountService _discountService;
+        private readonly IBalanceService _balanceService;
 
-        public DiscountsController(IDiscountService discountService)
+        public DiscountsController(IDiscountService discountService, IBalanceService balanceService)
         {
             _discountService = discountService;
+            _balanceService = balanceService;
         }
 
         // GET: api/customer/myDiscounts
@@ -26,6 +28,15 @@ namespace DbCard.Controllers
         public async Task<IActionResult> MyDiscounts([FromBody]ScrollRequest scrollRequest)
         {
             var myDiscounts = await _discountService.GetMyDiscountsPaged(scrollRequest);
+            if (!myDiscounts.Any()) return NoContent();
+            return Ok(myDiscounts);
+        }
+
+        [Authorize(Roles = "Customer")]
+        [HttpPost("getBalancesPaged")]
+        public async Task<IActionResult> GetBalancesPaged([FromBody]ScrollRequest scrollRequest)
+        {
+            var myDiscounts = await _balanceService.GetBalancesPaged(scrollRequest);
             if (!myDiscounts.Any()) return NoContent();
             return Ok(myDiscounts);
         }

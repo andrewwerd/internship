@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { Balance } from '../_models/discounts/balance';
+import { ScrollRequest } from '../_models/scrollPaginate/scroll';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,8 @@ export class BalanceService {
     private http: HttpClient
   ) { }
 
-  getBalancesPaged(): Observable<Balance[]> {
-    return this.http.get<Balance[]>(this.baseUrl);
+  getBalancesPaged(scrollRequest: ScrollRequest): Observable<Balance[]> {
+    return this.http.post<Balance[]>(this.baseUrl + 'getBalancesPaged', scrollRequest);
   }
 
 }

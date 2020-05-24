@@ -6,8 +6,8 @@ namespace DbCard.Infrastructure.Profiles
     {
         public CustomerProfile()
         {
-            CreateMap<Dto.Customer.CustomerForRegistration, Domain.Customer>()
-                .ForMember(x => x.Avatar, e => e.MapFrom(p => p.Avatar));
+            CreateMap<Dto.Customer.CustomerForRegistration, Domain.Customer>();
+            CreateMap<Dto.Customer.Customer, Domain.Customer>();
             CreateMap<Domain.Customer, Dto.Customer.Customer>()
                 .ForMember(x=>x.Barcode,e=>e.MapFrom(p=>p.Barcode));
         }

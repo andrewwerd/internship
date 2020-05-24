@@ -3,8 +3,8 @@
   <button mat-raised-button class="barcode" (click)="openDialog()">
     <img src='../../../assets/img/barcode.png'>
   </button>
-  <div class="discountTable" infinite-scroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300"
-    (scrolled)="onScroll()">
+  <div class="discountTable" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300"
+    [infiniteScrollContainer]="'mat-sidenav-content'" [fromRoot]="true" (scrolled)="onScroll()">
     <mat-grid-list cols="3" rowHeight="300px">
       <mat-grid-tile *ngFor="let discount of myDiscounts">
         <a routerLink="partner/{{discount?.partnerId}}" matTooltip="{{discount?.partnerName}}"

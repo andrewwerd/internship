@@ -4,11 +4,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-register-dialog',
-  templateUrl: 'confirmDialog.component.html',
+  templateUrl: 'confirmRegistrationDialog.component.html',
 })
-export class ConfirmDialogComponent {
+export class ConfirmRegistrationDialogComponent {
   constructor(
-    private dialogRef: MatDialogRef<ConfirmDialogComponent>,
+    private dialogRef: MatDialogRef<ConfirmRegistrationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: boolean) { }
 
     close(){

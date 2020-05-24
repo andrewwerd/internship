@@ -13,10 +13,7 @@ body {
   background: rgba(255, 255, 255, 0.5);
   width: 60%;
 }
-.error {
-  color: red;
-  font-size: x-small;
-}
+
 form {
   display: flex;
   flex-direction: column;

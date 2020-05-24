@@ -7,12 +7,13 @@ namespace DbCard.Infrastructure.Dto.Customer
 {
     public class CustomerForRegistration : UserForRegistration
     {
-        public long Id { get; set; }
-        public long UserId { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
-        public long DateOfBirth { get; set; }
+        [Required]
+        public DateTime DateOfBirth { get; set; }
+        [Required]
         public string Gender { get; set; }
-        public IFormFile Avatar { get; set; }
     }
 }

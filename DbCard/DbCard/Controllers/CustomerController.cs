@@ -14,23 +14,28 @@ namespace DbCard.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;
-        private readonly RoleManager<Role> _roleManager;
 
-        public CustomerController(ICustomerService customerService, RoleManager<Role> roleManager)
+        public CustomerController(ICustomerService customerService)
         {
             _customerService = customerService;
-            _roleManager = roleManager;
         }
 
         [Authorize(Roles = "Customer")]
-        [HttpGet("currentUser")]
-        public async Task<ActionResult<object>> GetCurrentUser()
+        [HttpGet("currentCustomer")]
+        public async Task<ActionResult<object>> GetCurrentCustomer()
         {
-            var customer = await _customerService.GetCurrentUser();
+            var customer = await _customerService.GetCurrentCustomerDto();
             if (customer != null)
                 return Ok(customer);
             else
                 return NotFound();
+        }
+        [Authorize(Roles = "Customer")]
+        [HttpPut]
+        public async Task<ActionResult<object>> EditCustomer(Infrastructure.Dto.Customer.Customer customerDto)
+        {
+            var result = await _customerService.EditCustomer(customerDto);
+            return Ok(result);
         }
     }
 }

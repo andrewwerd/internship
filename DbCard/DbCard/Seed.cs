@@ -1119,7 +1119,7 @@ namespace DbCard.Infrastructure
         {
             if (!context.Transactions.Any())
             {
-                var customer = await customerService.GetByName("customer1");
+                var customer = await customerService.GetByNameAsync("customer1");
                await transactionService.CreateTransactionAsync(customer, await filialService.GetByPhoneAsync("100000012"), 500, new DateTime(2020,5,7));
                await transactionService.CreateTransactionAsync(customer, await filialService.GetByPhoneAsync("100000000"), 219,new DateTime(2020,3,1));
                await transactionService.CreateTransactionAsync(customer, await filialService.GetByPhoneAsync("100000020"), 1500,new DateTime(2019,9,25));

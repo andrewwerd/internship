@@ -56,7 +56,7 @@
               </div>
             </div>
           </div>
-          <div id="passwordConfirm">
+          <div id="phoneNumber">
             <mat-form-field>
               <input matInput type="text" placeholder="Номер телефона" formControlName="phoneNumber" />
             </mat-form-field>
@@ -111,7 +111,7 @@
             <div id="birthday">
               <mat-form-field>
                 <mat-label>День рождения</mat-label>
-                <input matInput [matDatepicker]="myDatepicker" formControlName="birthday">
+                <input matInput [matDatepicker]="myDatepicker" formControlName="dateOfBirth">
                 <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
                 <mat-datepicker #myDatepicker></mat-datepicker>
               </mat-form-field>

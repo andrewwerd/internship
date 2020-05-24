@@ -11,8 +11,8 @@ namespace DbCard.Services
     public interface IDiscountService
     {
         Task<IEnumerable<MyDiscount>> GetMyDiscountsPaged(ScrollRequest scrollRequest);
-        Task<Domain.StandartDiscount> GetStandartDiscountByBalanceAsync(CustomersBalance balance, decimal amount);
-        Task<Domain.PremiumDiscount> GetPremiumDiscountByBalanceAsync(CustomersBalance balance);
-        Task<decimal> GetPremiumPrice(CustomersBalance balance);
+        Domain.StandartDiscount GetStandartDiscountByBalanceAsync(CustomersBalance balance, decimal amount);
+        Domain.PremiumDiscount GetPremiumDiscountByBalanceAsync(CustomersBalance balance);
+        decimal GetPremiumPrice(CustomersBalance balance);
     }
 }

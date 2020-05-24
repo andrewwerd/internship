@@ -3,7 +3,7 @@ export class Customer{
     userId: number;
     firstName: string;
     lastName: string;
-    birthday: Date;
+    dateOfBirth: Date;
     gender: string;
     phoneNumber: string;
     barcode: string;

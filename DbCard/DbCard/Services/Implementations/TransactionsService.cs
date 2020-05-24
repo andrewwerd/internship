@@ -35,15 +35,16 @@ namespace DbCard.Services.Implementations
 
         public async Task<PaginatedResult<TransactionGridRow>> GetPagedTransactions(PagedRequest pagedRequest)
         {
-            var id = (await _customerService.GetCurrentUser()).Id;
+            var customer = await _customerService.GetCurrentCustomer();
+            var id = customer.Id;
             Expression<Func<Transaction, bool>> predicate = null;
 
-            var period = pagedRequest.RequestFilters.Filters.FirstOrDefault(x => x.Path == "period");
-            if (period != null)
+            var periodFilter = pagedRequest.RequestFilters.Filters.FirstOrDefault(x => x.Path == "period");
+            if (periodFilter != null)
             {
                 var date = DateTime.Today;
 
-                if (Enum.TryParse<Period>(period.Value, out var parsedPeriod))
+                if (Enum.TryParse<Period>(periodFilter.Value, out var parsedPeriod))
                 {
                     if (parsedPeriod == Period.Week) date = date.AddDays(-7);
                     else if (parsedPeriod == Period.Month) date = date.AddMonths(-1);
@@ -51,7 +52,7 @@ namespace DbCard.Services.Implementations
                 }
 
                 predicate = transaction => transaction.CustomerId == id && transaction.DateTime >= date;
-                pagedRequest.RequestFilters.Filters.Remove(period);
+                pagedRequest.RequestFilters.Filters.Remove(periodFilter);
             }
 
             return await _transactionRepository.GetPagedData<TransactionGridRow>(pagedRequest, predicate);
@@ -87,32 +88,32 @@ namespace DbCard.Services.Implementations
             }
             if (balance.IsPremium)
             {
-                await CalculatePremiumDiscount(transaction, balance);
+                CalculatePremiumDiscount(transaction, balance);
             }
             else
             {
-                await CalculateStandartDiscount(transaction, balance);
+                CalculateStandartDiscount(transaction, balance);
             }
             await _context.Transactions.AddAsync(transaction);
         }
 
-        private async Task CalculatePremiumDiscount(Transaction transaction, CustomersBalance balance)
+        private void CalculatePremiumDiscount(Transaction transaction, CustomersBalance balance)
         {
-            var discount = await _discountService.GetPremiumDiscountByBalanceAsync(balance);
+            var discount = _discountService.GetPremiumDiscountByBalanceAsync(balance);
             transaction.AccumulationAmount = transaction.AllAmount * discount.AccumulationPercent / 100;
             transaction.DiscountAmount = transaction.AllAmount * discount.DiscountPercent / 100;
             transaction.AmountForPay = transaction.AllAmount - transaction.DiscountAmount;
             balance.Amount += transaction.AccumulationAmount;
         }
 
-        private async Task CalculateStandartDiscount(Transaction transaction, CustomersBalance balance)
+        private void CalculateStandartDiscount(Transaction transaction, CustomersBalance balance)
         {
-            var discount = await _discountService.GetStandartDiscountByBalanceAsync(balance, transaction.AllAmount);
+            var discount =  _discountService.GetStandartDiscountByBalanceAsync(balance, transaction.AllAmount);
             transaction.AccumulationAmount = 0;
             transaction.DiscountAmount = transaction.AllAmount * discount.DiscountPercent / 100;
             transaction.AmountForPay = transaction.AllAmount - transaction.DiscountAmount;
             balance.Amount += transaction.AmountForPay;
-            await _balanceService.CheckBalance(balance);
+             _balanceService.CheckBalance(balance);
         }
     }
 }

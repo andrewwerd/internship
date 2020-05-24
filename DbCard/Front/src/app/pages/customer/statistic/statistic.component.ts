@@ -80,9 +80,7 @@ export class StatisticComponent implements OnInit {
       });
   }
   resetGrid() {
-    this.filter.category.setValue('');
-    this.filter.subcategory.setValue('');
-    this.filter.period.setValue('');
+    this.filterForm.reset();
     this.requestFilters = { filters: [], logicalOperator: FilterLogicalOperators.And };
     this.loadTransactions();
   }

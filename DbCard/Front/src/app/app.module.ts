@@ -29,7 +29,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { ConfirmDialogComponent } from './pages/registration/conirmDialog/confirmDialog.component';
+import { ConfirmRegistrationDialogComponent } from './pages/registration/conirmDialog/confirmRegistrationDialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
 
@@ -40,7 +40,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     AppComponent,
     RegistrationComponent,
     NotFoundPageComponent,
-    ConfirmDialogComponent
+    ConfirmRegistrationDialogComponent
   ],
   imports: [
     MatNativeDateModule,

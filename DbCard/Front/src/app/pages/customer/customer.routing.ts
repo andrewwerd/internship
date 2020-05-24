@@ -9,6 +9,7 @@ import { BalancesListComponent } from './balancesList/balancesList.component';
 import { NewsListComponent } from './newsList/newsList.component';
 import { NewsPageComponent } from './newsPage/newsPage.component';
 import { StatisticComponent } from './statistic/statistic.component';
+import { EditCustomerComponent } from './editCustomer/editCustomer.component';
 
 
 const customerRoutes: Routes = [
@@ -26,6 +27,7 @@ const customerRoutes: Routes = [
             { path: 'news', component: NewsListComponent},
             { path: 'news/:id', component: NewsPageComponent},
             { path: 'statistic', component: StatisticComponent},
+            { path: 'editCustomer', component: EditCustomerComponent},
             { path: '', redirectTo: '/customer/home', pathMatch: 'full'}
           ]
         }

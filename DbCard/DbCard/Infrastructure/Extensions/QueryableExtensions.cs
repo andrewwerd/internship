@@ -23,9 +23,9 @@ namespace DbCard.Infrastructure.Extensions
               where TEntity : Entity<long>
               where TDto : class
         {
-            //query = query.ApplyFilters(scrollRequest, optionalPredicate);
+            query = query.ApplyFilters(scrollRequest, optionalPredicate);
 
-            //query = query.Paginate(scrollRequest);
+            query = query.Paginate(scrollRequest);
 
             var projectionResult = query.ProjectTo<TDto>(mapper.ConfigurationProvider);
 

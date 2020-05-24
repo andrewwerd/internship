@@ -14,7 +14,9 @@ namespace DbCard.Services
         Task<bool> UpdateAsync(long id, CustomerForRegistration customerDto);
         void AddFavoritePartner(long customerId, long partnerId);
         void DeleteFavoritePartner(long customerId, long partnerId);
-        Task<Customer> GetCurrentUser();
-        Task<Domain.Customer> GetByName(string userName);
+        Task<Customer> GetCurrentCustomerDto();
+        Task<Domain.Customer> GetCurrentCustomer();
+        Task<Domain.Customer> GetByNameAsync(string userName);
+        Task<bool> EditCustomer(Infrastructure.Dto.Customer.Customer customer);
     }
 }
