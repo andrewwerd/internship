@@ -22,6 +22,7 @@ namespace DbCard.Services
         Task<bool> SaveAll();
         bool Any(Expression<Func<TEntity, bool>> p);
         Task<PaginatedResult<TDto>> GetPagedData<TDto>(PagedRequest pagedRequest, Expression<Func<TEntity, bool>> expression = null) where TDto : class;
+        Task<IEnumerable<TDto>> GetScrollData<TDto>(PagedRequest scrollRequest, Expression<Func<TEntity, bool>> expression = null) where TDto : class;
     }
 
 }

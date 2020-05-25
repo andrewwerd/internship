@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DbCard.Infrastructure.Dto.Partner
 {
@@ -21,7 +17,7 @@ namespace DbCard.Infrastructure.Dto.Partner
         [StringLength(4000, MinimumLength = 5)]
         public string Description { get; set; }
         [Required]
-        [Range(0,100)]
+        [Range(0, 100)]
         public decimal BirthdayDiscount { get; set; }
     }
 }

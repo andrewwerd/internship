@@ -1,0 +1,23 @@
+.name{
+  padding: 5px;
+  font-size: xx-large;
+  max-width: 200px;
+  text-align: start;
+ }
+ .rectangle{
+   width: 100px;
+   height: 30px;
+   justify-content: center;
+ }
+.mat-list-item{
+  margin-top: 5px;
+  background-color: white;
+}
+.mat-list-item .mat-list-text{
+  display: flex;
+  flex-direction: row;
+}
+.partnerList{
+  width: 95%;
+  margin: auto;
+}

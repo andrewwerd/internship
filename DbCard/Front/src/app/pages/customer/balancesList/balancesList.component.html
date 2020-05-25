@@ -1,59 +1,60 @@
-<div class="container">
-  <button mat-button class="filterBtn" (click)="getAll()">Все</button>
+
   <button mat-button class="filterBtn" (click)="getPremium()">Премиум</button>
   <button mat-button class="filterBtn" (click)="getStandart()">Стандарт</button>
-</div>
-<mat-form-field>
-  <mat-placeholder>
-    <mat-icon>search</mat-icon>
-  </mat-placeholder>
-  <input matInput [formControl]="searchInput" (keyup.enter)="applySearch()">
-</mat-form-field>
-<div class="balanceTable" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300"
-  [infiniteScrollContainer]="'mat-sidenav-content'" [fromRoot]="true" (scrolled)="onScroll()">
-  <mat-grid-list cols="2" rowHeight="300px">
-    <mat-grid-tile *ngFor="let balance of balances">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header
-          [style.backgroundColor]="balance.isPremium ? 'rgb(41, 85, 155)':'rgb(125, 125, 125)'">
-          <mat-panel-title>
-            <a matLine mat-button class="name"
-              routerLink='/customer/partners/{{balance.partnerId}}'>{{balance.partnerName}}</a>
-            <span matLine class="category">
-              <a mat-button routerLink='/customer/partners'>
-                {{balance.partnerCategory}}
-              </a> &#10141;
-              <a mat-button routerLink='/customer/partners'>
-                {{balance.partnerSubcategory}}
-              </a>
-            </span>
-            <div class="currentDiscount">
-              <div class="percent">
-                <span class="percent">{{balance.discountPercent}}%</span>
-                <span class="percent" *ngIf="balance.isPremium"> {{balance.accumulationPercent}}% </span>
+  <mat-form-field>
+    <mat-placeholder>
+      <b> Поиск</b>
+    </mat-placeholder>
+    <input matInput [formControl]="searchInput" (keyup.enter)="applySearch()">
+    <button mat-icon-button matSuffix (click)="applySearch()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+<div class="container">
+  <div class="balanceTable" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300"
+    [infiniteScrollContainer]="'mat-sidenav-content'" [fromRoot]="true" (scrolled)="onScroll()">
+    <mat-grid-list cols="2" rowHeight="300px">
+      <mat-grid-tile *ngFor="let balance of balances">
+        <mat-expansion-panel style="width: 550px;">
+          <mat-expansion-panel-header
+            [style.backgroundColor]="balance.isPremium ? 'rgb(41, 85, 155)':'rgb(125, 125, 125)'">
+            <mat-panel-title>
+              <a matLine mat-button class="name"
+                routerLink='/customer/partners/{{balance.partnerId}}'>{{balance.partnerName}}</a>
+              <span matLine class="category">
+                <a mat-button routerLink='/customer/partners'>
+                  {{balance.category.name}}
+                </a> &#10141;
+                <a mat-button routerLink='/customer/partners'>
+                  {{balance.subcategory.name}}
+                </a>
+              </span>
+              <div class="currentDiscount" *ngIf="balance.isPremium">
+                <div class="percent">
+                  <span class="percent">{{balance.discountPercent}}% {{balance.accumulationPercent}}% </span>
+                </div>
+                <p>Текущая скидка</p>
               </div>
-              <p>Текущая скидка</p>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="discountContent">
+            <div class="discountList">
+              <p>Скидка</p>
+              <mat-list *ngFor="let discount of balance.discounts">
+                <mat-list-item>
+                  <span class="discountItem">От {{discount.priceOfDiscount | mdl}} {{discount.discountPercent}}%<span
+                      *ngIf="balance.isPremium">{{discount.accumulationPercent}}% </span>
+                  </span>
+                </mat-list-item>
+              </mat-list>
             </div>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="discountContent">
-          <div class="discountList">
-            <p>Скидка</p>
-            <mat-list *ngFor="let discount of balance.discounts">
-              <mat-list-item>
-                <span class="discountItem">От {{discount.amount | mdl}} {{discount.discountPercent}}%<span
-                    *ngIf="balance.isPremium">{{discount.accumulatingPercent}}% </span>
-                </span>
-              </mat-list-item>
-            </mat-list>
+            <div class="progress">
+              <mat-progress-bar mode="determinate" [value]="100*balance.currentAmount/balance.nextAmount">
+              </mat-progress-bar>
+              <p> {{balance.currentAmount}} из {{balance.nextAmount | mdl}}</p>
+            </div>
           </div>
-          <div class="progress">
-            <mat-progress-bar mode="determinate" [value]="100*balance.currentAmount/balance.nextAmount">
-            </mat-progress-bar>
-            <p> {{balance.currentAmount}} из {{balance.nextAmount | mdl}}</p>
-          </div>
-        </div>
-      </mat-expansion-panel>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
+        </mat-expansion-panel>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>

@@ -15,33 +15,37 @@ import { ScrollRequest } from 'src/app/_models/scrollPaginate/scroll';
 export class BalancesListComponent implements OnInit {
   balances: Balance[] = [];
   pageIndex = 0;
-  pageSize = 6;
+  pageSize = 4;
   searchInput = new FormControl('');
   requestFilters: RequestFilters;
   constructor(private balanceService: BalanceService) { }
 
   ngOnInit(): void {
-    this.loadBalances();
+    this.getStandart();
   }
 
-  getAll() {
-    this.requestFilters = { filters: [], logicalOperator: FilterLogicalOperators.And };
-    this.loadBalances();
-  }
 
   getPremium() {
-    const filter: Filter = { path: 'type', value: 'premium' };
+    const filter: Filter = { path: 'type', value: 'Premium' };
     this.applyFilterFromButton(filter);
+    this.searchInput.reset();
     this.loadBalances();
   }
 
   getStandart() {
-    const filter: Filter = { path: 'type', value: 'standart' };
+    const filter: Filter = { path: 'type', value: 'Standart' };
     this.applyFilterFromButton(filter);
+    this.searchInput.reset();
     this.loadBalances();
   }
 
   loadBalances() {
+    const scrollRequest = new ScrollRequest(this.pageIndex, this.pageSize, this.requestFilters);
+    this.balanceService.getBalancesPaged(scrollRequest).subscribe((pagedBalances: Balance[]) => {
+        this.balances = pagedBalances;
+    });
+  }
+  loadBalancesScrolled() {
     const scrollRequest = new ScrollRequest(this.pageIndex, this.pageSize, this.requestFilters);
     this.balanceService.getBalancesPaged(scrollRequest).subscribe((pagedBalances: Balance[]) => {
       if (pagedBalances) {
@@ -58,7 +62,7 @@ export class BalancesListComponent implements OnInit {
 
   onScroll() {
     this.pageIndex++;
-    this.loadBalances();
+    this.loadBalancesScrolled();
   }
 
   applySearch() {
@@ -71,13 +75,15 @@ export class BalancesListComponent implements OnInit {
     if (filterValue) {
       const filters: Filter[] = [];
       const filter: Filter = { path: 'partner.name', value: filterValue };
-      filters.push(filter);
-      this.requestFilters = {
-        logicalOperator: FilterLogicalOperators.Or,
-        filters
-      };
-    } else {
-      this.getAll();
+      if (this.requestFilters.filters.some(x => x.path === filter.path)){
+        this.requestFilters.filters.find(x => x.path === filter.path).value = filter.value;
+      }
+      else{
+        this.requestFilters.filters.push(filter);
+      }
+    }
+    else {
+      this.loadBalances();
     }
   }
 

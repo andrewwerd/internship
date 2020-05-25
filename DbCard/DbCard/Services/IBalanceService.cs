@@ -8,7 +8,7 @@ namespace DbCard.Services
 {
     public interface IBalanceService
     {
-        void CheckBalance(CustomersBalance balance);
-        Task<IEnumerable<CustomerBalance>> GetBalancesPaged(ScrollRequest scrollRequest);
+        Task CheckBalance(CustomersBalance balance);
+        Task<IEnumerable<CustomerBalance>> GetBalancesPaged(PagedRequest scrollRequest);
     }
 }

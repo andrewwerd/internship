@@ -1,8 +1,11 @@
+import { Category } from '../category';
+
 export interface PartnerGridRow{
-    Id: number;
-    Name: string;
-    Rating: number;
-    Category: string;
-    Subcategory: string;
-    Logo: File;
+    id: number;
+    name: string;
+    rating: number;
+    category: Category;
+    subcategory: Category;
+    isPremium: boolean;
+    isFavoite: boolean;
 }

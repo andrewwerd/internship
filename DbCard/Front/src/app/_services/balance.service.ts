@@ -12,7 +12,7 @@ import { ScrollRequest } from '../_models/scrollPaginate/scroll';
 })
 export class BalanceService {
 
-  private baseUrl = environment.apiUrl + 'balances/';
+  private baseUrl = environment.apiUrl + 'discounts/';
   constructor(
     private http: HttpClient
   ) { }

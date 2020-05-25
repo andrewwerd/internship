@@ -1,5 +1,5 @@
 export class Discount{
-  amount: number;
+  priceOfDiscount: number;
   discountPercent: number;
-  accumulatingPercent?: number;
+  accumulationPercent?: number;
 }

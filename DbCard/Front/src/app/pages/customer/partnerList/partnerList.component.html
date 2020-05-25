@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="partnerList" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300"
+    [infiniteScrollContainer]="'mat-sidenav-content'" [fromRoot]="true" (scrolled)="onScroll()">
+    <mat-list>
+      <mat-list-item *ngFor="let partner of partners">
+        <span mat-line>
+          <a matLine mat-button class="name" routerLink='/customer/partners/{{partner.id}}'>{{partner.name}}</a>
+          <button mat-button>
+            {{partner.category.name}}
+          </button> &#10141;
+          <button mat-button>
+            {{partner.subcategory.name}}
+          </button>
+        </span>
+        Рейтинг: {{partner.rating}}
+          <star-rating value="{{partner.rating}}" totalstars="10" checkedcolor="yellow" uncheckedcolor="lightgray" size="24px"
+            readonly="false" (rate)="onRate($event)"></star-rating>
+        <div class="rectangle" [style.backgroundColor]="partner.isPremium ? 'rgb(41, 85, 155)':'rgb(125, 125, 125)'">
+          <span style="color:white;">
+            Премиум
+          </span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 ﻿using DbCard.Domain.Auth;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DbCard.Domain
 {
@@ -17,7 +18,7 @@ namespace DbCard.Domain
         public DateTime DateOfRegistration { get; set; }
         public long UserId { get; set; }
         public virtual User User { get; set; }
-        public virtual Subcategory Subcategory{get;set;}
+        public virtual Subcategory Subcategory { get; set; }
         public virtual Category Category { get; set; }
         public virtual List<StandartDiscount> StandartDiscounts { get; set; }
         public virtual List<CustomersBalance> CustomersBalances { get; set; }

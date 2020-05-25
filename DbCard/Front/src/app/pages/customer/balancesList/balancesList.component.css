@@ -1,16 +1,15 @@
 .container{
-  top: 5%;
-  left: 5%;
-  position: absolute;
+  width: 95vh;
+
 }
 .filterBtn{
   color: black;
-  font-size: larger;
+  font-size: large;
   margin: 10px;
 }
 .filterBtn:hover{
   color: rgb(0, 92, 128);
-  font-size: larger;
+  font-size: large;
   margin: 10px;
 }
 .mat-expansion-panel .mat-expansion-panel-header{

@@ -74,7 +74,10 @@ namespace DbCard.Services
         {
             return await _context.Set<TEntity>().CreatePaginatedResultAsync<TEntity, TDto>(pagedRequest, _mapper, optionalPredicate);
         }
-
+        public async Task<IEnumerable<TDto>> GetScrollData<TDto>(PagedRequest scrollRequest, Expression<Func<TEntity, bool>> optionalPredicate = null) where TDto : class
+        {
+            return await _context.Set<TEntity>().CreateScrollPaginatedResultAsync<TEntity, TDto>(scrollRequest, _mapper, optionalPredicate);
+        }
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() >= 0;

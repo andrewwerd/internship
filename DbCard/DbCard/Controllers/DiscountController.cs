@@ -25,7 +25,7 @@ namespace DbCard.Controllers
         // GET: api/customer/myDiscounts
         [Authorize(Roles = "Customer")]
         [HttpPost("myDiscounts")]
-        public async Task<IActionResult> MyDiscounts([FromBody]ScrollRequest scrollRequest)
+        public async Task<IActionResult> MyDiscounts([FromBody]PagedRequest scrollRequest)
         {
             var myDiscounts = await _discountService.GetMyDiscountsPaged(scrollRequest);
             if (!myDiscounts.Any()) return NoContent();
@@ -34,11 +34,11 @@ namespace DbCard.Controllers
 
         [Authorize(Roles = "Customer")]
         [HttpPost("getBalancesPaged")]
-        public async Task<IActionResult> GetBalancesPaged([FromBody]ScrollRequest scrollRequest)
+        public async Task<IActionResult> GetBalancesPaged([FromBody]PagedRequest scrollRequest)
         {
-            var myDiscounts = await _balanceService.GetBalancesPaged(scrollRequest);
-            if (!myDiscounts.Any()) return NoContent();
-            return Ok(myDiscounts);
+            var balances = await _balanceService.GetBalancesPaged(scrollRequest);
+            if (!balances.Any()) return NoContent();
+            return Ok(balances);
         }
     }
 }

@@ -17,13 +17,15 @@ namespace DbCard.Infrastructure.Extensions
     {
         public async static Task<IEnumerable<TDto>> CreateScrollPaginatedResultAsync<TEntity, TDto>(
             this IQueryable<TEntity> query,
-            ScrollRequest scrollRequest,
+            PagedRequest scrollRequest,
             IMapper mapper,
             Expression<Func<TEntity, bool>> optionalPredicate = null)
               where TEntity : Entity<long>
               where TDto : class
         {
             query = query.ApplyFilters(scrollRequest, optionalPredicate);
+
+            query = query.Sort(scrollRequest);
 
             query = query.Paginate(scrollRequest);
 
@@ -63,7 +65,7 @@ namespace DbCard.Infrastructure.Extensions
             };
         }
 
-        private static IQueryable<T> Paginate<T>(this IQueryable<T> query, PagedRequestBase pagedRequest)
+        private static IQueryable<T> Paginate<T>(this IQueryable<T> query, PagedRequest pagedRequest)
         {
             var entities = query.Skip((pagedRequest.PageIndex) * pagedRequest.PageSize).Take(pagedRequest.PageSize);
             return entities;
@@ -80,7 +82,7 @@ namespace DbCard.Infrastructure.Extensions
 
         private static IQueryable<T> ApplyFilters<T>(
             this IQueryable<T> query, 
-            PagedRequestBase pagedRequest, 
+            PagedRequest pagedRequest, 
             Expression<Func<T, bool>> optionalPredicate = null)
         {
             if (optionalPredicate != null) query = query.Where(optionalPredicate);

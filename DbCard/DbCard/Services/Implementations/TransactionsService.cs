@@ -92,7 +92,7 @@ namespace DbCard.Services.Implementations
             }
             else
             {
-                CalculateStandartDiscount(transaction, balance);
+                await CalculateStandartDiscount(transaction, balance);
             }
             await _context.Transactions.AddAsync(transaction);
         }
@@ -106,14 +106,14 @@ namespace DbCard.Services.Implementations
             balance.Amount += transaction.AccumulationAmount;
         }
 
-        private void CalculateStandartDiscount(Transaction transaction, CustomersBalance balance)
+        private async Task CalculateStandartDiscount(Transaction transaction, CustomersBalance balance)
         {
             var discount =  _discountService.GetStandartDiscountByBalanceAsync(balance, transaction.AllAmount);
             transaction.AccumulationAmount = 0;
             transaction.DiscountAmount = transaction.AllAmount * discount.DiscountPercent / 100;
             transaction.AmountForPay = transaction.AllAmount - transaction.DiscountAmount;
             balance.Amount += transaction.AmountForPay;
-             _balanceService.CheckBalance(balance);
+            await _balanceService.CheckBalance(balance);
         }
     }
 }

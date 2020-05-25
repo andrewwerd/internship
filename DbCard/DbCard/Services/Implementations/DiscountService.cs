@@ -27,7 +27,7 @@ namespace DbCard.Services.Implementations
             _mapper = mapper;
             _customerBalancesRepository = customerBalancesRepository;
         }
-        public async Task<IEnumerable<MyDiscount>> GetMyDiscountsPaged(ScrollRequest scrollRequest)
+        public async Task<IEnumerable<MyDiscount>> GetMyDiscountsPaged(PagedRequest scrollRequest)
         {
             var customer = await _customerService.GetCurrentCustomer();
             var discounts = _customerBalancesRepository
@@ -42,21 +42,22 @@ namespace DbCard.Services.Implementations
             return myDiscounts;
         }
 
-        public Domain.PremiumDiscount GetPremiumDiscountByBalanceAsync(CustomersBalance balance)
+        public PremiumDiscount GetPremiumDiscountByBalanceAsync(CustomersBalance balance)
         {
             var discounts = balance.Partner.PremiumDiscounts.OrderBy(x => x.PriceOfDiscount);
             var discount = discounts.LastOrDefault(p => p.PriceOfDiscount < balance.Amount);
             return discount ?? discounts.Last();
         }
 
-        public Domain.StandartDiscount GetStandartDiscountByBalanceAsync(CustomersBalance balance, decimal amount)
+        public StandartDiscount GetStandartDiscountByBalanceAsync(CustomersBalance balance, decimal amount)
         {
             var discounts = balance.Partner.StandartDiscounts.OrderBy(x => x.AmountOfDiscount);
             var discount = discounts.LastOrDefault(d => d.AmountOfDiscount > amount);
             return discount ?? discounts.Last();
         }
-        public decimal GetPremiumPrice(CustomersBalance balance)
+        public async Task<decimal> GetPremiumPrice(long id)
         {
+            var balance = await _customerBalancesRepository.GetById(id);
             var discount = balance.Partner.PremiumDiscounts.OrderBy(x => x.PriceOfDiscount).First();
             var price = discount.PriceOfDiscount;
             return price;

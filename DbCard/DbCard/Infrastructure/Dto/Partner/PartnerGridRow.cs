@@ -9,9 +9,10 @@ namespace DbCard.Infrastructure.Dto.Partner
     {
         public long Id { get; set; }
         public string Name { get; set; }
-        public string Rating { get; set; }
-        public string Category { get; set; }
-        public string Subcategory { get; set; }
+        public decimal Rating { get; set; }
+        public Category.Category Category { get; set; }
+        public Category.Subcategory Subcategory { get; set; }
         public bool IsPremium { get; set; }
+        public bool IsFavorite { get; set; }
     }
 }

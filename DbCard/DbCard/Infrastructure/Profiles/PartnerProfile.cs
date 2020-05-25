@@ -8,6 +8,7 @@ namespace DbCard.Infrastructure.Profiles.Partners
         public PartnerProfile()
         {
             CreateMap<Domain.Partner, Partner>();
+            CreateMap<Domain.Partner, PartnerGridRow>();
             CreateMap<PartnerForRegistration, Domain.Partner>();
         }
     }
