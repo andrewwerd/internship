@@ -1,7 +1,7 @@
 .name{
   padding: 5px;
   font-size: xx-large;
-  max-width: 200px;
+  max-width: 500px;
   text-align: start;
  }
  .rectangle{
@@ -13,9 +13,8 @@
   margin-top: 5px;
   background-color: white;
 }
-.mat-list-item .mat-list-text{
-  display: flex;
-  flex-direction: row;
+.mat-list-text{
+max-width: 1000px;
 }
 .partnerList{
   width: 95%;

@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { Category } from '../_models/category';
 import { ScrollRequest } from '../_models/scrollPaginate/scroll';
 import { PartnerGridRow } from '../_models/partners/partnerGridRow';
+import { Filial } from '../_models/filial/filial';
+import { News } from '../_models/news/news';
 
 @Injectable({
   providedIn: 'root'
@@ -18,26 +20,18 @@ export class PartnerService {
   ) { }
 
   getPartnersPaged(scrollRequest: ScrollRequest): Observable<PartnerGridRow[]> {
-    return this.http.post<PartnerGridRow[]>(this.baseUrl + 'GetPagedPartners', scrollRequest);
+    return this.http.post<PartnerGridRow[]>(this.baseUrl + 'getPagedPartners', scrollRequest);
   }
-  gerPartner(id: number): Observable<Partner> {
-    return this.http.get<Partner>(this.baseUrl + 'partners/' + id);
+  getPartner(id: number): Observable<Partner> {
+    return this.http.get<Partner>(this.baseUrl + id);
   }
-  savePartner(partner: Partner): Observable<Partner> {
-    if (partner.Id > 0) {
-      return this.updatePartner(partner);
-    }
-    return this.createPartner(partner);
+  loadFilials(id: number): Observable<Filial[]> {
+    return this.http.get<Filial[]>(this.baseUrl + 'getFilials/' + id);
+  }
+  loadNews(id: number): Observable<News[]> {
+    return this.http.get<News[]>(this.baseUrl + 'getNews/' + id);
   }
   deletePartner(id: number) {
-    return this.http.delete(this.baseUrl + 'partner/' + id);
-  }
-
-  private updatePartner(partner: Partner): Observable<Partner> {
-    return this.http.put<Partner>(this.baseUrl + 'partner/' + partner.Id, partner);
-  }
-
-  private createPartner(partner: Partner): Observable<Partner> {
-    return this.http.post<Partner>(this.baseUrl + 'partner/', partner);
+    return this.http.delete(this.baseUrl);
   }
 }

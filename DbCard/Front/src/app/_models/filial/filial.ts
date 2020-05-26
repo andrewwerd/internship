@@ -1,4 +1,4 @@
-export interface FilialForAdd
+export interface Filial
 {
     Region: string;
     City: string;

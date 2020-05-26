@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Transaction } from 'src/app/_models/transaction/transactions';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { TableColumn } from 'src/app/_models/tablePaginate/tableColumn';
 import { MatSort } from '@angular/material/sort';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { TransactionService } from 'src/app/_services/transaction.service';
 import { merge } from 'rxjs';
 import { PaginatedRequest } from 'src/app/_models/tablePaginate/paginatedRequest';

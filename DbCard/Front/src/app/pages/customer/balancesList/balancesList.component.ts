@@ -21,11 +21,12 @@ export class BalancesListComponent implements OnInit {
   constructor(private balanceService: BalanceService) { }
 
   ngOnInit(): void {
-    this.getStandart();
+    this.getPremium();
   }
 
 
   getPremium() {
+    this.pageIndex = 0;
     const filter: Filter = { path: 'type', value: 'Premium' };
     this.applyFilterFromButton(filter);
     this.searchInput.reset();
@@ -33,6 +34,7 @@ export class BalancesListComponent implements OnInit {
   }
 
   getStandart() {
+    this.pageIndex = 0;
     const filter: Filter = { path: 'type', value: 'Standart' };
     this.applyFilterFromButton(filter);
     this.searchInput.reset();
@@ -46,10 +48,11 @@ export class BalancesListComponent implements OnInit {
     });
   }
   loadBalancesScrolled() {
-    const scrollRequest = new ScrollRequest(this.pageIndex, this.pageSize, this.requestFilters);
+    const scrollRequest = new ScrollRequest(this.pageIndex  + 1, this.pageSize, this.requestFilters);
     this.balanceService.getBalancesPaged(scrollRequest).subscribe((pagedBalances: Balance[]) => {
       if (pagedBalances) {
         this.addItems(pagedBalances);
+        this.pageIndex++;
       }
     });
   }
@@ -61,7 +64,6 @@ export class BalancesListComponent implements OnInit {
   }
 
   onScroll() {
-    this.pageIndex++;
     this.loadBalancesScrolled();
   }
 
@@ -73,10 +75,10 @@ export class BalancesListComponent implements OnInit {
   private createFiltersFromSearchInput() {
     const filterValue = this.searchInput.value.trim();
     if (filterValue) {
-      const filters: Filter[] = [];
       const filter: Filter = { path: 'partner.name', value: filterValue };
-      if (this.requestFilters.filters.some(x => x.path === filter.path)){
-        this.requestFilters.filters.find(x => x.path === filter.path).value = filter.value;
+      const searchFilter = this.requestFilters.filters.find(x => x.path === filter.path);
+      if (searchFilter){
+        searchFilter.value = filter.value;
       }
       else{
         this.requestFilters.filters.push(filter);

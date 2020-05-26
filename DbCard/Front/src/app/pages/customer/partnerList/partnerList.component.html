@@ -13,8 +13,7 @@
           </button>
         </span>
         Рейтинг: {{partner.rating}}
-          <star-rating value="{{partner.rating}}" totalstars="10" checkedcolor="yellow" uncheckedcolor="lightgray" size="24px"
-            readonly="false" (rate)="onRate($event)"></star-rating>
+          <star-rating value="{{partner.rating}}" totalstars="10" checkedcolor="yellow" uncheckedcolor="lightgray" size="24px"></star-rating>
         <div class="rectangle" [style.backgroundColor]="partner.isPremium ? 'rgb(41, 85, 155)':'rgb(125, 125, 125)'">
           <span style="color:white;">
             Премиум

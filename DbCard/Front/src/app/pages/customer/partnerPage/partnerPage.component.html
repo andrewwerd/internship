@@ -1,0 +1,75 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <span mat-line>
+        <span matLine class="name">{{partner?.name}}</span>
+        <button mat-button>
+          {{partner?.category.name}}
+        </button> &#10141;
+        <button mat-button>
+          {{partner?.subcategory.name}}
+        </button>
+      </span>
+      <div class="rectangle" [style.backgroundColor]="partner?.isPremium ? 'rgb(41, 85, 155)':'rgb(125, 125, 125)'">
+        <span style="color:white;">
+          Премиум
+        </span>
+      </div>
+    </mat-card-header>
+    <mat-tab-group>
+      <mat-tab label="Описание">
+        {{partner?.description}}
+        <br>
+        <span mat-line> Сайт: <a href="www.{{partner?.site}}">{{partner?.site}}</a>
+        </span>
+        <br>
+        <img style="width: 80%; margin: auto;" src="../../../../assets/img/main-background.jpg">
+      </mat-tab>
+      <mat-tab label="Филиалы">
+        <table mat-table [dataSource]="filials">
+
+          <ng-container matColumnDef="region">
+            <th mat-header-cell *matHeaderCellDef> Регион </th>
+            <td mat-cell *matCellDef="let filial"> {{filial.region}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef> Город</th>
+            <td mat-cell *matCellDef="let filial"> {{filial.city}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="street">
+            <th mat-header-cell *matHeaderCellDef> Улица </th>
+            <td mat-cell *matCellDef="let filial"> {{filial.street}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="houseNumber">
+            <th mat-header-cell *matHeaderCellDef> Номер дома </th>
+            <td mat-cell *matCellDef="let filial"> {{filial.houseNumber}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="phoneNumber">
+            <th mat-header-cell *matHeaderCellDef> Номер телефона </th>
+            <td mat-cell *matCellDef="let filial"> {{filial.phoneNumber}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-tab>
+      <mat-tab label="Новости" style="overflow: hidden;">
+        <mat-list>
+          <mat-list-item *ngFor="let item of news" style="margin: 5px;">
+            <mat-card>
+              <mat-card-header>
+                {{item?.title}}
+              </mat-card-header>
+              {{item?.body}}
+            </mat-card>
+          </mat-list-item>
+        </mat-list>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+
+</div>

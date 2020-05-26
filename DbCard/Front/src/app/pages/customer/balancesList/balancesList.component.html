@@ -15,7 +15,7 @@
     [infiniteScrollContainer]="'mat-sidenav-content'" [fromRoot]="true" (scrolled)="onScroll()">
     <mat-grid-list cols="2" rowHeight="300px">
       <mat-grid-tile *ngFor="let balance of balances">
-        <mat-expansion-panel style="width: 550px;">
+        <mat-expansion-panel style="width: 600px;">
           <mat-expansion-panel-header
             [style.backgroundColor]="balance.isPremium ? 'rgb(41, 85, 155)':'rgb(125, 125, 125)'">
             <mat-panel-title>

@@ -7,7 +7,7 @@
     [infiniteScrollContainer]="'mat-sidenav-content'" [fromRoot]="true" (scrolled)="onScroll()">
     <mat-grid-list cols="3" rowHeight="300px">
       <mat-grid-tile *ngFor="let discount of myDiscounts">
-        <a routerLink="partner/{{discount?.partnerId}}" matTooltip="{{discount?.partnerName}}"
+        <a routerLink="/customer/partners/{{discount?.partnerId}}" matTooltip="{{discount?.partnerName}}"
           style="text-decoration: none;">
           <mat-card class="discount-card">
             <div class="logo">

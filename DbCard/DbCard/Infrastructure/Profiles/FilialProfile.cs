@@ -11,8 +11,8 @@ namespace DbCard.Infrastructure.Profiles
     {
         public FilialProfile()
         {
-            CreateMap<Infrastructure.Dto.Filial.Filial, Domain.Filial>();
-            CreateMap<FilialForAdd, Domain.Filial>();
+            CreateMap<Domain.Filial, Filial>();
+            CreateMap<Filial, Domain.Filial>();
         }
     }
 }

@@ -12,9 +12,10 @@ namespace DbCard.Infrastructure.Dto.Partner
         public long UserId { get; set; }
         public string Name { get; set; }
         public string Rating { get; set; }
-        public string Category { get; set; }
-        public string Subcategory { get; set; }
+        public Category.Category Category { get; set; }
+        public Category.Subcategory Subcategory { get; set; }
         public string Description { get; set; }
         public string Site { get; set; }
+        public bool IsPremium { get; set; }
     }
 }

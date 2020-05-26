@@ -697,7 +697,6 @@ namespace DbCard.Infrastructure
                 await partnerService.AddToSubcategory(FeniceRecords, "Курсы");
                 await partnerService.CreateAsync(FeniceRecords, user6);
 
-
                 var user7 = new User()
                 {
                     UserName = "partner7",
@@ -781,6 +780,513 @@ namespace DbCard.Infrastructure
                 await partnerService.AddToCategory(Romstal, "Для дома");
                 await partnerService.AddToSubcategory(Romstal, "Прочее");
                 await partnerService.CreateAsync(Romstal, user7);
+
+                var user8 = new User()
+                {
+                    UserName = "partner8",
+                    Email = "partner8@dbcard.com"
+                };
+                await userManager.CreateAsync(user8, "Qwerty12345");
+                await userManager.AddToRoleAsync(user8, "Partner");
+                var multisport = new Partner()
+                {
+                    Name = "Multisport",
+                    PremiumDiscounts = new List<PremiumDiscount>()
+                    {
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = (decimal)0.5,
+                            AccumulationPercent = (decimal)3,
+                            PriceOfDiscount = 3000,
+                        },
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = (decimal)2,
+                            AccumulationPercent = (decimal)0.5,
+                            PriceOfDiscount = 5000,
+                        },
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = 2,
+                            AccumulationPercent = 8,
+                            PriceOfDiscount = 7000,
+                        }
+                    },
+                    StandartDiscounts = new List<StandartDiscount>()
+                    {
+                        new StandartDiscount()
+                        {
+                            DiscountPercent = (decimal)2.5,
+                            AmountOfDiscount = 800,
+                        },
+                        new StandartDiscount()
+                        {
+                            DiscountPercent = 5,
+                            AmountOfDiscount = 1000,
+                        }
+                    },
+                    Filials = new List<Filial>()
+                    {
+                        new Filial()
+                        {
+                            Region = "Кишинев",
+                            City = "Кишинев",
+                            Street = "Надежда Руссо",
+                            HouseNumber = "16",
+                            PhoneNumber = "100000200",
+                            IsMainOffice = true
+                        },
+                        new Filial()
+                        {
+                            Region = "Кишинев",
+                            PhoneNumber = "100000201",
+                            City = "Кишинев",
+                            Street = "Дечебал",
+                            HouseNumber = "6/1"
+                        }
+                    },
+                    Description = "Наша миссия – это расширить Ваш спортивный потенциал. Наша вера в спорт это то, что заставляет нас расти, и мы хотим, что бы вы росли вместе с нами. Мы постарались, чтобы наш магазин стал не только приятым и удобным местом для покупок, но и местом встречи всех любителей активного образа жизни. В магазине представлены спортивные товары мировых брендов: 4F, Mizuno, Skechers, Speedo, Adidas Kombat, Molten, Joerex, Mesuca, Sponeta, Asics и Hi-Tec. Вы сможете приобрести товары для всех видов спорта, а так же экипировку, спортивное оборудование, обувь, одежду и аксессуары.",
+                    Site = "multisport.md",
+                    News = new List<News>()
+                    {
+                        new News()
+                        {
+                            DateOfCreation = DateTime.Now,
+                            Title="Новые марафонки от Mizuno ",
+                            Body = @" Wave Duel - это модель кроссовок, достойная Вашего внимания. В кроссовках собранно все то, что принято называть «японскими марафонками»: легкость, гобкость, упругость, с продуманной конструкции верха и поддержки, которой так не хватает некоторым моделям кроссовок.
+                                    Модель Duel обладает особым сцеплением с поверхностью за счет фирменной подошвы с множеством отдельных элементов в передней части. В зоне пятки, установлены две отдельных резиновых плитки, обеспечивающие безопасность и поддержу при приземлении, во время бега.",
+                        },
+                        new News()
+                        {
+                            DateOfCreation = DateTime.Now,
+                            Title = "ASICS прямой путь к победе!",
+                            Body = @" В магазине MULTISPORT представлена широкая линейка товаров одного из  ведущих мировых брендов ASICS.  ASICS – японская компания  профессиональной спортивной экипировки, которая пользуется спросом у  именитых спортсменов.  69 лет компания успешно воплощает в жизнь  оригинальные идеи и создает для спортивного рынка качественные товары."
+                        }
+
+                    },
+                    Rating = (decimal)8.5
+                };
+                await partnerService.AddToCategory(multisport, "Шопинг");
+                await partnerService.AddToSubcategory(multisport, "Спорт");
+                await partnerService.CreateAsync(multisport, user8);
+
+                var user9 = new User()
+                {
+                    UserName = "partner9",
+                    Email = "partner9@dbcard.com"
+                };
+                await userManager.CreateAsync(user9, "Qwerty12345");
+                await userManager.AddToRoleAsync(user9, "Partner");
+                var invitro = new Partner()
+                {
+                    Name = "Invitro",
+                    PremiumDiscounts = new List<PremiumDiscount>()
+                    {
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = (decimal)1.5,
+                            AccumulationPercent = (decimal)3,
+                            PriceOfDiscount = 2000,
+                        },
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = (decimal)3,
+                            AccumulationPercent = (decimal)5,
+                            PriceOfDiscount = 3500,
+                        },
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = 4,
+                            AccumulationPercent = 8,
+                            PriceOfDiscount = 7000,
+                        }
+                    },
+                    StandartDiscounts = new List<StandartDiscount>()
+                    {
+                        new StandartDiscount()
+                        {
+                            DiscountPercent = (decimal)2,
+                            AmountOfDiscount = 1000,
+                        },
+                        new StandartDiscount()
+                        {
+                            DiscountPercent = 5,
+                            AmountOfDiscount = 1500,
+                        }
+                    },
+                    Filials = new List<Filial>()
+                    {
+                        new Filial()
+                        {
+                            Region = "Кишинев",
+                            City = "Кишинев",
+                            Street = "Н. Тестемицану",
+                            HouseNumber = "19/1",
+                            PhoneNumber = "100000202",
+                            IsMainOffice = true
+                        },
+                        new Filial()
+                        {
+                            Region = "Кишинев",
+                            PhoneNumber = "100000203",
+                            City = "Кишинев",
+                            Street = "Дачия",
+                            HouseNumber = "47/2"
+                        },
+                        new Filial()
+                        {
+                            Region = "Кишинев",
+                            PhoneNumber = "100000204",
+                            City = "Кишинев",
+                            Street = "И. Крянгэ",
+                            HouseNumber = "5/2"
+                        }
+                    },
+                    Description = "Invitro Diagnostics специализируется на лабораторной диагностике и предоставлении медицинских консультаций. Международный уровень качества, исключительное обслуживание и инновационные диагностические решения являются основными приоритетами нашей деятельности.",
+                    Site = "invitro.md",
+                    News = new List<News>()
+                    {
+                        new News()
+                        {
+                            DateOfCreation = DateTime.Now,
+                            Title=" Временная деактивация карт лояльности",
+                            Body = @" Уважаемые владельцы карт лояльности Invitro Diagnostics, В контексте текущей эпидемиологической ситуации и экономического кризиса, возникшего в результате чрезвычайного положения (форс-мажорных обстоятельств), сообщаем  что начиная с 06.04.2020 будет отключена возможность применения карты лояльности Invitro Diagnostics  на период чрезвычайного положения.",
+                        },
+                        new News()
+                        {
+                            DateOfCreation = DateTime.Now,
+                            Title = " Почувствуй свободу в Invitro Diagnostics с LiberCard от MAIB!",
+                            Body = @" Через наших партнеров вы можете осуществлять платежи с нулевой процентной ставкой за любые услуги, предоставляемые медицинской лабораторией Invitro Diagnostics. Покупай сейчас – возвращай деньги в банк в 6 равных долях. Хватит откладывать свои планы! Наслаждайся нашими услугами, когда они тебе нужны! Медицинская лаборатория Invitro Diagnostics стала партнером первой в Молдове картой бесплатной рассрочки LiberCard."
+                        }
+
+                    },
+                    Rating = (decimal)9
+                };
+                await partnerService.AddToCategory(invitro, "Здоровье");
+                await partnerService.AddToSubcategory(invitro, "Диагностика");
+                await partnerService.CreateAsync(invitro, user9);
+
+                var user10 = new User()
+                {
+                    UserName = "partner10",
+                    Email = "partner10@dbcard.com"
+                };
+                await userManager.CreateAsync(user10, "Qwerty12345");
+                await userManager.AddToRoleAsync(user10, "Partner");
+                var ambianta = new Partner()
+                {
+                    Name = "Ambianta",
+                    PremiumDiscounts = new List<PremiumDiscount>()
+                    {
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = (decimal)1.5,
+                            AccumulationPercent = (decimal)15,
+                            PriceOfDiscount = 5000,
+                        },
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = (decimal)3,
+                            AccumulationPercent = (decimal)20,
+                            PriceOfDiscount = 7000,
+                        },
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = 4,
+                            AccumulationPercent = 25,
+                            PriceOfDiscount = 10000,
+                        }
+                    },
+                    StandartDiscounts = new List<StandartDiscount>()
+                    {
+                        new StandartDiscount()
+                        {
+                            DiscountPercent = (decimal)2,
+                            AmountOfDiscount = 3000,
+                        },
+                        new StandartDiscount()
+                        {
+                            DiscountPercent = 5,
+                            AmountOfDiscount = 4500,
+                        }
+                    },
+                    Filials = new List<Filial>()
+                    {
+                        new Filial()
+                        {
+                            Region = "Кишинев",
+                            City = "Кишинев",
+                            Street = "Дачия",
+                            HouseNumber = "27",
+                            PhoneNumber = "100000205",
+                            IsMainOffice = true
+                        },
+                        new Filial()
+                        {
+                            Region = "Кишинев",
+                            PhoneNumber = "100000206",
+                            City = "Кишинев",
+                            Street = "Алба Юлия",
+                            HouseNumber = "148/3"
+                        },
+                        new Filial()
+                        {
+                            Region = "Кишинев",
+                            PhoneNumber = "100000207",
+                            City = "Кишинев",
+                            Street = "Мирча чел Бэтрын",
+                            HouseNumber = "32/12"
+                        }
+                    },
+
+                    Description = @" Corporația ""Ambianța"" a fost fondată în anul 1999, ghidată de dorința de a contribui la confortul unui număr larg de persoane prin oferirea produselor de calitate la prețuri cât mai accesibile. În prezent,  ""Ambianța"" include mai multe societăți comerciale în Republica Moldova, România și Marea Britanie.",
+                    Site = "ambianta.md",
+                    Rating = (decimal)7.8
+                };
+                await partnerService.AddToCategory(ambianta, "Для дома");
+                await partnerService.AddToSubcategory(ambianta, "Мебель");
+                await partnerService.CreateAsync(ambianta, user10);
+
+                var user11 = new User()
+                {
+                    UserName = "partner11",
+                    Email = "partner11@dbcard.com"
+                };
+                await userManager.CreateAsync(user11, "Qwerty12345");
+                await userManager.AddToRoleAsync(user11, "Partner");
+                var taxiBlues = new Partner()
+                {
+                    Name = "Taxi Blues",
+                    PremiumDiscounts = new List<PremiumDiscount>()
+                    {
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent =  5,
+                            AccumulationPercent = (decimal)20,
+                            PriceOfDiscount = 2000,
+                        },
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = (decimal)10,
+                            AccumulationPercent = (decimal)25,
+                            PriceOfDiscount = 3500,
+                        },
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = 15,
+                            AccumulationPercent = 35,
+                            PriceOfDiscount = 7000,
+                        }
+                    },
+                    StandartDiscounts = new List<StandartDiscount>()
+                    {
+                        new StandartDiscount()
+                        {
+                            DiscountPercent = (decimal)2,
+                            AmountOfDiscount = 1000,
+                        },
+                        new StandartDiscount()
+                        {
+                            DiscountPercent = 5,
+                            AmountOfDiscount = 1500,
+                        }
+                    },
+                    Filials = new List<Filial>()
+                    {
+                        new Filial()
+                        {
+                            Region = "Кишинев",
+                            City = "Кишинев",
+                            Street = "Лев Толстой",
+                            HouseNumber = "24/1",
+                            PhoneNumber = "100000208",
+                            IsMainOffice = true
+                        },
+                        new Filial()
+                        {
+                            Region = "Кишинев",
+                            PhoneNumber = "100000209",
+                            City = "Кишинев",
+                            Street = "Заднипру",
+                            HouseNumber = "9/1"
+                        },
+                        new Filial()
+                        {
+                            Region = "Кишинев",
+                            PhoneNumber = "100000210",
+                            City = "Кишинев",
+                            Street = "Киев",
+                            HouseNumber = "12"
+                        }
+                    },
+                    Description = "ВСЕ НАЧИНАЕТСЯ С ЛЮБВИ ЗА ТО, ЧТО МЫ ДЕЛАЕМ Работать над тем, что вам не нравится, называется стрессом. Работать над тем,что вы любите, называется страстью. Всегда обращайте внимание на качество ингредиентов,  используя только продукты высшего качества. От завтрака до ужина и 24 / 24 наша сеть является идеальным местом для встреч с друзьями, группами, организации вечеринок или празднования юбилеев и торжеств. За эти годы мы разнообразили наши предложения меню,  особенно с введением невероятного жареного мяса и рыбы и большого разнообразия европейской пасты и закусок.",
+                        Site = "taxiblues.md",
+                    Rating = (decimal)8.3
+                };
+                await partnerService.AddToCategory(taxiBlues, "Питание");
+                await partnerService.AddToSubcategory(taxiBlues, "Рестораны");
+                await partnerService.CreateAsync(taxiBlues, user11);
+
+                var user12 = new User()
+                {
+                    UserName = "partner12",
+                    Email = "partner12@dbcard.com"
+                };
+                await userManager.CreateAsync(user12, "Qwerty12345");
+                await userManager.AddToRoleAsync(user12, "Partner");
+                var fidesco = new Partner()
+                {
+                    Name = "Fidesco",
+                    PremiumDiscounts = new List<PremiumDiscount>()
+                    {
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = (decimal)1.5,
+                            AccumulationPercent = (decimal)3,
+                            PriceOfDiscount = 2000,
+                        },
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = (decimal)3,
+                            AccumulationPercent = (decimal)5,
+                            PriceOfDiscount = 3500,
+                        },
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = 4,
+                            AccumulationPercent = 8,
+                            PriceOfDiscount = 7000,
+                        }
+                    },
+                    StandartDiscounts = new List<StandartDiscount>()
+                    {
+                        new StandartDiscount()
+                        {
+                            DiscountPercent = (decimal)2,
+                            AmountOfDiscount = 1000,
+                        },
+                        new StandartDiscount()
+                        {
+                            DiscountPercent = 5,
+                            AmountOfDiscount = 1500,
+                        }
+                    },
+                    Filials = new List<Filial>()
+                    {
+                        new Filial()
+                        {
+                            Region = "Кишинев",
+                            City = "Кишинев",
+                            Street = "Парис",
+                            HouseNumber = "34/6",
+                            PhoneNumber = "100000211",
+                            IsMainOffice = true
+                        },
+                        new Filial()
+                        {
+                            Region = "Кишинев",
+                            PhoneNumber = "100000212",
+                            City = "Кишинев",
+                            Street = "Траян",
+                            HouseNumber = "13/1"
+                        },
+                        new Filial()
+                        {
+                            Region = "Кишинев",
+                            PhoneNumber = "100000213",
+                            City = "Кишинев",
+                            Street = "Индепенденцей",
+                            HouseNumber = "14/5"
+                        }
+                    },
+                    Description = " Компания FIDESCO — одно из первых и крупнейших в Молдове предприятий по импорту и оптово-розничной продаже продуктов питания. Первый супермаркет FIDESCO был открыт в сентябре 1995 года. На сегодняшний день сеть включает 33 супермаркетов FIDESCO",
+                    Site = "fidesco.md",
+                    News = new List<News>()
+                    {
+                        new News()
+                        {
+                            DateOfCreation = DateTime.Now,
+                            Title=" ОТКРЫТИЕ МАГАЗИНА №35 FIDESCO, КИШИНЁВ, УЛ. ИНДЕПЕНДЕНЦЕЙ 3/1",
+                            Body = @" 8-го апреля, открылся наш 35-й магазин сети супермаркетов FIDESCO. Это наш 22-й по счёту магазин в городе Кишинёв. Магазин расположен по адресу: Кишинёв, ул. Индепенденцей 3/1. График работы: Понедельник-Воскресенье с 8:00 до 22:00.",
+                        },
+                        new News()
+                        {
+                            DateOfCreation = DateTime.Now,
+                            Title = "ОТКРЫТИЕ МАГАЗИНА №33 FIDESCO, КИШИНЁВ, УЛ. И. КРЯНГЭ, 5/2",
+                            Body = @" Сегодня, 24 марта 2020 года в 12:00, начал работу 33-й по счёту магазин сети FIDESCO. Это наш 20-й магазин FIDESCO в Кишинёве. Магазин расположен по адресу: Кишинёв, ул. И. Крянгэ, 5/2 и работает по графику: П-В с 8:00 до 22:00.",
+                        }
+                    },
+                    Rating = (decimal)8.7
+                };
+                await partnerService.AddToCategory(fidesco, "Питание");
+                await partnerService.AddToSubcategory(fidesco, "Продуктовый магазин");
+                await partnerService.CreateAsync(fidesco, user12);
+
+                var user13 = new User()
+                {
+                    UserName = "partner13",
+                    Email = "partner13@dbcard.com"
+                };
+                await userManager.CreateAsync(user13, "Qwerty12345");
+                await userManager.AddToRoleAsync(user13, "Partner");
+                var abcparty = new Partner()
+                {
+                    Name = "abc-party",
+                    PremiumDiscounts = new List<PremiumDiscount>()
+                    {
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = (decimal)2,
+                            AccumulationPercent = (decimal)5,
+                            PriceOfDiscount = 500,
+                        },
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = (decimal)3,
+                            AccumulationPercent = (decimal)7,
+                            PriceOfDiscount = 1000,
+                        },
+                        new PremiumDiscount()
+                        {
+                            DiscountPercent = 4,
+                            AccumulationPercent = 10,
+                            PriceOfDiscount = 2000,
+                        }
+                    },
+                    StandartDiscounts = new List<StandartDiscount>()
+                    {
+                        new StandartDiscount()
+                        {
+                            DiscountPercent = (decimal)2,
+                            AmountOfDiscount = 500,
+                        },
+                        new StandartDiscount()
+                        {
+                            DiscountPercent = 5,
+                            AmountOfDiscount = 800,
+                        }
+                    },
+                    Filials = new List<Filial>()
+                    {
+                        new Filial()
+                        {
+                            Region = "Кишинев",
+                            City = "Кишинев",
+                            Street = "Алба Юлия",
+                            HouseNumber = "77/15",
+                            PhoneNumber = "100000214",
+                            IsMainOffice = true
+                        } 
+                    },
+
+                    Description = " ABC Party украсит любой праздник и сделает его незабываемо веселым. Профессиональные аниматоры в Кишиневе, а также яркие и зрелищные шоу приведут в восторг детей разных возрастов и даже взрослых. На дне рождении или любом другом детском празднике эффектное шоу развлечет детвору и навсегда останется в памяти. Немаловажный аспект – это абсолютная безопасность всех шоу.",
+                    Site = "abc-party.md",
+                    Rating = (decimal)6.3
+                };
+                await partnerService.AddToCategory(abcparty, "Услуги");
+                await partnerService.AddToSubcategory(abcparty, "Аниматоры");
+                await partnerService.CreateAsync(abcparty, user13);
+
             }
         }
 
@@ -844,9 +1350,42 @@ namespace DbCard.Infrastructure
                         },
                         new CustomersBalance()
                         {
+                            Amount = 954,
+                            IsPremium = false,
+                            PartnerId = await partnerService.GetIdByName("Taxi Blues"),
+                            ResetDate = new DateTime(2020,06,20)
+                        },
+                        new CustomersBalance()
+                        {
+                            Amount = 2685,
+                            IsPremium = false,
+                            PartnerId = await partnerService.GetIdByName("Ambianta"),
+                            ResetDate = new DateTime(2020,06,20)
+                        },
+                         new CustomersBalance()
+                        {
+                            Amount = 420,
+                            IsPremium = false,
+                            PartnerId = await partnerService.GetIdByName("abc-party"),
+                            ResetDate = new DateTime(2020,06,20)
+                        },
+                        new CustomersBalance()
+                        {
                             Amount = 1500,
                             IsPremium = true,
                             PartnerId = await partnerService.GetIdByName("Romstal"),
+                        },
+                        new CustomersBalance()
+                        {
+                            Amount = 2100,
+                            IsPremium = true,
+                            PartnerId = await partnerService.GetIdByName("Invitro"),
+                        },
+                        new CustomersBalance()
+                        {
+                            Amount = 2356,
+                            IsPremium = true,
+                            PartnerId = await partnerService.GetIdByName("Fidesco"),
                         }
                     },
                     DateOfRegistration = DateTime.Now

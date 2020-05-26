@@ -16,5 +16,7 @@ namespace DbCard.Services
         Task<long> GetIdByName(string name);
         Task<IEnumerable<PartnerGridRow>> GetPartnerGridRows(PagedRequest scrollRequest);
         Task<Partner> GetPartner(long id);
+        Task<IEnumerable<Infrastructure.Dto.Filial.Filial>> GetFilials(long id);
+        Task<IEnumerable<Infrastructure.Dto.News.News>> GetNews(long id);
     }
 }

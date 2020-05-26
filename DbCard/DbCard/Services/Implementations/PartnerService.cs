@@ -3,6 +3,7 @@ using DbCard.Domain;
 using DbCard.Domain.Auth;
 using DbCard.Infrastructure.Dto.Partner;
 using DbCard.Infrastructure.Models;
+using DbCard.Services.Implementations;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,12 @@ namespace DbCard.Services
 {
     class PartnerService : IPartnerService
     {
+        private readonly IRepository<Filial> _filialRepository;
         private readonly IRepository<Category> _categoryRepository;
-        private readonly IRepository<Subcategory> _SubcategoryRepository;
+        private readonly IRepository<CustomersBalance> _customerBalancesRepository;
+        private readonly IRepository<Subcategory> _subcategoryRepository;
+        private readonly ICustomerService _customerService;
+        private readonly IRepository<News> _newsRepository;
         private readonly IMapper _mapper;
         private readonly IRepository<Domain.Partner> _partnerRepository;
         private readonly IHttpContextAccessor _httpContext;
@@ -24,12 +29,20 @@ namespace DbCard.Services
             IMapper mapper,
             IRepository<Subcategory> subategoryRepository,
             IRepository<Domain.Partner> partnerRepository,
+            IRepository<Domain.Filial> filialRepository,
+            IRepository<Domain.News> newsRepository,
             IHttpContextAccessor httpContext,
-            IRepository<Category> categoryRepository
+            IRepository<Category> categoryRepository,
+            IRepository<CustomersBalance> customerBalancesRepository,
+            ICustomerService customerService
             )
         {
+            _filialRepository = filialRepository;
             _categoryRepository = categoryRepository;
-            _SubcategoryRepository = subategoryRepository;
+            _customerBalancesRepository = customerBalancesRepository;
+            _subcategoryRepository = subategoryRepository;
+            _customerService = customerService;
+            _newsRepository = newsRepository;
             _mapper = mapper;
             _partnerRepository = partnerRepository;
             _httpContext = httpContext;
@@ -38,7 +51,15 @@ namespace DbCard.Services
         public async Task<IEnumerable<PartnerGridRow>> GetPartnerGridRows(PagedRequest scrollRequest)
         {
             var partners = await _partnerRepository.GetScrollData<PartnerGridRow>(scrollRequest);
-
+            var currentCustomer = await _customerService.GetCurrentCustomer();
+            foreach (var item in partners)
+            {
+                item.IsPremium = _customerBalancesRepository
+                    .Get()
+                    .Where(x => x.CustomerId == currentCustomer.Id && x.PartnerId == item.Id)
+                    .Select(p => p.IsPremium)
+                    .SingleOrDefault();
+            } 
             return partners;
         }
 
@@ -46,7 +67,24 @@ namespace DbCard.Services
         {
             var partner = await _partnerRepository.GetById(id);
             var partnerDto = _mapper.Map<Infrastructure.Dto.Partner.Partner>(partner);
+            var currentCustomer = await _customerService.GetCurrentCustomer();
+            partnerDto.IsPremium = partner.CustomersBalances
+                    .Where(x => x.CustomerId == currentCustomer.Id)
+                    .Select(p => p.IsPremium)
+                    .SingleOrDefault();
             return partnerDto;
+        }
+        public async Task<IEnumerable<Infrastructure.Dto.News.News>> GetNews(long id)
+        {
+            var news = await _newsRepository.GetByPredicate(x => x.PartnerId == id);
+            var newsDto = news.Select(x => _mapper.Map<Infrastructure.Dto.News.News>(x));
+            return newsDto;
+        }
+        public async Task<IEnumerable<Infrastructure.Dto.Filial.Filial>> GetFilials(long id)
+        {
+            var filials = await _filialRepository.GetByPredicate(x => x.PartnerId == id);
+            var filialsDto = filials.Select(x => _mapper.Map<Infrastructure.Dto.Filial.Filial>(x));
+            return filialsDto;
         }
 
         public async Task<bool> CreateAsync(Domain.Partner partner, User user)
@@ -93,7 +131,7 @@ namespace DbCard.Services
 
         public async Task AddToSubcategory(Domain.Partner partner, string subcategoryName)
         {
-            var subcategory = (await _SubcategoryRepository.GetByPredicate(p => p.Name == subcategoryName && p.CategoryId == partner.CategoryId)).Single();
+            var subcategory = (await _subcategoryRepository.GetByPredicate(p => p.Name == subcategoryName && p.CategoryId == partner.CategoryId)).Single();
             partner.SubcategoryId = subcategory.Id;
         }
 

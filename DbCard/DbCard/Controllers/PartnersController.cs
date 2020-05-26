@@ -5,6 +5,7 @@ using DbCard.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DbCard.Controllers
@@ -26,10 +27,8 @@ namespace DbCard.Controllers
         public async Task<IActionResult> GetPagedPartners([FromBody]PagedRequest scrollRequest)
         {
             var partners = await _partnerService.GetPartnerGridRows(scrollRequest);
-            if (partners == null)
-            {
-                return NotFound();
-            }
+            if (!partners.Any())
+                return NoContent();
             return Ok(partners);
         }
 
@@ -40,43 +39,28 @@ namespace DbCard.Controllers
         {
             var partner = await _partnerService.GetPartner(id);
             if (partner == null)
-            {
-                return Ok(partner);
-            }
-            return NotFound();
+                return NoContent();
+            return Ok(partner);
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutPartner(PartnerForUpdate partnerDto)
-        //{
-        //    var partner = await _repository.GetById(partnerDto.Id);
-        //    if (partner == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    _mapper.Map(partnerDto, partner);
-        //    await _repository.SaveAll();
-        //    return NoContent();
-        //}
+        [Authorize(Roles = "Customer,Admin,Partner")]
+        [HttpGet("getFilials/{id}")]
+        public async Task<IActionResult> GetFilials(long id)
+        {
+            var filials = await _partnerService.GetFilials(id);
+            if (!filials.Any())
+                return NoContent();
+            return Ok(filials);
+        }
 
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> CreatePartner(PartnerForRegistration partnerForUpdateDto)
-        //{
-        //    var partner = _mapper.Map<Domain.Partner>(partnerForUpdateDto);
-        //    await _repository.Add(partner);
-
-        //    var partnerDto = _mapper.Map<Infrastructure.Dto.Partner.Partner>(partner);
-
-        //    return CreatedAtAction(nameof(GetPartner), new { id = partnerDto.Id }, partnerDto);
-        //}
-
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<Domain.Partner>> DeletePartner(long id)
-        //{
-        //    await _repository.Delete(id);
-        //    return NoContent();
-        //}
+        [Authorize(Roles = "Customer,Admin,Partner")]
+        [HttpGet("getNews/{id}")]
+        public async Task<IActionResult> GetNews(long id)
+        {
+            var news = await _partnerService.GetNews(id);
+            if (!news.Any())
+                return NoContent();
+            return Ok(news);
+        }
     }
 }

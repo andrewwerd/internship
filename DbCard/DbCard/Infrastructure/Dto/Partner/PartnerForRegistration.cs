@@ -29,7 +29,7 @@ namespace DbCard.Infrastructure.Dto.Partner
         [Range(0, 100)]
         public decimal? BirthdayDiscount { get; set; }
         [Required]
-        public FilialForAdd Filial { get; set; }
+        public Filial.Filial Filial { get; set; }
         public string Site { get; set; }
     }
 }

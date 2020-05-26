@@ -1,10 +1,13 @@
+import { Category } from '../category';
+
 export interface Partner{
-    Id: number;
-    UserId: number;
-    Logo: File;
-    Name: string;
-    Category: string;
-    Subcategory: string;
-    Rating: number;
-    Description: string;
+    id: number;
+    userId: number;
+    name: string;
+    category: Category;
+    subcategory: Category;
+    rating: number;
+    description: string;
+    site: string;
+    isPremium: boolean;
 }

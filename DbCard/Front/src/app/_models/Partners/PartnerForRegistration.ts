@@ -1,11 +1,11 @@
-import { FilialForAdd } from '../filial/filialForAdd';
+import { Filial } from '../filial/filial';
 
 export interface PartnerForRegistration{
     name: string;
     categoryId: string;
     subcategoryId: string;
     desciption: string;
-    filial: FilialForAdd;
+    filial: Filial;
     site: string;
     birthdayDiscount: number;
     userName: string;

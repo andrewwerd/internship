@@ -14,7 +14,7 @@ export class PartnerListComponent implements OnInit {
 
   partners: PartnerGridRow[] = [];
   pageIndex = 0;
-  pageSize = 6;
+  pageSize = 10;
   requestFilters: RequestFilters;
 
   constructor(private partnerService: PartnerService) { }
@@ -31,7 +31,7 @@ export class PartnerListComponent implements OnInit {
   }
 
   loadPartnersOnScroll() {
-    const scrollRequest = new ScrollRequest(this.pageIndex, this.pageSize, this.requestFilters);
+    const scrollRequest = new ScrollRequest(this.pageIndex + 1, this.pageSize, this.requestFilters);
     this.partnerService.getPartnersPaged(scrollRequest).subscribe((partners: PartnerGridRow[]) => {
       this.addItems(partners);
     });
@@ -39,6 +39,7 @@ export class PartnerListComponent implements OnInit {
 
   private addItems(partners: PartnerGridRow[]) {
     if (partners) {
+      this.pageIndex++;
       partners.forEach(item => {
         this.partners.push(item);
       });
@@ -46,13 +47,6 @@ export class PartnerListComponent implements OnInit {
   }
 
   onScroll() {
-    this.pageIndex++;
     this.loadPartnersOnScroll();
-  }
-  onRate($event: {oldValue: number, newValue: number, starRating: StarRatingComponent}) {
-    alert(`Old Value:${$event.oldValue},
-      New Value: ${$event.newValue},
-      Checked Color: ${$event.starRating.checkedcolor},
-      Unchecked Color: ${$event.starRating.uncheckedcolor}`);
   }
 }

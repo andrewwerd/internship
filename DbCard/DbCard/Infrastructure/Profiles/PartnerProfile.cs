@@ -10,6 +10,7 @@ namespace DbCard.Infrastructure.Profiles.Partners
             CreateMap<Domain.Partner, Partner>();
             CreateMap<Domain.Partner, PartnerGridRow>();
             CreateMap<PartnerForRegistration, Domain.Partner>();
+            CreateMap<Domain.News, Dto.News.News>();
         }
     }
 }
