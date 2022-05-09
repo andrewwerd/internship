@@ -14,10 +14,18 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { NgChartsModule } from 'ng2-charts';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { IncrementComponent } from './statistic/increment/increment.component';
+import { HomeComponent } from './home/home.component';
+import { MatTableModule } from '@angular/material/table';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { FilialDialog } from './home/filial-dialog/filial-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
     PartnerRoutingModule,
     MatToolbarModule,
     MatMenuModule,
@@ -27,10 +35,15 @@ import { IncrementComponent } from './statistic/increment/increment.component';
     MatListModule,
     MatGridListModule,
     NgChartsModule,
-    MatProgressSpinnerModule],
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatDialogModule
+  ],
   exports: [],
   providers: [],
   declarations: [
+    HomeComponent,
+    FilialDialog,
     IncrementComponent,
     StatisticComponent,
     PartnerComponent,

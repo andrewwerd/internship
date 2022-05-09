@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>Добавить филиал</h1>
+<div mat-dialog-content>
+    <form [formGroup]="filialForm!">
+        <mat-form-field style="display: block">
+            <input matInput type="text" placeholder="Город" formControlName="City" />
+        </mat-form-field>
+
+        <mat-form-field style="display: block">
+            <input matInput type="text" placeholder="Регион" formControlName="Region" />
+        </mat-form-field>
+
+        <mat-form-field style="display: block">
+            <input matInput type="text" placeholder="Улица" formControlName="Street" />
+        </mat-form-field>
+
+        <mat-form-field style="display: block">
+            <input matInput type="text" placeholder="Номер дома" formControlName="HouseNumber">
+        </mat-form-field>
+
+        <mat-form-field style="display: block">
+            <input matInput type="text" placeholder="Номер телефона" formControlName="PhoneNumber" />
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Отмена</button>
+    <button mat-button [mat-dialog-close]="filialForm!.value" cdkFocusInitial>Сохранить</button>
+</div>

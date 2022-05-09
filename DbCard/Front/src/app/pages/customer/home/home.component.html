@@ -1,8 +1,5 @@
 <div class="container">
   <h2 class="title">Мои скидки</h2>
-  <button mat-raised-button class="barcode" (click)="openDialog()">
-    <img src='../../../assets/img/barcode.png'>
-  </button>
   <div class="discountTable" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300"
     [infiniteScrollContainer]="'mat-sidenav-content'" [fromRoot]="true" (scrolled)="onScroll()">
     <mat-grid-list cols="3" rowHeight="300px">
