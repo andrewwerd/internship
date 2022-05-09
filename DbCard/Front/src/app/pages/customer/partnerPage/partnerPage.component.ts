@@ -11,9 +11,9 @@ import { News } from 'src/app/_models/news/news';
   styleUrls: ['./partnerPage.component.css']
 })
 export class PartnerPageComponent implements OnInit {
-  partner: Partner;
-  filials: Filial[];
-  news: News[];
+  partner: Partner | undefined;
+  filials: Filial[] = [];
+  news: News[] | undefined;
   displayedColumns: string[] = ['region', 'city', 'street', 'houseNumber', 'phoneNumber'];
   constructor(
     private route: ActivatedRoute,
@@ -28,7 +28,7 @@ export class PartnerPageComponent implements OnInit {
     });
   }
   loadPartner(id: number) {
-    this.partnerService.getPartner(id).subscribe((partner: Partner) => {
+    this.partnerService.getPartnerInfo(id).subscribe((partner: Partner) => {
       this.partner = partner;
       this.loadFilials(partner.id);
     });

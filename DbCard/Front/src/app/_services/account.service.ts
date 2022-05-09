@@ -28,7 +28,7 @@ export class AccountService {
 
   constructor(private http: HttpClient, private router: Router) {
     this.validationResultSubject = new Subject<ValidationErrors>();
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')!));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -59,7 +59,7 @@ export class AccountService {
   logout() {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('accessToken');
-    this.currentUserSubject.next(null);
+    this.currentUserSubject.next(null!);
     this.router.navigate(['/login']);
   }
 

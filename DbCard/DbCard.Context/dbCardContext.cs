@@ -2,6 +2,7 @@
 using DbCard.Domain.Auth;
 using DbCard.Domain.EFConfiguration;
 using DbCard.Domain.EFConfiguration.Schemas;
+using DbCard.Domain.QueryModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,8 @@ namespace DbCard.Context
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<FavoritePartners> FavoritePartners { get; set; }
+
+        public DbSet<PartnerStatistic> PartnerStatistics { get; set; }
 
         public DbCardContext()
         {
@@ -50,6 +53,7 @@ namespace DbCard.Context
             modelBuilder.ApplyConfiguration(new FavoritePartnersConfig());
             modelBuilder.ApplyConfiguration(new CategoryConfig());
             modelBuilder.ApplyConfiguration(new SubcategoryConfig());
+            modelBuilder.ApplyConfiguration(new PartnerStatisticConfig());
             ApplyIdentityMapConfiguration(modelBuilder);
         }
         private void ApplyIdentityMapConfiguration(ModelBuilder modelBuilder)

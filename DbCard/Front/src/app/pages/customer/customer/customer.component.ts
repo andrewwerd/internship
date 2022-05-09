@@ -10,7 +10,7 @@ import { CustomerDataService } from 'src/app/_services/customerData.service';
   styleUrls: ['./customer.component.css'],
 })
 export class CustomerComponent implements  OnInit {
-  customer: Customer;
+  customer: Customer | undefined;
   constructor(private accountService: AccountService,
               private customerService: CustomerService,
               private customerData: CustomerDataService) {

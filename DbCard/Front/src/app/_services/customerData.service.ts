@@ -6,7 +6,7 @@ import { Customer } from '../_models/customer/customer';
   providedIn: 'root'
 })
 export class CustomerDataService {
-  private customerSource = new BehaviorSubject<Customer>(null);
+  private customerSource = new BehaviorSubject<Customer>(null!);
 
   customer$ = this.customerSource.asObservable();
 

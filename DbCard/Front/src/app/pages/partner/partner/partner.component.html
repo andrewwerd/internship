@@ -1,0 +1,69 @@
+<div class="container">
+  <mat-toolbar class="toolbar">
+    <div class="left-toolbar">
+      <div class="rectangle">
+        <button class="menu-button" mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <a routerLink="home" class="logo">
+        <img src="../../../assets/img/app_logo.png" alt="Logo" style="border: 0px;">
+      </a>
+    </div>
+    <mat-menu #appMenu="matMenu">
+      <a mat-menu-item routerLink="editCustomer">Редактировать страницу</a>
+      <button mat-menu-item (click)="logout()">Выйти</button>
+    </mat-menu>
+    <div class="right-toolbar">
+      <button mat-stroked-button class="app-menu" #matMenuButton [matMenuTriggerFor]="appMenu"
+        style="border: 0px; display: flex; align-items: center; justify-content: space-between;">
+        <i class="material-icons">perm_identity</i>
+        <span mat-line>{{partner?.name}}</span>
+        <mat-icon class="arrow">keyboard_arrow_down</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container class="app-snav-container" autosize fullscreen>
+    <mat-sidenav class="mat-snav" #sidenav mode="push" [opened]="false">
+      <mat-nav-list class="mat-list-base">
+        <a routerLink="home" aria-label="Главная" class="mat-list-item" (click)="sidenav.close()">
+          <div mat-ripple>
+            <div class="mat-list-item-content">
+              <mat-icon>home</mat-icon>
+              <span mat-line class="nav-item-text">Главная</span>
+            </div>
+          </div>
+        </a>
+        <!-- <a routerLink="accounts" aria-label="Счета" class="mat-list-item" (click)="sidenav.close()">
+          <div mat-ripple>
+            <div class="mat-list-item-content">
+              <i class="material-icons">monetization_on</i>
+              <span mat-line class="nav-item-text">Счета</span>
+            </div>
+          </div>
+        </a>
+        <a routerLink="partners" aria-label="Партнёры" class="mat-list-item" (click)="sidenav.close()">
+          <div mat-ripple>
+            <div class="mat-list-item-content">
+              <i class="material-icons">store</i>
+              <span mat-line="" class="mat-line nav-item-text partners">Партнёры</span>
+            </div>
+          </div>
+        </a>
+        <a routerLink="statistic" class="mat-list-item" (click)="sidenav.close()">
+          <div mat-ripple>
+            <div class="mat-list-item-content">
+              <i class="material-icons">donut_large</i>
+              <span class="nav-item-text" mat-line>Статистика</span>
+            </div>
+          </div>
+        </a> -->
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="mat-snav-content">
+      <div class="main" [hidden]="false">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -3,10 +3,10 @@ import { Observable } from 'rxjs';
 import { ValidationErrors, AbstractControl, AsyncValidatorFn } from '@angular/forms';
 import { map } from 'rxjs/operators';
 
-export function TakenUserNameValidator(accountservice: AccountService, currentLogin: string = null): AsyncValidatorFn {
+export function TakenUserNameValidator(accountservice: AccountService, currentLogin: string | null = null): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
-    if (currentLogin && currentLogin === control.value){
-      return null;
+    if (currentLogin && currentLogin === control.value) {
+      return null!;
     }
     return accountservice.validateName(control.value).pipe(
       map(result => {
@@ -15,10 +15,10 @@ export function TakenUserNameValidator(accountservice: AccountService, currentLo
     );
   };
 }
-export function TakenEmailValidator(accountservice: AccountService, email: string = null): AsyncValidatorFn {
+export function TakenEmailValidator(accountservice: AccountService, email: string | null = null): AsyncValidatorFn | null {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
-    if (email && email === control.value){
-      return null;
+    if (email && email === control.value) {
+      return null!;
     }
     return accountservice.validateEmail(control.value).pipe(
       map(result => {

@@ -3,7 +3,7 @@ import { RequestFilters } from '../filter/requestFilters';
 export class ScrollRequest {
     pageIndex: number;
     pageSize: number;
-    requestFilters: RequestFilters;
+    requestFilters?: RequestFilters;
 
     constructor(pageIndex: number, pageSize: number, requestFilters?: RequestFilters) {
       this.pageIndex = pageIndex;

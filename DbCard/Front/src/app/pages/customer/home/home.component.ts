@@ -19,7 +19,7 @@ export class HomeComponent implements OnDestroy, OnInit {
   myDiscounts: MyDiscount[] = [];
   pageSize = 6;
   pageIndex = 0;
-  customerGuid: string;
+  customerGuid: string = '';
   subscription: Subscription;
   constructor(
     private discountService: DiscountService,

@@ -22,7 +22,10 @@ export class PartnerService {
   getPartnersPaged(scrollRequest: ScrollRequest): Observable<PartnerGridRow[]> {
     return this.http.post<PartnerGridRow[]>(this.baseUrl + 'getPagedPartners', scrollRequest);
   }
-  getPartner(id: number): Observable<Partner> {
+  getPartner(): Observable<Partner> {
+    return this.http.get<Partner>(this.baseUrl+ 'current');
+  }
+  getPartnerInfo(id: number): Observable<Partner> {
     return this.http.get<Partner>(this.baseUrl + id);
   }
   loadFilials(id: number): Observable<Filial[]> {

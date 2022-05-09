@@ -4,10 +4,10 @@
       <span mat-line>
         <span matLine class="name">{{partner?.name}}</span>
         <button mat-button>
-          {{partner?.category.name}}
+          {{partner?.category?.name}}
         </button> &#10141;
         <button mat-button>
-          {{partner?.subcategory.name}}
+          {{partner?.subcategory?.name}}
         </button>
       </span>
       <div class="rectangle" [style.backgroundColor]="partner?.isPremium ? 'rgb(41, 85, 155)':'rgb(125, 125, 125)'">

@@ -1,19 +1,12 @@
 using AutoMapper;
-using DbCard.Context;
-using DbCard.Domain.Auth;
+using DbCard.Configuration;
 using DbCard.Infrastructure.Middlewares;
-using DbCard.Services;
-using DbCard.Services.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OnlineBookShop.API.Infrastructure.Extensions;
 using System.Reflection;
-using System.Security.Claims;
 
 namespace DbCard
 {
@@ -29,35 +22,14 @@ namespace DbCard
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            DbCardContextSettings.Create();
-            services.AddDbContext<DbCardContext>();
-            services.AddIdentity<User, Role>(options =>
-            {
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequiredLength = 8;
-                options.User.RequireUniqueEmail = true;
-            })
-            .AddEntityFrameworkStores<DbCardContext>();
-
-            var authOptions = services.ConfigureAuthOptions(Configuration);
-            services.AddJwtAuthentication(authOptions);
-            services.AddControllers(options =>
-            {
-                options.Filters.Add(new AuthorizeFilter());
-            });
-
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
-            services.AddScoped<ICustomerService, CustomerService>();
-            services.AddScoped<IPartnerService, PartnerService>();
-            services.AddScoped<IAccountService, AccountService>();
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IDiscountService, DiscountService>();
-            services.AddScoped<IFilialService, FilialService>();
-            services.AddScoped<ITransactionService, TransactionsService>();
-            services.AddScoped<IBalanceService, BalanceService>();
-
+            services
+                .AddAppDbContext()
+                .AddAppAuthentication(Configuration)
+                .AddAppServices()
+                .AddAppRepository()
+                .AddAutoMapper(Assembly.GetExecutingAssembly())
+                .AddAppControllers()
+                .AddAppSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +37,8 @@ namespace DbCard
         {
             if (env.IsDevelopment())
             {
+                app.UseSwagger();
+                app.UseSwaggerUI();
                 app.UseDeveloperExceptionPage();
             }
             else

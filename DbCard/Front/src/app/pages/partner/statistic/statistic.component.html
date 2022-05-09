@@ -1,0 +1,47 @@
+<div class="root">
+    <h2>Statistic</h2>
+    <mat-grid-list cols="3" rowHeight="200px" gutterSize="20">
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <div class="tile">
+                <app-increment [digit]="215" [duration]="1000"></app-increment>
+                <span>Покупателей с постоянными счетами</span>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <div class="tile">
+                <app-increment [digit]="362" [duration]="1000"></app-increment>
+                <span>Добавлений в избранные</span>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <div class="tile">
+                <app-increment [digit]="15" [duration]="1000"></app-increment>
+                <span>Филиалов</span>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2" [rowspan]="3">
+            <div class="tile">
+                <div style="width: 45%;">
+                    <canvas baseChart [data]="radarChartData" [options]="radarChartOptions" [type]="radarChartType">
+                    </canvas>
+                </div>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="3">
+            <div class="tile">
+                <canvas baseChart [data]="genderChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                    [type]="barChartType">
+                </canvas>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="3" [rowspan]="2">
+            <div class="tile">
+                <div style="width: 40%;">
+                    <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                        [type]="barChartType">
+                    </canvas>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

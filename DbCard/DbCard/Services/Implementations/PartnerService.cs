@@ -10,11 +10,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using DbCard.Context;
+using DbCard.Models.Charts;
+using Microsoft.EntityFrameworkCore;
 
 namespace DbCard.Services
 {
     class PartnerService : IPartnerService
     {
+        private readonly DbCardContext _context;
         private readonly IRepository<Filial> _filialRepository;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<CustomersBalance> _customerBalancesRepository;
@@ -29,6 +33,7 @@ namespace DbCard.Services
             IMapper mapper,
             IRepository<Subcategory> subategoryRepository,
             IRepository<Domain.Partner> partnerRepository,
+            DbCardContext context,
             IRepository<Domain.Filial> filialRepository,
             IRepository<Domain.News> newsRepository,
             IHttpContextAccessor httpContext,
@@ -37,6 +42,7 @@ namespace DbCard.Services
             ICustomerService customerService
             )
         {
+            _context = context;
             _filialRepository = filialRepository;
             _categoryRepository = categoryRepository;
             _customerBalancesRepository = customerBalancesRepository;
@@ -59,7 +65,7 @@ namespace DbCard.Services
                     .Where(x => x.CustomerId == currentCustomer.Id && x.PartnerId == item.Id)
                     .Select(p => p.IsPremium)
                     .SingleOrDefault();
-            } 
+            }
             return partners;
         }
 
@@ -85,6 +91,82 @@ namespace DbCard.Services
             var filials = await _filialRepository.GetByPredicate(x => x.PartnerId == id);
             var filialsDto = filials.Select(x => _mapper.Map<Infrastructure.Dto.Filial.Filial>(x));
             return filialsDto;
+        }
+
+        public async Task<ChartData<int>> GetWeeklyAverageStatistic()
+        {
+            var partner = await GetCurrentPartner();
+
+            var query = await _context.PartnerStatistics
+                .Where(transaction => transaction.PartnerId == partner.Id)
+                .GroupBy(transaction => transaction.DayOfWeek)
+                .Select(groupedDays => new { DayOfWeek = groupedDays.Key, Count = groupedDays.Count() })
+                .ToListAsync();
+
+            return new ChartData<int>
+            {
+                Labels = query.OrderBy(x => x.DayOfWeek).Select(x =>
+                {
+                    var day = x.DayOfWeek < 7 ? x.DayOfWeek : 0;
+                    return ((DayOfWeek)day).ToString();
+                }),
+                Data = query.OrderBy(x => x.DayOfWeek).Select(x => x.Count)
+            };
+        }
+
+        public async Task<ChartData<decimal>> GetAgeStatistic()
+        {
+            var partner = await GetCurrentPartner();
+
+            var ages = new[]
+            {
+                "0-20",
+                "20-40",
+                "40-60",
+                "60-80"
+            };
+
+            var query = await _context.Transactions
+                .Where(transaction => transaction.Filial.PartnerId == partner.Id)
+                .Select(transaction => new
+                {
+                    Age = (int)((DateTime.Now - transaction.Customer.DateOfBirth).TotalDays / 7300),
+                    transaction
+                })
+                .GroupBy(x => x.Age)
+                .Select(x => new
+                {
+                    Age = x.Key,
+                    Amount = x.Sum(y => y.transaction.AllAmount)
+                })
+                .ToListAsync();
+
+            return new ChartData<decimal>
+            {
+                Labels = ages,
+                Data = query.OrderBy(x => x.Age).Select(x => x.Amount)
+            };
+        }
+
+        public async Task<ChartData<int>> GetGenderStatistic()
+        {
+            var partner = await GetCurrentPartner();
+
+            var query = await _context.Customers
+                .Where(customer => customer.CustomersBalances.Any(balance =>balance.PartnerId == partner.Id))
+                .GroupBy(customer => customer.Gender)
+                .Select(x => new
+                {
+                    Gender = x.Key,
+                    Value = x.Count()
+                })
+                .ToListAsync();
+
+            return new ChartData<int>
+            {
+                Labels = query.OrderBy(x=>x.Gender).Select(x=>x.Gender),
+                Data = query.OrderBy(x => x.Gender).Select(x => x.Value)
+            };
         }
 
         public async Task<bool> CreateAsync(Domain.Partner partner, User user)

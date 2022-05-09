@@ -34,7 +34,7 @@ export class BarcodeComponent implements OnChanges {
   @Input() marginLeft = 10;
   @Input() marginRight = 10;
   @Input() value = '';
-  @ViewChild('bcElement', {static: true}) bcElement: ElementRef;
+  @ViewChild('bcElement', {static: true}) bcElement: ElementRef | undefined;
 
   @Input() valid: () => boolean = () => true;
 
@@ -85,10 +85,10 @@ export class BarcodeComponent implements OnChanges {
     jsbarcode(element, this.value, this.options);
 
     // tslint:disable-next-line:prefer-const
-    for (let node of this.bcElement.nativeElement.childNodes) {
-      this.renderer.removeChild(this.bcElement.nativeElement, node);
+    for (let node of this.bcElement?.nativeElement.childNodes) {
+      this.renderer.removeChild(this.bcElement?.nativeElement, node);
     }
-    this.renderer.appendChild(this.bcElement.nativeElement, element);
+    this.renderer.appendChild(this.bcElement?.nativeElement, element);
 
   }
 }

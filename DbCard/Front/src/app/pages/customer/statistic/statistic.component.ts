@@ -19,11 +19,11 @@ import { Category } from 'src/app/_models/category';
   selector: 'app-statistic',
   templateUrl: './statistic.component.html',
   styleUrls: ['./statistic.component.css'],
-  providers: [ CategoryService]
+  providers: [CategoryService]
 })
 export class StatisticComponent implements OnInit {
-  categories: Category[];
-  subcategories: Category[];
+  categories: Category[] = [];
+  subcategories: Category[] = [];
   period = Period;
   tableColumns: TableColumn[] = [
     { name: 'partnerName', index: 'partnerName', displayName: 'Партнёр', useInSearch: true },
@@ -37,15 +37,15 @@ export class StatisticComponent implements OnInit {
     { name: 'accumulationAmount', index: 'accumulationAmount', displayName: 'Сумма накопленая' },
     { name: 'id', index: 'id', displayName: 'id' }
   ];
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | undefined;
+  @ViewChild(MatSort, { static: true }) sort: MatSort | undefined;
   displayedColumns: string[];
 
   searchInput = new FormControl('');
   filterForm: FormGroup;
 
-  pagedTransactions: PagedResult<Transaction>;
-  requestFilters: RequestFilters;
+  pagedTransactions: PagedResult<Transaction> | undefined;
+  requestFilters: RequestFilters | undefined;
   constructor(
     private transactionService: TransactionService,
     private formBuilder: FormBuilder,
@@ -59,19 +59,19 @@ export class StatisticComponent implements OnInit {
     });
     this.loadCategories();
   }
- get filter(){
-   return this.filterForm.controls;
- }
+  get filter() {
+    return this.filterForm.controls;
+  }
   ngOnInit() {
     this.loadTransactions();
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+  this.sort?.sortChange.subscribe(() => this.paginator!.pageIndex = 0);
 
-    merge(this.sort.sortChange, this.paginator.page).subscribe(() => {
+    merge([this.sort?.sortChange, this.paginator?.page]).subscribe(() => {
       this.loadTransactions();
     });
   }
   loadTransactions() {
-    const paginatedRequest = new PaginatedRequest(this.paginator, this.sort, this.requestFilters);
+    const paginatedRequest = new PaginatedRequest(this.paginator!, this.sort!, this.requestFilters!);
     this.transactionService.getTransactionsPaged(paginatedRequest)
       .subscribe((pagedTransactions: PagedResult<Transaction>) => {
         this.pagedTransactions = pagedTransactions;
@@ -107,10 +107,10 @@ export class StatisticComponent implements OnInit {
         if (controlValue) {
           if (key !== 'period') {
             const foundTableColumn = this.tableColumns.find(tableColumn => tableColumn.name === key);
-            const filter: Filter = { path: foundTableColumn.index, value: controlValue };
+            const filter: Filter = { path: foundTableColumn!.index, value: controlValue };
             filters.push(filter);
           }
-          else{
+          else {
             const filter: Filter = { path: 'period', value: controlValue };
             filters.push(filter);
           }

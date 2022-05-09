@@ -11,7 +11,7 @@ export class MomentUtcDateAdapter extends MomentDateAdapter {
     super(dateLocale);
   }
 
-  createDate(year: number, month: number, date: number): Moment {
+  override createDate(year: number, month: number, date: number): Moment {
     if (month < 0 || month > 11) {
       throw Error(`Invalid month index "${month}". Month index has to be between 0 and 11.`);
     }

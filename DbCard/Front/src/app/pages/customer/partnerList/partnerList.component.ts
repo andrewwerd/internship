@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PartnerService } from 'src/app/_services/partner.service';
 import { PartnerGridRow } from 'src/app/_models/partners/partnerGridRow';
 import { ScrollRequest } from 'src/app/_models/scrollPaginate/scroll';
-import { RequestFilters } from 'src/app/_models/filter/requestFilters';
-import { StarRatingComponent } from 'ng-starrating';
+import { RequestFilters } from 'src/app/_models/filter/requestFilters'; 
 
 @Component({
   selector: 'app-partner-list',
@@ -15,7 +14,7 @@ export class PartnerListComponent implements OnInit {
   partners: PartnerGridRow[] = [];
   pageIndex = 0;
   pageSize = 10;
-  requestFilters: RequestFilters;
+  requestFilters: RequestFilters | undefined;
 
   constructor(private partnerService: PartnerService) { }
 

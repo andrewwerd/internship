@@ -56,8 +56,7 @@ import { BarcodeDialogComponent } from './home/barcodeDialog/barcodeDialog.compo
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MdlCurrencyPipe } from 'src/app/components/pipes/mdl.pipe';
 import { EditCustomerComponent } from './editCustomer/editCustomer.component';
-import { ConfirmDialogComponent } from './editCustomer/confirmDialog/confirmDialog.component';
-import { RatingModule } from 'ng-starrating';
+import { ConfirmDialogComponent } from './editCustomer/confirmDialog/confirmDialog.component'; 
 
 
 @NgModule({
@@ -65,8 +64,7 @@ import { RatingModule } from 'ng-starrating';
     CustomerRoutingModule,
     CommonModule,
     ReactiveFormsModule,
-    InfiniteScrollModule,
-    RatingModule,
+    InfiniteScrollModule, 
     A11yModule,
     ClipboardModule,
     CdkStepperModule,

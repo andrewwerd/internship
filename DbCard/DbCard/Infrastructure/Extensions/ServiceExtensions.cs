@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DbCard.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using DbCard.Infrastructure.Configuration;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
-namespace OnlineBookShop.API.Infrastructure.Extensions
+namespace DbCard.Infrastructure.Extensions
 {
     public static class ServiceExtensions
     {

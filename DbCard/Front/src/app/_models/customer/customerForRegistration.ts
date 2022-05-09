@@ -1,4 +1,4 @@
-export class CustomerForRegistration{
+export interface CustomerForRegistration{
   firstName: string;
   lastName: string;
   dateOfBirth: Date;

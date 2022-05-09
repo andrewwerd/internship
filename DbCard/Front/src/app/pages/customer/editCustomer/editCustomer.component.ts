@@ -26,9 +26,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   ]
 })
 export class EditCustomerComponent implements OnInit {
-  customerEditForm: FormGroup;
-  userEditForm: FormGroup;
-  passwordEditForm: FormGroup;
+  customerEditForm: FormGroup | undefined;
+  userEditForm: FormGroup | undefined;
+  passwordEditForm: FormGroup | undefined;
   maxDate: Date;
   constructor(
     private formBuilder: FormBuilder,
@@ -85,32 +85,32 @@ export class EditCustomerComponent implements OnInit {
     });
   }
   get customerForm() {
-    return this.customerEditForm.controls;
+    return this.customerEditForm?.controls;
   }
   get passwordForm() {
-    return this.passwordEditForm.controls;
+    return this.passwordEditForm?.controls;
   }
   get userForm() {
-    return this.userEditForm.controls;
+    return this.userEditForm?.controls;
   }
   getCustomer() {
     this.customerService.getCustomer().subscribe((customer: Customer) => {
-      this.customerEditForm.patchValue({
+      this.customerEditForm?.patchValue({
         ...customer
       });
     });
   }
   getUser() {
     this.accountService.getUser().subscribe((user: UserForEdit) => {
-      this.userEditForm.patchValue({
+      this.userEditForm?.patchValue({
         ...user
       });
-      this.userEditForm.controls.userName.setAsyncValidators(TakenUserNameValidator(this.accountService, user.userName));
-      this.userEditForm.controls.email.setAsyncValidators(TakenEmailValidator(this.accountService, user.email));
+      this.userEditForm?.controls.userName.setAsyncValidators(TakenUserNameValidator(this.accountService, user.userName));
+      this.userEditForm?.controls.email.setAsyncValidators(TakenEmailValidator(this.accountService, user.email));
     });
   }
   saveCustomer() {
-    if (this.customerEditForm.dirty && this.customerEditForm.valid) {
+    if (this.customerEditForm?.dirty && this.customerEditForm.valid) {
       const customerToSave: Customer = {
         ...this.customerEditForm.value
       };
@@ -129,11 +129,11 @@ export class EditCustomerComponent implements OnInit {
     }
   }
   resetCustomer() {
-    this.customerEditForm.reset();
+    this.customerEditForm?.reset();
     this.getCustomer();
   }
   saveUser() {
-    if (this.userEditForm.dirty && this.userEditForm.valid) {
+    if (this.userEditForm?.dirty && this.userEditForm?.valid) {
       const userToSave: UserForEdit = {
         ...this.userEditForm.value
       };
@@ -152,13 +152,13 @@ export class EditCustomerComponent implements OnInit {
     }
   }
   resetUser() {
-    this.userEditForm.reset();
-    this.userForm.userName.clearAsyncValidators();
-    this.userForm.email.clearAsyncValidators();
+    this.userEditForm?.reset();
+    this.userForm?.userName.clearAsyncValidators();
+    this.userForm?.email.clearAsyncValidators();
     this.getUser();
   }
   savePassword() {
-    if (this.passwordEditForm.dirty && this.passwordEditForm.valid) {
+    if (this.passwordEditForm?.dirty && this.passwordEditForm.valid) {
       const passwordToSave: PasswordForEdit = {
         ...this.passwordEditForm.value
       };
@@ -177,7 +177,7 @@ export class EditCustomerComponent implements OnInit {
     }
   }
   resetPassword() {
-    this.passwordEditForm.reset();
+    this.passwordEditForm?.reset();
   }
   openDialogForCustomerConfirm() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {

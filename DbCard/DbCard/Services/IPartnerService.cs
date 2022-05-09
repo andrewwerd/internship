@@ -3,6 +3,7 @@ using DbCard.Infrastructure.Dto.Partner;
 using DbCard.Infrastructure.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DbCard.Models.Charts;
 
 namespace DbCard.Services
 {
@@ -18,5 +19,9 @@ namespace DbCard.Services
         Task<Partner> GetPartner(long id);
         Task<IEnumerable<Infrastructure.Dto.Filial.Filial>> GetFilials(long id);
         Task<IEnumerable<Infrastructure.Dto.News.News>> GetNews(long id);
+
+        Task<ChartData<int>> GetWeeklyAverageStatistic();
+        Task<ChartData<decimal>> GetAgeStatistic();
+        Task<ChartData<int>> GetGenderStatistic();
     }
 }

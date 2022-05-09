@@ -1,7 +1,7 @@
 import {Discount} from './discount';
 import { Category } from '../category';
 
-export class Balance{
+export interface Balance{
     id: number;
     partnerId: number;
     partnerName: string;

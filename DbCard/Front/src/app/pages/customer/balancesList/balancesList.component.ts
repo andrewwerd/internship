@@ -17,7 +17,7 @@ export class BalancesListComponent implements OnInit {
   pageIndex = 0;
   pageSize = 4;
   searchInput = new FormControl('');
-  requestFilters: RequestFilters;
+  requestFilters: RequestFilters | undefined;
   constructor(private balanceService: BalanceService) { }
 
   ngOnInit(): void {
@@ -76,12 +76,12 @@ export class BalancesListComponent implements OnInit {
     const filterValue = this.searchInput.value.trim();
     if (filterValue) {
       const filter: Filter = { path: 'partner.name', value: filterValue };
-      const searchFilter = this.requestFilters.filters.find(x => x.path === filter.path);
+      const searchFilter = this.requestFilters?.filters.find(x => x.path === filter.path);
       if (searchFilter){
         searchFilter.value = filter.value;
       }
       else{
-        this.requestFilters.filters.push(filter);
+        this.requestFilters?.filters.push(filter);
       }
     }
     else {

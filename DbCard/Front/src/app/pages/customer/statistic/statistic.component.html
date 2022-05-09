@@ -27,7 +27,7 @@
       </mat-toolbar-row>
     </mat-toolbar>
 
-    <mat-table #table [dataSource]="pagedTransactions?.items" matSort matSortActive="dateTime" matSortDirection="desc">
+    <mat-table #table [dataSource]="pagedTransactions!.items" matSort matSortActive="dateTime" matSortDirection="desc">
 
       <ng-container matColumnDef="partnerName">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Партнёр </mat-header-cell>
@@ -122,7 +122,7 @@
           <mat-label>Категория</mat-label>
           <mat-select formControlName="category">
             <mat-option *ngFor="let category of categories" [value]="category?.name"
-              (click)="onCategorySelected(category?.id)" (change)="filter.subcategory?.setValue('')">
+              (click)="onCategorySelected(category?.id ?? 0)" (change)="filter.subcategory?.setValue('')">
               {{category?.name}}
             </mat-option>
           </mat-select>

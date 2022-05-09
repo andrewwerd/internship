@@ -12,7 +12,7 @@ namespace DbCard.Domain
         public decimal Rating { get; set; }
         public string Description { get; set; }
         public decimal? BirthdayDiscount { get; set; }
-        public string? Site { get; set; }
+        public string Site { get; set; }
         public long SubcategoryId { get; set; }
         public long CategoryId { get; set; }
         public DateTime DateOfRegistration { get; set; }

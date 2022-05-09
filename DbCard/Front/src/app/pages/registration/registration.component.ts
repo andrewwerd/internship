@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/_services/category.service';
-import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core'; 
 import { MY_FORMATS } from 'src/app/components/dateFormat/dataFormat';
 import { AccountService } from 'src/app/_services/account.service';
 import { TakenUserNameValidator, TakenEmailValidator } from 'src/app/components/validators/userNameValidator';
@@ -13,26 +12,26 @@ import { CustomerForRegistration } from 'src/app/_models/customer/customerForReg
 import { Router } from '@angular/router';
 import { ConfirmRegistrationDialogComponent } from './conirmDialog/confirmRegistrationDialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MomentUtcDateAdapter} from '../../_workaround/dateLocale.workaround';
+import { MomentUtcDateAdapter } from '../../_workaround/dateLocale.workaround';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css'],
   providers: [
-    {provide: DateAdapter, useClass: MomentUtcDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    { provide: DateAdapter, useClass: MomentUtcDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     CategoryService
   ]
 })
 export class RegistrationComponent implements OnInit {
-  userRegistrationForm: FormGroup;
-  customerRegistrationForm: FormGroup;
-  partnerRegistrationForm: FormGroup;
-  categoryValid: boolean;
-  categories: Category[];
-  subcategories: Category[];
-  success: boolean;
+  userRegistrationForm: FormGroup | undefined = undefined;
+  customerRegistrationForm: FormGroup | undefined = undefined;
+  partnerRegistrationForm: FormGroup | undefined = undefined;
+  categoryValid: boolean = false;
+  categories: Category[] = [];
+  subcategories: Category[] = [];
+  success: boolean = false;
   maxDate: Date;
   birthdayDiscount = false;
   dialogRef: any;
@@ -103,30 +102,32 @@ export class RegistrationComponent implements OnInit {
   }
 
   get userForm() {
-    return this.userRegistrationForm.controls;
+    return this.userRegistrationForm?.controls;
   }
   get customerForm() {
-    return this.customerRegistrationForm.controls;
+    return this.customerRegistrationForm?.controls;
   }
 
   get partnerForm() {
-    return this.partnerRegistrationForm.controls;
+    return this.partnerRegistrationForm?.controls;
   }
 
   get filialForm() {
-    return (this.partnerRegistrationForm.get('filial') as FormGroup).controls;
+    return (this.partnerRegistrationForm?.get('filial') as FormGroup).controls;
   }
 
   get category() {
-    if (this.partnerForm.categoryId?.value) {
-      return this.categories.find(x => x.id === this.partnerForm.categoryId.value)?.name;
+    if (this.partnerForm?.['categoryId']?.value) {
+      return this.categories.find(x => x.id === this.partnerForm?.['categoryId'].value)?.name;
     }
+    else return undefined
   }
 
   get subcategory() {
-    if (this.partnerForm.subcategoryId?.value) {
-      return this.subcategories.find(x => x.id === this.partnerForm.subcategoryId.value)?.name;
+    if (this.partnerForm?.['subcategoryId']?.value) {
+      return this.subcategories.find(x => x.id === this.partnerForm?.['subcategoryId'].value)?.name;
     }
+    else return undefined
   }
 
   onCategorySelected(id: number) {
@@ -142,11 +143,11 @@ export class RegistrationComponent implements OnInit {
   }
 
   onRegisterSubmit() {
-    if (this.userForm.userType.value === 'customer') {
-      const customer: CustomerForRegistration = { ...this.customerRegistrationForm.value };
-      customer.email = this.userForm.email.value;
-      customer.userName = this.userForm.userName.value;
-      customer.password = this.userForm.password.value;
+    if (this.userForm?.['userType'].value === 'customer') {
+      const customer: CustomerForRegistration = { ...this.customerRegistrationForm?.value };
+      customer.email = this.userForm?.['email'].value;
+      customer.userName = this.userForm?.['userName'].value;
+      customer.password = this.userForm?.['password'].value;
       this.accountService.customerRegistration(customer).subscribe(
         result => {
           this.success = result;
@@ -154,15 +155,12 @@ export class RegistrationComponent implements OnInit {
         }
       );
     }
-    else if (this.userForm.userType.value === 'partner') {
-      const partner: PartnerForRegistration = { ...this.partnerRegistrationForm.value };
-      if (!this.birthdayDiscount){
-        partner.birthdayDiscount = null;
-      }
-      partner.phoneNumber = this.userForm.phoneNumber.value;
-      partner.email = this.userForm.email.value;
-      partner.userName = this.userForm.userName.value;
-      partner.password = this.userForm.password.value;
+    else if (this.userForm?.['userType'].value === 'partner') {
+      const partner: PartnerForRegistration = { ...this.partnerRegistrationForm?.value };
+      partner.phoneNumber = this.userForm?.['phoneNumber'].value;
+      partner.email = this.userForm?.['email'].value;
+      partner.userName = this.userForm?.['userName'].value;
+      partner.password = this.userForm?.['password'].value;
       this.accountService.partnerRegistration(partner).subscribe(
         result => {
           this.success = result;
@@ -174,7 +172,7 @@ export class RegistrationComponent implements OnInit {
 
   openDialog(): void {
     this.dialogRef = this.dialog.open(ConfirmRegistrationDialogComponent, { data: this.success });
-    this.dialogRef.afterClosed().subscribe(result => {
+    this.dialogRef.afterClosed().subscribe((result: any) => {
       if (this.success) {
         this.router.navigate(['/login']);
       }

@@ -1,4 +1,4 @@
-export class MyDiscount{
+export interface MyDiscount{
     id: number;
     partnerId: number;
     partnerName: string;

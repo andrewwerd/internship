@@ -1,0 +1,79 @@
+html,
+body {
+  height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.app-snav-container .mat-snav .nav-item-text{
+  font-size: x-small;
+}
+.rectangle{
+  color:white;
+    background-color: rgb(41, 85, 155);
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 70px;
+    height: 64px;
+}
+.mat-snav {
+  width: 70px;
+  height: 100%;
+  overflow-x: hidden;
+}
+.container{
+  display: flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.container .toolbar
+{
+  background-color: rgb(100, 151, 233);
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+}
+.app-snav-container {
+    margin-top: 64px;
+    flex: 1;
+    background: url('../../../../assets/img/background-main.jpg');
+  }
+.app-menu{
+  color: white;
+  display: flex;
+  flex-direction: row;
+}
+.menu-button{
+  vertical-align: middle;
+  margin-top: 10px;
+  margin-left: 15px;
+  font-size: 30px;
+}
+.logo{
+  margin-left: 70px;
+}
+.logo img{
+  height: 65.5px;
+}
+.avatar{
+  border-radius: 50%;
+  border-width: 0px;
+  height: 34px;
+  width: 34px;
+}
+.mat-snav{
+  background-color: rgb(66, 100, 154);
+}
+.mat-list-base .mat-list-item .mat-list-item-content {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
+  height: 50px;
+  margin-top: 10px;
+}

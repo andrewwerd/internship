@@ -1,10 +1,6 @@
-﻿using DbCard.Domain.Auth;
-using DbCard.Infrastructure.Dto.Balance;
-using DbCard.Services;
+﻿using DbCard.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DbCard.Controllers

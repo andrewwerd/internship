@@ -32,6 +32,28 @@ namespace DbCard.Controllers
             return Ok(partners);
         }
 
+        // GET: api/Partners/current
+        [Authorize(Roles = "Partner")]
+        [HttpGet("current")]
+        public async Task<IActionResult> GetCurrentPartner()
+        {
+            var partner = await _partnerService.GetCurrentPartner();
+            if (partner == null)
+                return NoContent();
+            return Ok(partner);
+        }
+
+        // GET: api/Partners/current
+        [Authorize(Roles = "Partner")]
+        [HttpGet("statistic/weekly-average")]
+        public async Task<IActionResult> GetWeeklyAverageStatistic()
+        {
+            var partner = await _partnerService.GetWeeklyAverageStatistic();
+            if (partner == null)
+                return NoContent();
+            return Ok(partner);
+        }
+
         // GET: api/Partners/5
         [Authorize(Roles = "Customer,Admin,Partner")]
         [HttpGet("{id}")]

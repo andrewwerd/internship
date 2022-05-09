@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserForLogin } from '../../_models/account/userForLogin';
 import { AccountService } from '../../_services/account.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   error = '';
-  userLoginForm: FormGroup;
+  userLoginForm: FormGroup | undefined;
   hide = true;
 
   constructor(private accountService: AccountService,
@@ -33,21 +33,21 @@ export class LoginComponent implements OnInit {
     });
   }
   get userName() {
-    return this.userLoginForm.get('userName');
+    return this.userLoginForm?.get('userName');
   }
   get password() {
-    return this.userLoginForm.get('password');
+    return this.userLoginForm?.get('password');
   }
   onSubmit() {
 
     this.submitted = true;
-    if (this.userLoginForm.invalid) {
+    if (this.userLoginForm?.invalid) {
       return;
     }
 
     this.loading = true;
     const userLogin: UserForLogin = {
-      ...this.userLoginForm.value
+      ...this.userLoginForm?.value
     };
     this.accountService.login(userLogin).subscribe
       (
