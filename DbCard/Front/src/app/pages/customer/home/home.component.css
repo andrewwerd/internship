@@ -38,7 +38,9 @@
 background-color: white;
 width: 215px;
 height: 90px;
-text-align: -webkit-center;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 .discount-card .logo img{
  max-height: 90px;

@@ -8,7 +8,7 @@
           style="text-decoration: none;">
           <mat-card class="discount-card">
             <div class="logo">
-              <img mat-card-image src='../../../assets/img/no-logo.png' alt="Logo of {{discount?.partnerName}}">
+              <img mat-card-image [src]="getImage(discount.partnerName)" alt="Logo of {{discount?.partnerName}}">
             </div>
             <mat-card-content>
               <span class="discountPercent">{{discount?.discountPercent }}% {{discount?.accumulationPercent }}%</span>

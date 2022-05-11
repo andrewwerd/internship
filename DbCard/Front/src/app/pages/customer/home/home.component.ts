@@ -33,6 +33,10 @@ export class HomeComponent implements OnDestroy, OnInit {
     this.loadMyDiscounts();
   }
 
+  getImage(name: string) {
+    return `../../../assets/img/${name.toLocaleLowerCase()}.png`;
+  }
+
   openDialog() {
     this.dialog.open(BarcodeDialogComponent, { data: this.customerGuid });
   }
