@@ -33,7 +33,7 @@
                 <div class="percent">
                   <span class="percent">{{balance.discountPercent}}% </span>
                 </div>
-                <p>Текущая скидка</p>
+                <p style="margin: 0px;">Текущая скидка</p>
               </div>
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -42,8 +42,7 @@
               <p>Скидка</p>
               <mat-list *ngFor="let discount of balance.discounts">
                 <mat-list-item>
-                  <span class="discountItem">От {{discount.priceOfDiscount | mdl}} {{discount.discountPercent}}%<span
-                      *ngIf="balance.isPremium">{{discount.accumulationPercent}}% </span>
+                  <span class="discountItem">От {{discount.priceOfDiscount | mdl}} {{discount.discountPercent}}% 
                   </span>
                 </mat-list-item>
               </mat-list>
