@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserForLogin } from '../../_models/account/userForLogin';
 import { AccountService } from '../../_services/account.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserForLogin } from 'src/app/_models/account/userForLogin';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +18,10 @@ export class LoginComponent implements OnInit {
   hide = true;
 
   constructor(private accountService: AccountService,
-              private router: Router,
-              private formBuilder: FormBuilder
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {
+    console.log(accountService.isLoggedIn());
     if (this.accountService.currentUserValue) {
       this.router.navigate([`/${this.accountService.currentUserValue.role.toLowerCase()}`]);
     }
@@ -38,6 +39,11 @@ export class LoginComponent implements OnInit {
   get password() {
     return this.userLoginForm?.get('password');
   }
+
+  loginWithFacebook(): void {
+    this.accountService.loginWithFacebook().then(_ => this.handleSuccessLogin());
+  }
+
   onSubmit() {
 
     this.submitted = true;
@@ -50,13 +56,16 @@ export class LoginComponent implements OnInit {
       ...this.userLoginForm?.value
     };
     this.accountService.login(userLogin).subscribe
-      (
-        data => {
-          this.router.navigate([`/${this.accountService.currentUserValue.role.toLowerCase()}`]);
-        },
-        (error) => {
+      ({
+        complete: () => this.handleSuccessLogin(),
+        error: () => {
           this.error = 'Логин или пароль неверны';
           this.loading = false;
-        });
+        }
+      });
+  }
+
+  private handleSuccessLogin(): void {
+    this.router.navigate([`/${this.accountService.currentUserValue.role.toLowerCase()}`]);
   }
 }

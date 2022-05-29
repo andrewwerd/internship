@@ -24,6 +24,8 @@ export class JwtInterceptor implements HttpInterceptor {
                 }
             });
         }
+        console.log(isLoggedIn, currentUser, isApiUrl)
+
         return next.handle(request);
     }
 }

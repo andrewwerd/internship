@@ -30,9 +30,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ConfirmRegistrationDialogComponent } from './pages/registration/conirmDialog/confirmRegistrationDialog.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog'; 
 
-
+import {
+  FacebookLoginProvider,
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+} from 'angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -66,10 +70,23 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    SocialLoginModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('757377755621029'),
+          },
+        ],
+      } as SocialAuthServiceConfig,
+    },
   ],
   bootstrap: [AppComponent]
 

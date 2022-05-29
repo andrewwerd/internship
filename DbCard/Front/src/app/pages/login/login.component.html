@@ -33,12 +33,28 @@
       </mat-card-content>
       <mat-card-actions>
         <div class="buttons">
-          <button mat-raised-button class="submitBtn" [disabled]="loading" (click)='onSubmit()'>
-            Войти
-          </button>
-          <a mat-button routerLink="/registration">
-            <span class="registerBtn">Регистрация</span>
-          </a>
+          <div class="basic">
+            <button mat-raised-button class="submitBtn" [disabled]="loading" (click)='onSubmit()'>
+              Войти
+            </button>
+            <a mat-button routerLink="/registration">
+              <span class="registerBtn">Регистрация</span>
+            </a>
+          </div>
+          <div class="divider">
+            <div class="line">
+              <mat-divider></mat-divider>
+            </div>
+            <div class="text">Или</div>
+            <div class="line">
+              <mat-divider></mat-divider>
+            </div>
+          </div>
+          <div class="social">
+            <button mat-fab color="primary" (click)="loginWithFacebook()">
+              <mat-icon>facebook</mat-icon>
+            </button>
+          </div>
         </div>
       </mat-card-actions>
     </mat-card>

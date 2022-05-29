@@ -1,25 +1,34 @@
 <div class="container">
   <mat-toolbar class="toolbar">
-    <div class="rectangle">
-      <button class="menu-button" mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
+    <div class="left-block">
+      <div class="rectangle">
+        <button class="menu-button" mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+
+      <a routerLink="home" class="logo">
+        <img src="../../../assets/img/app_logo.png" alt="Logo" style="border: 0px;">
+      </a>
+    </div>
+
+    <div class="right-block">
+      <button mat-button class="app-menu" #matMenuButton [matMenuTriggerFor]="appMenu">
+        <div class="app-menu-button">
+          <div class="avatar-container" *ngIf="user?.photoUrl; else no_avatar">
+            <img class="avatar" [src]="user?.photoUrl">
+          </div>
+          <ng-template #no_avatar>
+            <i class="material-icons">perm_identity</i>
+          </ng-template>
+
+          <span mat-line>{{user?.firstName}} {{user?.lastName}}</span>
+          <mat-icon class="arrow">keyboard_arrow_down</mat-icon>
+        </div>
       </button>
     </div>
-    <a routerLink="home" class="logo">
-      <img src="../../../assets/img/app_logo.png" alt="Logo" style="border: 0px;">
-    </a>
-    <mat-menu #appMenu="matMenu">
-      <a mat-menu-item routerLink="editCustomer">Редактировать страницу</a>
-      <button mat-menu-item (click)="logout()">Выйти</button>
-    </mat-menu>
-
-    <button mat-stroked-button class="app-menu" #matMenuButton [matMenuTriggerFor]="appMenu"
-      style="border: 0px; left: 70%">
-      <i class="material-icons">perm_identity</i>
-      <span mat-line>{{customer?.firstName}} {{customer?.lastName}}</span>
-      <mat-icon class="arrow">keyboard_arrow_down</mat-icon>
-    </button>
   </mat-toolbar>
+
   <mat-sidenav-container class="app-snav-container" autosize fullscreen>
     <mat-sidenav class="mat-snav" #sidenav mode="push" [opened]="false">
       <mat-nav-list class="mat-list-base">
@@ -63,4 +72,9 @@
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
+
+  <mat-menu #appMenu="matMenu">
+    <a mat-menu-item routerLink="editCustomer">Редактировать страницу</a>
+    <button mat-menu-item (click)="logout()">Выйти</button>
+  </mat-menu>
 </div>
