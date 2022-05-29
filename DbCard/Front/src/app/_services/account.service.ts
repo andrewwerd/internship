@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserForLogin } from '../_models/account/userForLogin';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ValidationErrors } from '@angular/forms';
 import { UserForEdit } from '../_models/account/userForEdit';
 
-import { map, first } from 'rxjs/operators';
+import { map, first, switchMap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { User } from '../_models/account/user';
@@ -48,8 +48,7 @@ export class AccountService {
       .pipe(map((loginResult) => {
         if (loginResult.accessToken) {
           const curUser = this.jwtService.decodeToken(loginResult.accessToken);
-          curUser.token = loginResult.accessToken;
-          console.log(curUser)
+          curUser.token = loginResult.accessToken; 
           localStorage.setItem('accessToken', JSON.stringify(loginResult.accessToken));
           this.currentUserSubject.next(curUser);
           localStorage.setItem('currentUser', JSON.stringify(curUser));
@@ -65,30 +64,25 @@ export class AccountService {
     this.router.navigate(['/login']);
   }
 
-  loginWithFacebook(): Promise<SocialUser> {
-    return this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then(loginResult => {
-        if (loginResult.authToken) {
-          this.http.post<any>(this.baseUrl + 'login-facebook/', { AccessToken: loginResult.authToken })
-            .subscribe(jwt => {
-              const user: User = {
-                firstName: loginResult.firstName,
-                lastName: loginResult.lastName,
-                token: jwt.accessToken,
-                email: loginResult.email,
-                photoUrl: loginResult.response.picture.data.url,
-                role: Role.Customer
-              };
+  loginWithFacebook(): Observable<string> {
+    return from(this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID))
+      .pipe(switchMap(loginResult => this.http.post<any>(this.baseUrl + 'login-facebook/', { AccessToken: loginResult.authToken })
+        .pipe(map(jwt => {
+          const user: User = {
+            firstName: loginResult.firstName,
+            lastName: loginResult.lastName,
+            token: jwt.accessToken,
+            email: loginResult.email,
+            photoUrl: loginResult.response.picture.data.url,
+            role: Role.Customer
+          };
 
-              localStorage.setItem('accessToken', JSON.stringify(jwt.accessToken));
-              this.currentUserSubject.next(user);
-              localStorage.setItem('currentUser', JSON.stringify(user));
-            });
-        }
-        return loginResult;
-      });
+          localStorage.setItem('accessToken', JSON.stringify(jwt.accessToken));
+          this.currentUserSubject.next(user);
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          return jwt;
+        }))));
   }
-
 
   // registration
   validateName(userName: string): Observable<ValidationErrors> {

@@ -20,8 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(private accountService: AccountService,
     private router: Router,
     private formBuilder: FormBuilder
-  ) {
-    console.log(accountService.isLoggedIn());
+  ) { 
     if (this.accountService.currentUserValue) {
       this.router.navigate([`/${this.accountService.currentUserValue.role.toLowerCase()}`]);
     }
@@ -41,7 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginWithFacebook(): void {
-    this.accountService.loginWithFacebook().then(_ => this.handleSuccessLogin());
+    this.accountService.loginWithFacebook().subscribe(_ => this.handleSuccessLogin());
   }
 
   onSubmit() {

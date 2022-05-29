@@ -123,9 +123,7 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: Filial) => {
-      console.log(result);
       this.filials.unshift(result)
-      console.log(this.filials);
     });
   }
 } 

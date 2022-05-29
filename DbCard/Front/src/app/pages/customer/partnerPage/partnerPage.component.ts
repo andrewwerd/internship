@@ -54,12 +54,10 @@ export class PartnerPageComponent implements OnInit {
     this.partnerService.loadFilials(id).subscribe((filials: Filial[]) => {
       this.filials = filials;
       filials.forEach(filial => {
-        const address = `${filial.street} ${filial.houseNumber}, ${filial.city}, Moldova`;
-        console.log(address);
+        const address = `${filial.street} ${filial.houseNumber}, ${filial.city}, Moldova`; 
         this.geocoder.geocode({
           address: address
-        }).subscribe(({ results }) => {
-          console.log(results[0]);
+        }).subscribe(({ results }) => { 
           this.markerPositions.push(results[0].geometry.location)
         });
       })
