@@ -29,8 +29,7 @@ namespace Domain.EFConfiguration
             builder.Property(e => e.DiscountAmount).HasColumnType("decimal(10, 2)");
 
             builder.Property(e => e.Address)
-                .IsRequired()
-                .HasMaxLength(40);
+                .IsRequired();
 
             builder.Property(e => e.PartnerName)
                 .IsRequired()

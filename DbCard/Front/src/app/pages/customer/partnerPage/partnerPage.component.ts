@@ -4,6 +4,9 @@ import { Partner } from 'src/app/_models/partners/partner';
 import { ActivatedRoute } from '@angular/router';
 import { Filial } from 'src/app/_models/filial/filial';
 import { News } from 'src/app/_models/news/news';
+import { catchError, map, Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { MapGeocoder } from '@angular/google-maps';
 
 @Component({
   selector: 'app-partner-page',
@@ -13,12 +16,26 @@ import { News } from 'src/app/_models/news/news';
 export class PartnerPageComponent implements OnInit {
   partner: Partner | undefined;
   filials: Filial[] = [];
+  markerPositions: google.maps.LatLng[] = [];
   news: News[] | undefined;
+  apiLoaded: Observable<boolean>;
   displayedColumns: string[] = ['region', 'city', 'street', 'houseNumber', 'phoneNumber'];
+
+  center: google.maps.LatLngLiteral = { lat: 47.003670, lng: 28.857089 };
+  zoom = 12;
+
   constructor(
     private route: ActivatedRoute,
-    private partnerService: PartnerService
-  ) { }
+    private partnerService: PartnerService,
+    httpClient: HttpClient,
+    private geocoder: MapGeocoder
+  ) {
+    this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyBzdVtTBwZ3iZk4SWNK_ktfzxHCejyjntQ', 'callback')
+      .pipe(
+        map(() => true),
+        catchError(() => of(false)),
+      );
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -36,6 +53,17 @@ export class PartnerPageComponent implements OnInit {
   loadFilials(id: number) {
     this.partnerService.loadFilials(id).subscribe((filials: Filial[]) => {
       this.filials = filials;
+      filials.forEach(filial => {
+        const address = `${filial.street} ${filial.houseNumber}, ${filial.city}, Moldova`;
+        console.log(address);
+        this.geocoder.geocode({
+          address: address
+        }).subscribe(({ results }) => {
+          console.log(results[0]);
+          this.markerPositions.push(results[0].geometry.location)
+        });
+      })
+
     });
   }
   loadNews(id: number) {

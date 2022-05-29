@@ -61,68 +61,68 @@ namespace WebApi
                     {
                         new Filial()
                         {
-                            Region = "Кишинев",
-                            City = "Кишинев",
-                            Street = "Московский пр-т",
-                            HouseNumber = "9/5",
+                            Region = "Chișinău",
+                            City = "Chișinău",
+                            Street = "Nicolae Zelinski St",
+                            HouseNumber = "7",
                             PhoneNumber = "100000000",
                             IsMainOffice = true
                         },
                         new Filial()
                         {
-                            Region = "Кишинев",
+                            Region = "Chișinău",
                             PhoneNumber = "100000001",
-                            City = "Кишинев",
-                            Street = "Дечебал",
-                            HouseNumber = "139"
+                            City = "Chișinău",
+                            Street = "Dacia Blvd",
+                            HouseNumber = "10"
                         },
                         new Filial()
                         {
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             PhoneNumber = "100000002",
-                            Street = "Лев Толстой",
-                            HouseNumber = "24/1"
+                            Street = "Strada Nicolae Testemițanu",
+                            HouseNumber = "23"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000003",
-                            Region = "Кишинев",
-                            City = "Кишинев",
-                            Street = "Зелински",
-                            HouseNumber = "7"
+                            Region = "Chișinău",
+                            City = "Chișinău",
+                            Street = "Strada Lev Tolstoi",
+                            HouseNumber = "24/1"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000004",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Алеку Руссо",
                             HouseNumber = "15"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000005",
-                            Region = "Кишинев",
-                            City = "Кишинев",
-                            Street = "А. Щусев",
-                            HouseNumber = "55"
+                            Region = "Chișinău",
+                            City = "Chișinău",
+                            Street = "Stefan cel Mare si Sfant Boulevard 132",
+                            HouseNumber = "132"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000006",
-                            Region = "Кишинев",
-                            City = "Кишинев",
-                            Street = "Тестимицану",
-                            HouseNumber = "23"
+                            Region = "Chișinău",
+                            City = "Chișinău",
+                            Street = "Stefan cel Mare si Sfant Boulevard 135",
+                            HouseNumber = "135"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000007",
-                            Region = "Кишинев",
-                            City = "Кишинев",
-                            Street = "Дачия",
-                            HouseNumber = "47/7"
+                            Region = "Chișinău",
+                            City = "Chișinău",
+                            Street = "Alexander Pushkin St 32",
+                            HouseNumber = "32"
                         }
                     },
                     Description = "Сеть супермаркетов Nr1 является на сегодняшний день одной из самых популярных в городе. Удобное расположение, богатый ассортимент товаров и высокий уровень обслуживания привлекают покупателей в супермаркеты день ото дня.",
@@ -212,8 +212,8 @@ namespace WebApi
                         new Filial()
                         {
                             PhoneNumber = "100010002",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Куза Водэ",
                             HouseNumber = "49/1",
                             IsMainOffice = true
@@ -221,56 +221,56 @@ namespace WebApi
                         new Filial()
                         {
                             PhoneNumber = "100000008",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Алба Юлия,",
                             HouseNumber = "23/4"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000009",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Дачия",
                             HouseNumber = "44"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000010",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Каля Иешилор",
                             HouseNumber = "10"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000011",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Ион Крянгэ",
                             HouseNumber = " 78"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000012",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Московский проспект",
                             HouseNumber = "6"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000013",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Штефан чел Маре",
                             HouseNumber = "202"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000014",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = " Штефан чел Маре",
                             HouseNumber = "152"
                         }
@@ -353,64 +353,64 @@ namespace WebApi
                         new Filial()
                         {
                             PhoneNumber = "100000020",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = " Арборилор",
                             HouseNumber = "21б"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000021",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Дачия",
                             HouseNumber = "23"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000122",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Индепенденцей",
                             HouseNumber = "13"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000022",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Хынчешть",
                             HouseNumber = "60/4"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000023",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Штефан чел Маре",
                             HouseNumber = "132"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000024",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Штефан чел Маре",
                             HouseNumber = "71"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000025",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Мирча чел Бэтрын",
                             HouseNumber = "3"
                         },
                         new Filial()
                         {
                             PhoneNumber = "100000026",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Каля Ешилор",
                             HouseNumber = "3/1"
                         }
@@ -489,8 +489,8 @@ namespace WebApi
                         new Filial()
                         {
                             PhoneNumber = "100000027",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Штефан чел Маре",
                             HouseNumber = "136",
                             IsMainOffice = true
@@ -498,40 +498,40 @@ namespace WebApi
                         new Filial()
                         {
                             PhoneNumber="100000028",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Штефан чел Маре",
                             HouseNumber = "8"
                         },
                         new Filial()
                         {
                             PhoneNumber="100000029",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Пушкина",
                             HouseNumber = "32"
                         },
                         new Filial()
                         {
                             PhoneNumber="100000030",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Киевская",
                             HouseNumber = "16/1"
                         },
                         new Filial()
                         {
                             PhoneNumber="100000031",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Алеку Руссо",
                             HouseNumber = "28"
                         },
                         new Filial()
                         {
                             PhoneNumber="100000032",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Дечебал",
                             HouseNumber = "23"
                         },
@@ -624,8 +624,8 @@ namespace WebApi
                         new Filial()
                         {
                             PhoneNumber="100000040",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Арборилор",
                             HouseNumber = "21"
                         }
@@ -678,8 +678,8 @@ namespace WebApi
                         new Filial()
                         {
                             PhoneNumber="100000042",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Мирча чел Бэтрын",
                             HouseNumber = "23"
                         },
@@ -730,40 +730,40 @@ namespace WebApi
                         new Filial()
                         {
                             PhoneNumber="100000045",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Uzinelor",
                             HouseNumber = "12/10"
                         },
                         new Filial()
                         {
                             PhoneNumber="100000046",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Alba-Iulia",
                             HouseNumber = "75"
                         },
                         new Filial()
                         {
                             PhoneNumber="100000047",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Calea Orheiului",
                             HouseNumber = "101"
                         },
                         new Filial()
                         {
                             PhoneNumber="100000048",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Decebal",
                             HouseNumber = "1"
                         },
                         new Filial()
                         {
                             PhoneNumber="100000049",
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Alecu Russo",
                             HouseNumber = "61/6"
                         }
@@ -824,8 +824,8 @@ namespace WebApi
                     {
                         new Filial()
                         {
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Надежда Руссо",
                             HouseNumber = "16",
                             PhoneNumber = "100000200",
@@ -833,9 +833,9 @@ namespace WebApi
                         },
                         new Filial()
                         {
-                            Region = "Кишинев",
+                            Region = "Chișinău",
                             PhoneNumber = "100000201",
-                            City = "Кишинев",
+                            City = "Chișinău",
                             Street = "Дечебал",
                             HouseNumber = "6/1"
                         }
@@ -913,8 +913,8 @@ namespace WebApi
                     {
                         new Filial()
                         {
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Н. Тестемицану",
                             HouseNumber = "19/1",
                             PhoneNumber = "100000202",
@@ -922,17 +922,17 @@ namespace WebApi
                         },
                         new Filial()
                         {
-                            Region = "Кишинев",
+                            Region = "Chișinău",
                             PhoneNumber = "100000203",
-                            City = "Кишинев",
+                            City = "Chișinău",
                             Street = "Дачия",
                             HouseNumber = "47/2"
                         },
                         new Filial()
                         {
-                            Region = "Кишинев",
+                            Region = "Chișinău",
                             PhoneNumber = "100000204",
-                            City = "Кишинев",
+                            City = "Chișinău",
                             Street = "И. Крянгэ",
                             HouseNumber = "5/2"
                         }
@@ -1009,8 +1009,8 @@ namespace WebApi
                     {
                         new Filial()
                         {
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Дачия",
                             HouseNumber = "27",
                             PhoneNumber = "100000205",
@@ -1018,17 +1018,17 @@ namespace WebApi
                         },
                         new Filial()
                         {
-                            Region = "Кишинев",
+                            Region = "Chișinău",
                             PhoneNumber = "100000206",
-                            City = "Кишинев",
+                            City = "Chișinău",
                             Street = "Алба Юлия",
                             HouseNumber = "148/3"
                         },
                         new Filial()
                         {
-                            Region = "Кишинев",
+                            Region = "Chișinău",
                             PhoneNumber = "100000207",
-                            City = "Кишинев",
+                            City = "Chișinău",
                             Street = "Мирча чел Бэтрын",
                             HouseNumber = "32/12"
                         }
@@ -1090,8 +1090,8 @@ namespace WebApi
                     {
                         new Filial()
                         {
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Лев Толстой",
                             HouseNumber = "24/1",
                             PhoneNumber = "100000208",
@@ -1099,17 +1099,17 @@ namespace WebApi
                         },
                         new Filial()
                         {
-                            Region = "Кишинев",
+                            Region = "Chișinău",
                             PhoneNumber = "100000209",
-                            City = "Кишинев",
+                            City = "Chișinău",
                             Street = "Заднипру",
                             HouseNumber = "9/1"
                         },
                         new Filial()
                         {
-                            Region = "Кишинев",
+                            Region = "Chișinău",
                             PhoneNumber = "100000210",
-                            City = "Кишинев",
+                            City = "Chișinău",
                             Street = "Киев",
                             HouseNumber = "12"
                         }
@@ -1170,8 +1170,8 @@ namespace WebApi
                     {
                         new Filial()
                         {
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Парис",
                             HouseNumber = "34/6",
                             PhoneNumber = "100000211",
@@ -1179,17 +1179,17 @@ namespace WebApi
                         },
                         new Filial()
                         {
-                            Region = "Кишинев",
+                            Region = "Chișinău",
                             PhoneNumber = "100000212",
-                            City = "Кишинев",
+                            City = "Chișinău",
                             Street = "Траян",
                             HouseNumber = "13/1"
                         },
                         new Filial()
                         {
-                            Region = "Кишинев",
+                            Region = "Chișinău",
                             PhoneNumber = "100000213",
-                            City = "Кишинев",
+                            City = "Chișinău",
                             Street = "Индепенденцей",
                             HouseNumber = "14/5"
                         }
@@ -1265,8 +1265,8 @@ namespace WebApi
                     {
                         new Filial()
                         {
-                            Region = "Кишинев",
-                            City = "Кишинев",
+                            Region = "Chișinău",
+                            City = "Chișinău",
                             Street = "Алба Юлия",
                             HouseNumber = "77/15",
                             PhoneNumber = "100000214",
@@ -1274,7 +1274,7 @@ namespace WebApi
                         }
                     },
 
-                    Description = " ABC Party украсит любой праздник и сделает его незабываемо веселым. Профессиональные аниматоры в Кишиневе, а также яркие и зрелищные шоу приведут в восторг детей разных возрастов и даже взрослых. На дне рождении или любом другом детском празднике эффектное шоу развлечет детвору и навсегда останется в памяти. Немаловажный аспект – это абсолютная безопасность всех шоу.",
+                    Description = " ABC Party украсит любой праздник и сделает его незабываемо веселым. Профессиональные аниматоры в Chișinăuе, а также яркие и зрелищные шоу приведут в восторг детей разных возрастов и даже взрослых. На дне рождении или любом другом детском празднике эффектное шоу развлечет детвору и навсегда останется в памяти. Немаловажный аспект – это абсолютная безопасность всех шоу.",
                     Site = "abc-party.md",
                     Rating = (decimal)6.3
                 };

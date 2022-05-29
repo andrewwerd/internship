@@ -57,6 +57,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MdlCurrencyPipe } from 'src/app/components/pipes/mdl.pipe';
 import { EditCustomerComponent } from './editCustomer/editCustomer.component';
 import { ConfirmDialogComponent } from './editCustomer/confirmDialog/confirmDialog.component'; 
+import { GoogleMapsModule } from '@angular/google-maps';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -106,7 +108,10 @@ import { ConfirmDialogComponent } from './editCustomer/confirmDialog/confirmDial
     MatTooltipModule,
     MatTreeModule,
     PortalModule,
-    ScrollingModule
+    ScrollingModule,
+    GoogleMapsModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
   ],
   providers: [],
   declarations: [

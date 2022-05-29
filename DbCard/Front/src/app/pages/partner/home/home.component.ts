@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     },
     {
       title: 'Nr1 по адресу: ул. Пушкин 32, снова открыл свои двери для старых и новых друзей !',
-      body: 'Добрый день Уважаемые клиенты сети супермаркетов Nr1! Хотим Вам сообщить приятную, предновогоднюю новость: Полюбившийся многим жителям Кишинёва наш магазин расположенный по адресу: ул.Пушкин 32(торговый центр: "Sun City"), снова открыл свои двери для старых и новых друзей! Приглашаем посетить наш обновленный магазин и желаем Вам приятных праздников и покупок! Ваша сеть супермаркетов Nr1!'
+      body: 'Добрый день Уважаемые клиенты сети супермаркетов Nr1! Хотим Вам сообщить приятную, предновогоднюю новость: Полюбившийся многим жителям Кишинёва наш магазин расположенный по адресу: ул.Пушкин 32(торговый центр: "Sun city"), снова открыл свои двери для старых и новых друзей! Приглашаем посетить наш обновленный магазин и желаем Вам приятных праздников и покупок! Ваша сеть супермаркетов Nr1!'
     },
     {
       title: 'Открытие нового магазина по адресу Московский пр-т, 9/5',
@@ -33,60 +33,60 @@ export class HomeComponent implements OnInit {
   filialColumns: string[] = ['region', 'city', 'street', 'houseNumber', 'phoneNumber'];
   filials: Filial[] = [
     {
-      PhoneNumber: '100000007',
-      Region: 'Кишинев',
-      HouseNumber: '47/7',
-      City: 'Кишинев',
-      Street: 'Дачия'
+      phoneNumber: '100000007',
+      region: 'Кишинев',
+      houseNumber: '47/7',
+      city: 'Кишинев',
+      street: 'Дачия'
     },
     {
-      PhoneNumber: '100000006',
-      Region: 'Кишинев',
-      HouseNumber: '23',
-      City: 'Кишинев',
-      Street: 'Тестимицану'
+      phoneNumber: '100000006',
+      region: 'Кишинев',
+      houseNumber: '23',
+      city: 'Кишинев',
+      street: 'Тестимицану'
     },
     {
-      PhoneNumber: '100000005',
-      Region: 'Кишинев',
-      HouseNumber: '55',
-      City: 'Кишинев',
-      Street: 'А. Щусев'
+      phoneNumber: '100000005',
+      region: 'Кишинев',
+      houseNumber: '55',
+      city: 'Кишинев',
+      street: 'А. Щусев'
     },
     {
-      PhoneNumber: '100000004',
-      Region: 'Кишинев',
-      HouseNumber: '15',
-      City: 'Кишинев',
-      Street: 'Алеку Руссо'
+      phoneNumber: '100000004',
+      region: 'Кишинев',
+      houseNumber: '15',
+      city: 'Кишинев',
+      street: 'Алеку Руссо'
     },
     {
-      PhoneNumber: '100000003',
-      Region: 'Кишинев',
-      HouseNumber: '7',
-      City: 'Кишинев',
-      Street: 'Зелински'
+      phoneNumber: '100000003',
+      region: 'Кишинев',
+      houseNumber: '7',
+      city: 'Кишинев',
+      street: 'Зелински'
     },
     {
-      PhoneNumber: '100000002',
-      Region: 'Кишинев',
-      HouseNumber: '24/1',
-      City: 'Кишинев',
-      Street: 'Лев Толстой'
+      phoneNumber: '100000002',
+      region: 'Кишинев',
+      houseNumber: '24/1',
+      city: 'Кишинев',
+      street: 'Лев Толстой'
     },
     {
-      PhoneNumber: '100000001',
-      Region: 'Кишинев',
-      HouseNumber: '139',
-      City: 'Кишинев',
-      Street: 'Дечебал'
+      phoneNumber: '100000001',
+      region: 'Кишинев',
+      houseNumber: '139',
+      city: 'Кишинев',
+      street: 'Дечебал'
     },
     {
-      PhoneNumber: '100000000',
-      Region: 'Кишинев',
-      HouseNumber: '9/5',
-      City: 'Кишинев',
-      Street: 'Московский пр-т'
+      phoneNumber: '100000000',
+      region: 'Кишинев',
+      houseNumber: '9/5',
+      city: 'Кишинев',
+      street: 'Московский пр-т'
     }]
 
   constructor(private formBuilder: FormBuilder,
