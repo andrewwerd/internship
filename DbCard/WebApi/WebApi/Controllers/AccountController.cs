@@ -57,8 +57,8 @@ namespace WebApi.Controllers
         [HttpPost("login-facebook")]
         public async Task<IActionResult> LoginFacebook([FromBody] FacebookAuthViewModel model)
         {
-            var appId = "757377755621029";
-            var appSecret = "f4ba2d766f85c25579b6b5bfa850060d";
+            var appId = "";
+            var appSecret = "";
             // 1.generate an app access token
             var appAccessTokenResponse = await Client.GetStringAsync($"https://graph.facebook.com/oauth/access_token?client_id={appId}&client_secret={appSecret}&grant_type=client_credentials");
             var appAccessToken = JsonConvert.DeserializeObject<FacebookAppAccessToken>(appAccessTokenResponse);

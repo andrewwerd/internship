@@ -30,7 +30,7 @@ export class PartnerPageComponent implements OnInit {
     httpClient: HttpClient,
     private geocoder: MapGeocoder
   ) {
-    this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyBzdVtTBwZ3iZk4SWNK_ktfzxHCejyjntQ', 'callback')
+    this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=', 'callback')
       .pipe(
         map(() => true),
         catchError(() => of(false)),
